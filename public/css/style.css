@@ -1,4 +1,4 @@
-body.has-img{
+/* body.has-img{
     font-family: 'Roboto', sans-serif;
     background-image: url("../images/bg-home-1.jpg");
     -webkit-background-image: url("../images/bg-home-1.jpg");
@@ -15,7 +15,7 @@ body.has-img{
 }
 .has-img{
     min-height: 100vh;
-}
+} */
 .navbar-static-top{
     background-color: transparent;
     border: none;
