@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import './Login.css';
 
-import Header from '../Partials/Header';
-import Container from '../Partials/Container';
+import Header from './Header';
+import Container from './Container';
 
 const backGroundImage = [
     './images/bg-home-1.jpg',

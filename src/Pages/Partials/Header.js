@@ -3,32 +3,123 @@ import React, { Component } from 'react';
 export default class Header extends Component {
     render() {
         return (
-            <nav className="navbar-static-top">
-                <div className="container">
-                    <div className="navbar-header">
-                        {/* Collapsed Hamburger */}
-                        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                            <span className="sr-only">Toggle Navigation</span>
-                            <span className="icon-bar" />
-                            <span className="icon-bar" />
-                            <span className="icon-bar" />
-                        </button>
-                        {/* Branding Image */}
-                        <a className="navbar-brand">
-                            Tip4tips
-                        </a>
-                    </div>
-                    <div className="collapse navbar-collapse" id="app-navbar-collapse">
-                        {/* Right Side Of Navbar */}
-                        <ul className="nav navbar-nav navbar-right">
-                            {/* Authentication Links */}
-                            <li>
-                                <a className="btn-register">Register</a>
+            <header className="main-header">
+                {/* Logo  */}
+                <a href="/" className="logo">
+                    {/* mini logo for sidebar mini 50x50 pixels  */}
+                    <span className="logo-mini"><b>A</b>T4T</span>
+                    {/* logo for regular state and mobile devices  */}
+                    <span className="logo-lg"><b>Admin</b>Tip4Tips</span>
+                </a>
+                {/* Header Navbar */}
+                {/* Right Side Of Navbar */}
+                <nav className="navbar navbar-static-top" role="navigation">
+                    {/* Sidebar toggle button*/}
+                    <a href="#" className="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span className="sr-only">Toggle navigation</span>
+                    </a>
+                    <div className="navbar-custom-menu">
+                        <ul className="nav navbar-nav">
+                            {/* Messages: style can be found in dropdown.less*/}
+                            <li className="dropdown messages-menu">
+                                {/* Menu toggle button */}
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                    <i className="fa fa-envelope-o"></i>
+                                    <span className="label label-success">New message</span>
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li className="header">You have new messages</li>
+                                    <li>
+                                        {/* inner menu: contains the messages */}
+                                        <ul className="menu">
+                                            
+                                                    <li>{/* start message */}
+                                                <a href="{{route('messages.show', $newmessage->id)}}">
+                                                    <div className="pull-left">
+                                                        {/* User Image */}
+                                                        hinh anh
+                                                    </div>
+                                                    {/* Message title and timestamp */}
+                                                    <h4>
+                                                        senderUsername
+                                                        <small><i className="fa fa-clock-o"></i>  Member since May. 2018 </small>
+                                                    </h4>
+                                                    {/* The message */}
+                                                    <p>content</p>
+                                                </a>
+                                            </li>
+                                            {/* end message */}
+                                            <li>No messages.</li>
+                                            
+                                        </ul>
+                                        {/* /.menu */}
+                                    </li>
+                                    <li className="footer"><a href="">See All Messages</a></li>
+                                </ul>
+                            </li>
+                            {/* messages-menu */}
+
+                            {/* Notifications Menu */}
+                            <li className="dropdown notifications-menu">
+                                {/* Menu toggle button */}
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                    <i className="fa fa-bell-o"></i>
+                                    <span className="label label-warning">10</span>
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li className="header">You have 10 notifications</li>
+                                    <li>
+                                        {/* Inner Menu: contains the notifications */}
+                                        <ul className="menu">
+                                            <li>
+                                                {/* start notification */}
+                                                <a href="#">
+                                                    <i className="fa fa-users text-aqua"></i> 5 new members joined today
+                                                </a>
+                                            </li>
+                                            {/* end notification */}
+                                        </ul>
+                                    </li>
+                                    <li className="footer"><a href="#">View all</a></li>
+                                </ul>
+                            </li>
+
+                            {/* User Account Menu */}
+                            <li className="dropdown user user-menu">
+                                {/* Menu Toggle Button */}
+                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                    {/* The user image in the navbar*/}
+                                    <img src="" className="user-image" alt=""/>
+                                    {/* hidden-xs hides the username on small devices so only the image appears. */}
+                                    <span className="hidden-xs">full name</span>
+                                </a>
+                                <ul className="dropdown-menu">
+                                    {/* The user image in the menu */}
+                                    <li className="user-header">
+                                        <img src="" className="img-circle" alt="User Image"/>
+                                        <p>
+                                            user name
+                                            <small>Member since ngay thang</small>
+                                        </p>
+                                    </li>
+                                    {/* Menu Footer*/}
+                                    <li className="user-footer">
+                                        <div className="pull-left">
+                                            <a href="" className="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                        <div className="pull-right">
+                                            <a href="" className="btn btn-default btn-flat">
+                                                Sign out
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
-                </div>
-            </nav>
+
+                </nav>
+            </header>
         );
     }
 }
