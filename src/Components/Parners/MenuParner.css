@@ -1,0 +1,28 @@
+.box-title{
+    color:'red'
+}
+.list-type {
+    float: left;
+    clear: both;
+    margin-left: 65px;
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+.list-type ul li {
+    position: relative;
+    float: left;
+    list-style: none;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.partner_text {
+    font-weight: bold;
+    text-align: center;
+    z-index: +3;
+    color: #aebf37;
+}

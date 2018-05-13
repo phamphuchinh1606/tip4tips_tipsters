@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
 
 export default class Container extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            email : '',
+            passWord : ''
+        }
+    }
+
+    _clickLogin(){
+        this.state.email = this.refs.email;
+        this.state.passWord = this.refs.passWord;
+        this.setState(this.state);
+        var {onLogin} = this.props;
+        onLogin(this.state);
+    }
+
     render() {
         return (
             <div className="container">
@@ -9,14 +25,14 @@ export default class Container extends Component {
                         <div className="panel panel-default login__wrapper form__transparent">
                             <div className="panel-heading">Login</div>
                             <div className="panel-body">
-                                <form className="login__form" method="POST">
+                                <form className="login__form">
                                     <div className="form-group">
                                         <label htmlFor="email">E-Mail Address</label>
-                                        <input id="email" type="email" className="form-control" name="email" />
+                                        <input id="email" type="email" className="form-control" name="email" ref="email"/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="password">Password</label>
-                                        <input id="password" type="password" className="form-control" name="password" required />
+                                        <input id="password" type="password" className="form-control" name="password" required ref="passWord"/>
                                     </div>
                                     <div className="form-group">
                                         <div className="checkbox">
@@ -26,9 +42,9 @@ export default class Container extends Component {
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <button type="submit" className="btn btn-primary">
+                                        <div type="submit" className="btn btn-primary" onClick={this._clickLogin.bind(this)}>
                                             Login
-                                        </button>
+                                        </div>
                                         <p className="text-right">
                                             <a className="btn btn-link btn-forget">
                                                 Forgot Your Password?

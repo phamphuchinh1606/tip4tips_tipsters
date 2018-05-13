@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 export default class Header extends Component {
     render() {
@@ -14,9 +15,9 @@ export default class Header extends Component {
                             <span className="icon-bar" />
                         </button>
                         {/* Branding Image */}
-                        <a className="navbar-brand">
+                        <Link className="navbar-brand" to="#">
                             Tip4tips
-                        </a>
+                        </Link>
                     </div>
                     <div className="collapse navbar-collapse" id="app-navbar-collapse">
                         {/* Right Side Of Navbar */}

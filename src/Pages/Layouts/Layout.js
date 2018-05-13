@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+
 
 import routers from '../routers';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom'
 
-import Dashboard from '../Home/Dashboard.Page';
+import {checkLogin} from '../../Commons/Utils';
+
 import Header from '../Partials/Header';
 import Footer from '../Partials/Footer';
 import Menu from '../Partials/Menu';
+import LogigPage from '../Auth/Login.Page';
+import Dashboard from '../Home/Dashboard.Page';
+import LeadList from '../Leads/LeadList.Page';
 
 export default class Layout extends Component {
     showContentRoute = (routes) => {
@@ -27,6 +33,10 @@ export default class Layout extends Component {
     }
 
     render() {
+        let isLogin = checkLogin();
+        if(!isLogin){
+            <Redirect to="/login"/>
+        }
         return (
             <div className="main-content">
                 {/* header-starts */}

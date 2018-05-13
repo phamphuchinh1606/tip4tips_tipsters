@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import LeadListContainer from '../../Containers/Leads/LeadList.Container';
 import LeadListComponent from '../../Components/Leads/LeadList.Component';
 
-export default class LeadListPage extends Component {
+class LeadListContainer extends Component {
     render() {
         return (
             <LeadListComponent/>
         );
     }
 }
+
+export default LeadListContainer;

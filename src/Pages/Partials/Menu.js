@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink, Link } from 'react-router-dom';
 
 export default class Menu extends Component {
     render() {
@@ -13,7 +14,9 @@ export default class Menu extends Component {
                         <div className="pull-left info">
                             <p>full name</p>
                             {/* Status */}
-                            <a href="#"><i className="fa fa-circle text-success"></i> Online</a>
+                            <Link to="#">
+                                <i className="fa fa-circle text-success"></i> Online
+                            </Link>
                         </div>
                     </div>
 
@@ -34,46 +37,19 @@ export default class Menu extends Component {
                             <li className="header">MAIN</li>
                             {/* Optionally, you can add icons to the links */}
                             <li className="active">
-                                <a href="">
+                                <NavLink  to ="/">
                                     <i className="fa fa-home"></i><span>HOME</span>
-                                </a>
+                                </NavLink >
                             </li>
                             <li>
-                                <a href=""><i className="fa fa-street-view"></i><span>Leads</span></a>
+                                <NavLink  to ="/leads">
+                                    <i className="fa fa-street-view"></i><span>Leads</span>
+                                </NavLink >
                             </li>
                             <li>
-                                <a href=""><i className="fa fa-eye"></i><span>Tipsters</span></a>
-                            </li>
-                            {/* Manager */}
-                            <li className="header">ADMIN</li>
-
-                            <li>
-                                <a href=''><i className="fa fa-users"></i><span>Users</span></a>
-                            </li>
-                            {/* Product */}
-                            <li>
-                                <a href=""><i className="fa fa-shield"></i><span>Products</span>                </a>
-                            </li>
-                            <li>
-                                <a href=""><i className="fa fa-gift"></i><span>Gifts</span></a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i className="fa fa-envelope"></i><span>Messages</span>
-                                    <span className="pull-right-container">
-                                        <small className="label pull-right bg-green">0</small>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i className="fa fa-file-text"></i><span>Activity</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i className="fa fa-newspaper-o"></i><span>Message Templates</span>
-                                </a>
+                                <NavLink  to ="/menuparner">
+                                    <i className="fa fa-street-view"></i><span>Choose insurance</span>
+                                </NavLink >
                             </li>
                         </ul>
                         {/* /.sidebar-menu */}

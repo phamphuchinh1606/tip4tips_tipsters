@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {logOutAction} from '../../Actions';
 
-export default class Header extends Component {
+class Header extends Component {
+    constructor(props){
+        super(props);
+    }
+
+    _onClickLogout(){
+        var {onLogout} = this.props;
+        onLogout();
+    }
+
     render() {
         return (
             <header className="main-header">
                 {/* Logo  */}
-                <a href="/" className="logo">
+                <Link className="logo" to="#">
                     {/* mini logo for sidebar mini 50x50 pixels  */}
                     <span className="logo-mini"><b>A</b>T4T</span>
                     {/* logo for regular state and mobile devices  */}
                     <span className="logo-lg"><b>Admin</b>Tip4Tips</span>
-                </a>
+                </Link>
                 {/* Header Navbar */}
                 {/* Right Side Of Navbar */}
                 <nav className="navbar navbar-static-top" role="navigation">
@@ -108,7 +120,7 @@ export default class Header extends Component {
                                             <a href="" className="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div className="pull-right">
-                                            <a href="" className="btn btn-default btn-flat">
+                                            <a href="" className="btn btn-default btn-flat" onClick={this._onClickLogout.bind(this)}>
                                                 Sign out
                                             </a>
                                         </div>
@@ -123,3 +135,20 @@ export default class Header extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        userInfo: state.userInfo
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onLogout: ()=>{
+            dispatch(logOutAction());
+        }
+    }
+}
+
+const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
+export default HeaderContainer;
