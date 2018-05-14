@@ -2,6 +2,7 @@ import React from 'react';
 import {LOGIN_ACTION, LOG_OUT} from '../Actions/ActionType';
 import {loginSuccess, loginFailed} from '../Actions/index';
 import {put, takeLatest} from 'redux-saga/effects';
+import * as API from '../API/apiCaller';
 
 const userInfoSuccess = {
     userName: 'phamphuchinh',
