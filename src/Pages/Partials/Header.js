@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {logOutAction} from '../../Actions';
 
@@ -8,9 +8,10 @@ class Header extends Component {
         super(props);
     }
 
-    _onClickLogout(){
+    _onClickLogout = ()=>{
         var {onLogout} = this.props;
         onLogout();
+        <Redirect to="/login"/>
     }
 
     render() {
@@ -19,9 +20,9 @@ class Header extends Component {
                 {/* Logo  */}
                 <Link className="logo" to="#">
                     {/* mini logo for sidebar mini 50x50 pixels  */}
-                    <span className="logo-mini"><b>A</b>T4T</span>
+                    <span className="logo-mini">T4T</span>
                     {/* logo for regular state and mobile devices  */}
-                    <span className="logo-lg"><b>Admin</b>Tip4Tips</span>
+                    <span className="logo-lg">Tip4Tips</span>
                 </Link>
                 {/* Header Navbar */}
                 {/* Right Side Of Navbar */}
@@ -120,9 +121,12 @@ class Header extends Component {
                                             <a href="" className="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div className="pull-right">
-                                            <a href="" className="btn btn-default btn-flat" onClick={this._onClickLogout.bind(this)}>
+                                            <Link to="/login" onClick={()=>this._onClickLogout()} className="btn btn-default btn-flat">
                                                 Sign out
-                                            </a>
+                                            </Link>
+                                            {/* <a href="/login" className="btn btn-default btn-flat" onClick={this._onClickLogout.bind(this)}>
+                                                Sign out
+                                            </a> */}
                                         </div>
                                     </li>
                                 </ul>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import './MenuParner.css';
 
 const menuPartner = [
@@ -41,6 +42,10 @@ const menuPartner = [
 ];
 
 export default class MenuParnerComponent extends Component {
+    _onClickInsuranceType(){
+
+    }
+
     render() {
         return (
             <div className="row">
@@ -61,9 +66,9 @@ export default class MenuParnerComponent extends Component {
                                         menuPartner.map((item, index) => {
                                             return (
                                                 <li>
-                                                    <a href="/en/contact/register/0/it/medical">
-                                                        <img src={item.image} width="190" height="180" alt={item.text} title={item.text} />
-                                                    </a>
+                                                    <Link to="/leads/add">
+                                                        <img src={item.image} alt={item.text} title={item.text} />
+                                                    </Link>
                                                     <br />
                                                     <div class="partner_text">{item.text}</div>
                                                 </li>

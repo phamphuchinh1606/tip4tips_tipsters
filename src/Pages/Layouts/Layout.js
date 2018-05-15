@@ -25,6 +25,7 @@ export default class Layout extends Component {
                         path={route.path}
                         exact={route.exact}
                         component={route.main}
+                    
                     />
                 );
             });

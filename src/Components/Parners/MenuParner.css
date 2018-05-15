@@ -4,7 +4,8 @@
 .list-type {
     float: left;
     clear: both;
-    margin-left: 65px;
+    margin-left: 55px;
+    margin-top: 10px;
 }
 
 ul, ol {
@@ -20,9 +21,22 @@ ul, ol {
     margin-bottom: 15px;
 }
 
+.list-type ul li a img {
+    width: 150px;
+    height: 140px;
+}
+
 .partner_text {
     font-weight: bold;
     text-align: center;
     z-index: +3;
     color: #aebf37;
+}
+
+@media (max-width: 479px) {
+    .list-type {
+        float: left;
+        clear: both;
+        margin-left: 35px;
+    }
 }

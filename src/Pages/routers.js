@@ -10,6 +10,11 @@ import NotFound from './NotFound.Page';
 
 const routers = [
 	{
+		path: '/menuparner',
+		exact: true,
+		main: () => <MenuParnerPage />
+	},
+	{
 		path: '/',
 		exact: true,
 		main: () => <Dashboard />	
@@ -33,11 +38,6 @@ const routers = [
 		path: '/leads/show',
 		exact: true,
 		main: () => <LeadDetail />
-	},
-	{
-		path: '/menuparner',
-		exact: true,
-		main: () => <MenuParnerPage />
 	},
 	{
 		path: '',
