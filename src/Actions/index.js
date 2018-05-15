@@ -1,34 +1,96 @@
-import {LOGIN_ACTION, LOGIN_SUCCESS, LOGIN_FAILED, LOGIN_CHECK, LOG_OUT} from './ActionType';
+import * as actionType from './ActionType';
 
 export const loginAction = (value) => {
     return{
-        type: LOGIN_ACTION,
+        type: actionType.LOGIN_ACTION,
         value : value
     }
 }
 
 export const loginCheck = () => {
     return{
-        type: LOGIN_CHECK
+        type: actionType.LOGIN_CHECK
     }
 }
 
 export const logOutAction = () => {
     return{
-        type: LOG_OUT
+        type: actionType.LOG_OUT
     }
 }
 
 export const loginSuccess = (userInfo) =>{
     return {
-        type: LOGIN_SUCCESS,
+        type: actionType.LOGIN_SUCCESS,
         userInfo : userInfo
     }
 }
 
 export const loginFailed = (error) => {
     return {
-        type : LOGIN_FAILED,
+        type : actionType.LOGIN_FAILED,
+        error: error
+    }
+}
+
+//Lead
+export const leadFetch = (tipsterId) => {
+    return{
+        type: actionType.LEAD_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const leadFetchSuccess = (leads) => {
+    return{
+        type : actionType.LEAD_FETCH_SUCCESS,
+        leads: leads
+    }
+}
+
+export const leadFetchFailead = (error) => {
+    return{
+        type : actionType.LEAD_FETCH_SUCCESS,
+        error: error
+    }
+}
+
+export const regionFetch = () => {
+    return{
+        type: actionType.REGION_FETCH
+    }
+}
+
+export const regionFetchSuccess = (regions) =>{
+    return{
+        type: actionType.REGION_FETCH_SUCCESS,
+        regions: regions
+    }
+}
+
+export const regionFetchFailed = (error) =>{
+    return{
+        type: actionType.REGION_FETCH_FAILED,
+        error: error
+    }
+}
+
+export const productFetch = () => {
+    return{
+        type: actionType.PRODUCT_FETCH
+    }
+}
+
+export const productFetchSuccess = (products) =>{
+    return{
+        type: actionType.PRODUCT_FETCH_SUCCESS,
+        products: products
+    }
+}
+
+export const productFetchFailed = (error) =>{
+    return{
+        type: actionType.PRODUCT_FETCH_FAILED,
         error: error
     }
 }

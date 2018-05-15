@@ -6,9 +6,8 @@ export default function callApi(endpoint,method='GET',body){
 		url:`${endpoint}`,
 		data:body,
 		headers: {
-		   "Content-Type": "application/x-www-form-urlencoded",
-		   'Access-Control-Allow-Origin': '*',
-		   'Content-Type': 'text/xml'
+			"Accept": 'application/json',
+            "Content-Type" : 'application/json'
 		   
         }
 	}).catch(err =>{

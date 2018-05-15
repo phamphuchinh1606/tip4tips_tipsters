@@ -4,7 +4,19 @@ import { Link } from 'react-router-dom';
 import './css/LeadNew.css';
 
 export default class LeadNew extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        let {regionFetch, productFetch} = this.props;
+        regionFetch();
+        productFetch();
+    }
+
     render(){
+        let {regions, products} = this.props;
+        console.log(products);
         return(
             <form method="post" action="">
                 <div className="row">
@@ -70,7 +82,13 @@ export default class LeadNew extends Component{
                                             <label>Region</label>
                                             <select name="region" class="form-control" required>
                                                 <option value="" disabled selected>Please pick a region</option>
-                                                <option value="1">1</option>
+                                                {
+                                                    regions.map((item,index)=>{
+                                                        return(
+                                                            <option value={item.regionId} key={index}>{item.regionName}</option>
+                                                        )
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -79,7 +97,14 @@ export default class LeadNew extends Component{
                                             <label>Product</label>
                                             <select name="product" class="form-control" required>
                                                 <option value="" disabled selected>Please pick a product</option>
-                                                <option value="1">1</option>
+                                                {
+                                                    products.map((item,index)=>{
+                                                        return(
+                                                            <option value={item.productId} key={index}>{item.productName}</option>
+                                                        )
+                                                    })
+                                                }
+                                                
                                             </select>
                                         </div>
                                     </div>

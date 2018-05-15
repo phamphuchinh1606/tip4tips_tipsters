@@ -1,4 +1,5 @@
 import React from 'react';
+import * as loginService from '../Services/Auth/LoginService';
 import {LOGIN_ACTION, LOG_OUT} from '../Actions/ActionType';
 import {loginSuccess, loginFailed} from '../Actions/index';
 import {put, takeLatest} from 'redux-saga/effects';
@@ -24,7 +25,9 @@ const USER_DEFAULT = {
 
 function* login(action){
     try{
-        const userInfo = yield userInfoSuccess;
+        let {email, password} = action.value;
+        let userInfo = loginService.loginAction(email,password);
+        userInfo = userInfoSuccess;
         yield localStorage.setItem("userInfo",JSON.stringify(userInfoSuccess));
         yield put(loginSuccess(userInfo));
     }catch(error){

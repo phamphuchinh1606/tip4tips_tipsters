@@ -1,35 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const dataLeads = [
-    {
-        id: '1',
-        fullname: 'lead 1',
-        product: 'Medical',
-        tipster: 'tipster 1',
-        date: '2018/05/11',
-        status: 'status 1',
-    },
-    {
-        id: '2',
-        fullname: 'lead 2',
-        product: 'Medica2',
-        tipster: 'tipster 2',
-        date: '2018/05/11',
-        status: 'status 2',
-    },
-    {
-        id: '3',
-        fullname: 'lead 3',
-        product: 'Medical 3',
-        tipster: 'tipster 3',
-        date: '2018/05/11',
-        status: 'status 3',
-    }
-];
-
 export default class LeadListComponent extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount(){
+        let {leadFetch, tipsterId} = this.props;
+        leadFetch(tipsterId);
+    }
+
     render() {
+        let {leads} = this.props;
         return (
             <div className="box box-list">
                 {/* box-header */}
@@ -60,7 +43,7 @@ export default class LeadListComponent extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    dataLeads.map((item, index) => {
+                                    leads.map((item, index) => {
                                         return (
                                             <tr key={index}>
                                                 <td width="40" align="center">{index}</td>
