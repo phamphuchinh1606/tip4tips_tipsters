@@ -5,6 +5,7 @@ import Dashboard from './Home/Dashboard.Page';
 import LeadList from './Leads/LeadList.Page';
 import LeadNew from './Leads/LeadNew.Page';
 import LeadDetail from './Leads/LeadDetail.Page';
+import LeadUpdate from './Leads/LeadUpdate.Page';
 import MenuParnerPage from './Parners/MenuParner.Page';
 import NotFound from './NotFound.Page';
 
@@ -35,9 +36,14 @@ const routers = [
 		main: () => <LeadNew />
 	},
 	{
-		path: '/leads/show',
+		path: '/leads/show/:id',
 		exact: true,
-		main: () => <LeadDetail />
+		main: ({history,match}) => <LeadDetail history = {history} match = {match}/>
+	},
+	{
+		path: '/leads/edit/:id',
+		exact: true,
+		main: ({history,match}) => <LeadUpdate  history = {history} match = {match}/>
 	},
 	{
 		path: '',

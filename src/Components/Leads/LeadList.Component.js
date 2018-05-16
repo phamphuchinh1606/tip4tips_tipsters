@@ -6,13 +6,13 @@ export default class LeadListComponent extends Component {
         super(props);
     }
 
-    componentDidMount(){
-        let {leadFetch, tipsterId} = this.props;
+    componentDidMount() {
+        let { leadFetch, tipsterId } = this.props;
         leadFetch(tipsterId);
     }
 
     render() {
-        let {leads} = this.props;
+        let { leads } = this.props;
         return (
             <div className="box box-list">
                 {/* box-header */}
@@ -57,10 +57,13 @@ export default class LeadListComponent extends Component {
                                                     </span>
                                                 </td>
                                                 <td className="actions text-center" style={{ width: 100 }}>
-                                                    <Link to="/leads/show" className="btn btn-xs btn-success">
+                                                    <Link to={{pathname: `/leads/show/${item.id}`}} className="btn btn-xs btn-success">
                                                         <i className="fa fa-eye"></i>
                                                     </Link>
-                                                    <a href="{{route('leads.edit', $lead->id)}}" className="btn btn-xs btn-info" title="Edit"><i className="fa fa-pencil"></i></a>
+                                                    <Link to={{pathname: `/leads/edit/${item.id}`}} className="btn btn-xs btn-info" title="Edit">
+                                                        <i className="fa fa-pencil"></i>
+                                                    </Link>
+                                                    {/* <a href="{{route('leads.edit', $lead->id)}}" className="btn btn-xs btn-info" title="Edit"><i className="fa fa-pencil"></i></a> */}
                                                 </td>
                                             </tr>
                                         )

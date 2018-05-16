@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const listStatus = [
-    {
-        id: 1,
-        date : '26-Apr-2018 15:05',
-        status: 'Quote'
-    },
-    {
-        id: 2,
-        date : '26-Apr-2018 15:05',
-        status: 'Call'
-    },
-    {
-        id: 3,
-        date : '26-Apr-2018 15:05',
-        status: 'New'
-    }
-];
-
 export default class LeadDetailComponent extends Component {
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        let {id} = this.props.match.params;
+        let {fetchLeadDetail} = this.props;
+        fetchLeadDetail(id);
+    }
+
     render() {
+        let {lead} = this.props;
+        let listStatus = lead.historys;
         return (
             <div className="row">
                 <div className="col-md-8">
@@ -40,31 +34,31 @@ export default class LeadDetailComponent extends Component {
                         {/* box-body */}
                         <div className="box-body">
                             <div className="block__profile">
-                                <h3 className="profile__name">Full name</h3>
+                                <h3 className="profile__name">{lead.leadName}</h3>
 
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-phone margin-r-5"></i> Phone</span>
-                                    <span className="text-highlight">01659665961</span>
+                                    <span className="text-highlight">{lead.phone}</span>
                                 </p>
 
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-envelope margin-r-5"></i> Email</span>
-                                    <span className="text-highlight">phamphuchinh1606@gmail.com</span>
+                                    <span className="text-highlight">{lead.email}</span>
                                 </p>
 
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-map-marker margin-r-5"></i> Region</span>
-                                    <span className="text-highlight">Thanh phố hồ chí minh</span>
+                                    <span className="text-highlight">{lead.region}</span>
                                 </p>
 
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-shield margin-r-5"></i> Product</span>
-                                    <span className="text-highlight"> sản phẩm </span>
+                                    <span className="text-highlight">{lead.product}</span>
                                 </p>
 
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-file-text-o margin-r-5"></i> Notes</span>
-                                    <span className="text-highlight">Ghi chú</span>
+                                    <span className="text-highlight">{lead.notes}</span>
                                 </p>
                             </div>
                         </div>
@@ -79,19 +73,19 @@ export default class LeadDetailComponent extends Component {
                         <div className="box-body">
                             <div className="block__action">
                                 <p>Tipster reference:
-                                    <span className="text-highlight">Tên tipster</span></p>
+                                    <span className="text-highlight">{lead.tipsterReference}</span></p>
                             </div>
-                            <div className="block__action">
+                            {/* <div className="block__action">
                                 <p>Be Assigned to:<br/>
                                 </p>
-                            </div>
+                            </div> */}
                             <div className="block__action">
                                 <p>Status history</p>
                                 <ul className="list-unstyled history-statuses">
                                     {
                                         listStatus.map((item,index)=>{
                                             return(
-                                                <li className="label-quote}">
+                                                <li className="label-quote}" key={index}>
                                                     <span className="history__time">{item.date}</span>
                                                     <span className="history__info">{item.status}</span>
                                                 </li>

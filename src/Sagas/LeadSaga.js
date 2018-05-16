@@ -82,6 +82,37 @@ const products = [
     }
 ];
 
+const lead = {
+    leadName: 'lead name',
+    gender: '0',
+    phone: '01659655961',
+    email: 'phamphuchinh1606@gmail.com',
+    regionId: '2',
+    region: 'Thanh phố hồ chí minh',
+    product: 'Sản phẩm của lead',
+    productId: '2',
+    notes: 'ghi chu tinh trang ',
+    tipsterReference: 'Tipster 01',
+    historys: [
+        {
+            date: '26-Apr-2018 15:05',
+            status: 'Win'
+        },
+        {
+            date: '26-Apr-2018 15:05',
+            status: 'Quote'
+        },
+        {
+            date: '26-Apr-2018 15:05',
+            status: 'Call'
+        },
+        {
+            date: '26-Apr-2018 15:05',
+            status: 'New'
+        }
+    ]
+}
+
 function* fetchLeads(action){
     try{
         let {tipsterId} = action;
@@ -112,6 +143,16 @@ function* fetchProducts(){
     }
 }
 
+function* fetchLeadDetail(action){
+    try{
+        let {leadId} = action;
+        yield put(actionFunction.leadDetailFetchSuccess(lead));
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.leadDetailFetchFailed(error));
+    }
+}
+
 export function* watchFetchLeads(){
     yield takeLatest(actionType.LEAD_FETCH,fetchLeads);
 }
@@ -122,4 +163,8 @@ export function* watchFetchRegions(){
 
 export function* watchFetchProducts(){
     yield takeLatest(actionType.PRODUCT_FETCH,fetchProducts);
+}
+
+export function* watchFetchLeadDetail(){
+    yield takeLatest(actionType.LEAD_DETAIL_FETCH,fetchLeadDetail);
 }

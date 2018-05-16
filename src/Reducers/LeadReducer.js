@@ -3,7 +3,22 @@ import * as actionType from '../Actions/ActionType';
 const INITIAL_STATE = {
     leads: [],
     regions: [],
-    products: []
+    products: [],
+    lead:{
+        leadName: '',
+        phone: '',
+        email: '',
+        region: '',
+        product: '',
+        notes: '',
+        tipsterReference: '',
+        historys: [
+            {
+                date: '',
+                status: ''
+            }
+        ]
+    }
 };
 
 var leadReducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +32,9 @@ var leadReducer = (state = INITIAL_STATE, action) => {
             return stateCopy;
         case actionType.PRODUCT_FETCH_SUCCESS:
             stateCopy.products = action.products;
+            return stateCopy;
+        case actionType.LEAD_DETAIL_FETCH_SUCCESS:
+            stateCopy.lead = action.lead;
             return stateCopy;
         default:
             return state;

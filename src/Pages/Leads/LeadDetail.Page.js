@@ -4,7 +4,7 @@ import LeadDetailContainer from '../../Containers/Leads/LeadDetail.Container';
 export default class LeadDetailPage extends Component{
     render(){
         return(
-            <LeadDetailContainer/>
+            <LeadDetailContainer history = {this.props.history} match = {this.props.match}/>
         );
     }
 }

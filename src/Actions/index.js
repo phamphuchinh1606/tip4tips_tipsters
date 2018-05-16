@@ -94,3 +94,24 @@ export const productFetchFailed = (error) =>{
         error: error
     }
 }
+
+export const leadDetailFetch = (leadId) =>{
+    return{
+        type: actionType.LEAD_DETAIL_FETCH,
+        leadId: leadId
+    }
+}
+
+export const leadDetailFetchSuccess = (lead) =>{
+    return{
+        type: actionType.LEAD_DETAIL_FETCH_SUCCESS,
+        lead: lead
+    }
+}
+
+export const leadDetailFetchFailed = (error) =>{
+    return{
+        type: actionType.LEAD_DETAIL_FETCH_FAILED,
+        error: error
+    }
+}

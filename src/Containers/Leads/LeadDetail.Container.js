@@ -1,18 +1,18 @@
 import {connect} from 'react-redux';
 
 import LeadDetailComponent from '../../Components/Leads/LeadDetail.Component';
-import {loginAction} from '../../Actions/index';
+import * as action from '../../Actions/index';
 
 const mapStateToProps = (state) => {
     return{
-        userInfo: state.userInfo
+        lead: state.leadReducer.lead,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onLogin: (value)=>{
-            dispatch(loginAction(value));
+        fetchLeadDetail: (leadId)=>{
+            dispatch(action.leadDetailFetch(leadId));
         }
     }
 }
