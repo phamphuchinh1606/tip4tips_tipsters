@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import apiCaller from '../../API/apiCaller';
+import * as URL from '../../API/URL';
 
 import './css/LeadNew.css';
 
@@ -19,29 +21,66 @@ const lead = {
 }
 
 export default class LeadUpdate extends Component {
-    constructor(props) {
+
+    constructor(props){
         super(props);
-        this.state = lead;
+        this.state = {
+            regions : [],
+            products : [],
+            tipsters : [],
+            lead: {}
+        }
     }
 
-    componentDidMount() {
-        let { regionFetch, productFetch } = this.props;
-        regionFetch();
-        productFetch();
+    async componentDidMount() {
+        let {tipsterId, loadUpdate } = this.props;
         let { id } = this.props.match.params;
-        let { fetchLeadDetail } = this.props;
-        fetchLeadDetail(id);
+        let urlEndPoint = URL.END_POINT_LEAD_UPDATE + "/" + tipsterId + "/" + id;
+        await apiCaller(urlEndPoint,"GET", null).then(res=>{
+            if(res){
+                this.state.regions = res.data.regions;
+                this.state.products = res.data.products;
+                this.state.tipsters = res.data.tipsters;
+                this.state.lead = res.data.lead;
+                this.setState(this.state);
+            }
+        });
+    }
+
+    handleChangeInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ lead: {[name]: value }});
     }
 
     render() {
-        let { regions, products } = this.props;
-        this.state = this.props.lead;
+        let regions = this.state.regions.map((item, index) => {
+            return (
+                <option value={item.id} key={index}>{item.name}</option>
+            )
+        });
+
+        let products = this.state.products.map((item, index) => {
+            return (
+                <option value={item.id} key={index}>{item.name}</option>
+            )
+        });
+
+        let tipsters = this.state.tipsters.map((item, index) => {
+            return (
+                <option value={item.id} selected> {item.username} </option>
+            )
+        });
+
+        let lead = this.state.lead;
         let inputMale = <input type="radio" value="0" name="gender" />;
         let inputFemale = <input type="radio" value="1" name="gender" />
-        if(this.state.gender === '0'){
-            inputMale = <input type="radio" value="0" name="gender" checked/>;
-        }else{
-            inputFemale = <input type="radio" value="1" name="gender" checked/>
+        if(lead){
+            if(lead.gender === '0'){
+                inputMale = <input type="radio" value="0" name="gender" checked/>;
+            }else{
+                inputFemale = <input type="radio" value="1" name="gender" checked/>
+            }
         }
         return (
             // <form method="post" action="">
@@ -64,7 +103,7 @@ export default class LeadUpdate extends Component {
                                         {/* text input */}
                                         <div className="form-group">
                                             <label>Full name</label>
-                                            <input name="fullname" value={this.state.leadName} type="text" className="form-control" placeholder="Enter ..." required />
+                                            <input name="fullname" value={lead.fullname} type="text" className="form-control" placeholder="Enter ..." required onChange={this.handleChangeInput.bind(this)}/>
                                         </div>
                                     </div>
                                     <div className="col-xs-6">
@@ -87,89 +126,68 @@ export default class LeadUpdate extends Component {
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-xs-6">
+                                        <div className="form-group">
                                             <label>Phone</label>
-                                            <input name="phone" value={this.state.phone} type="text" class="form-control" placeholder="Enter ..." />
+                                            <input name="phone" value={lead.phone} type="text" className="form-control" placeholder="Enter ..." onChange={this.handleChangeInput.bind(this)}/>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
+                                    <div className="col-xs-6">
+                                        <div className="form-group">
                                             <label>Email</label>
-                                            <input name="email" value={this.state.email} type="text" class="form-control" placeholder="Enter ..." />
+                                            <input name="email" value={lead.email} type="text" className="form-control" placeholder="Enter ..." onChange={this.handleChangeInput.bind(this)}/>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-xs-6">
+                                        <div className="form-group">
                                             <label>Region</label>
-                                            <select name="region" class="form-control" required>
+                                            <select name="region" className="form-control" required>
                                                 <option value="" disabled selected>Please pick a region</option>
-                                                {
-                                                    regions.map((item, index) => {
-                                                        if (this.state.regionId == item.regionId) {
-                                                            return (
-                                                                <option value={item.regionId} key={index} selected>{item.regionName}</option>
-                                                            )
-                                                        }
-                                                        return (
-                                                            <option value={item.regionId} key={index}>{item.regionName}</option>
-                                                        )
-                                                    })
-                                                }
+                                                {regions}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
+                                    <div className="col-xs-6">
+                                        <div className="form-group">
                                             <label>Product</label>
-                                            <select name="product" class="form-control" required>
+                                            <select name="product" className="form-control" required>
                                                 <option value="" disabled selected>Please pick a product</option>
-                                                {
-                                                    products.map((item, index) => {
-                                                        if (this.state.productId == item.productId) {
-                                                            return (
-                                                                <option value={item.productId} key={index} selected>{item.productName}</option>
-                                                            )
-                                                        }
-                                                        return (
-                                                            <option value={item.productId} key={index}>{item.productName}</option>
-                                                        )
-                                                    })
-                                                }
-
+                                                {products}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
+                                    <div className="col-xs-12">
+                                        <div className="form-group">
                                             <label>Notes</label>
-                                            <textarea name="notes" class="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5" value={this.state.notes}></textarea>
+                                            <textarea name="notes" className="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5" value={lead.notes} 
+                                                onChange={this.handleChangeInput.bind(this)}>
+                                            </textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="box-footer">
-                                <a href="" class="btn btn-default">Cancel</a>
-                                <button type="submit" onClick="return false" class="btn btn-primary pull-right">Create</button>
+                            <div className="box-footer">
+                                <a href="" className="btn btn-default">Cancel</a>
+                                <button type="submit" onClick="return false" className="btn btn-primary pull-right">Create</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Actions</h3>
+                    <div className="col-md-4">
+                        <div className="box box-success">
+                            <div className="box-header with-border">
+                                <h3 className="box-title">Actions</h3>
                             </div>
-                            <div class="box-body">
-                                <div class="form-group">
+                            <div className="box-body">
+                                <div className="form-group">
                                     <label>Tipster reference</label>
-                                    <select name="tipster" class="form-control">
+                                    <select name="tipster" className="form-control">
                                         <option value="" disabled selected>Please pick a tipster</option>
-                                        <option value="1" >2 </option>
+                                        {tipsters}
                                     </select>
                                 </div>
                             </div>

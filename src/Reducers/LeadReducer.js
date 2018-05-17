@@ -19,7 +19,8 @@ const INITIAL_STATE = {
             }
         ]
     },
-    leadCreate: []
+    leadCreate: [],
+    leadUpdate: []
 };
 
 var leadReducer = (state = INITIAL_STATE, action) => {
@@ -39,6 +40,9 @@ var leadReducer = (state = INITIAL_STATE, action) => {
             return stateCopy;
         case actionType.LEAD_LOAD_CREATE_SUCCESS:
             stateCopy.leadCreate = action.lead;
+            return stateCopy;
+        case actionType.LEAD_LOAD_UPDATE_SUCCESS:
+            stateCopy.leadUpdate = action.leadUpdate;
             return stateCopy;
         default:
             return state;

@@ -21,6 +21,16 @@ export function* leadLoadCreate(tipsterId){
     return lead;
 }
 
+export function* leadLoadUpdate(tipsterId,leadId){
+    let lead = {};
+    console.log(tipsterId);
+    let urlEndPoint = URL.END_POINT_LEAD_UPDATE + "/" + tipsterId + "/" + leadId;
+    yield apiCaller(urlEndPoint,"GET", null).then(res=>{
+        lead = res.data;
+    });
+    return lead;
+}
+
 export function* fetchLeadDetail(leadId){
     let lead = {};
     console.log(leadId);

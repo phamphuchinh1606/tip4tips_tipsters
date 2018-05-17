@@ -154,6 +154,18 @@ function* leadLoadCreate(action){
     }
 }
 
+function* leadLoadUpdate(action){
+    try{
+        let {tipsterId,leadId} = action;
+        let leadFetch = yield leadService.leadLoadUpdate(tipsterId,leadId);
+        console.log(leadFetch);
+        yield put(actionFunction.leadLoadUpdateSuccess(leadFetch));
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.leadLoadUpdateFailed(error));
+    }
+}
+
 function* fetchLeadDetail(action){
     try{
         let {leadId} = action;
@@ -181,6 +193,11 @@ export function* watchFetchProducts(){
 export function* watchFetchLeadLoadCreate(){
     yield takeLatest(actionType.LEAD_LOAD_CREATE,leadLoadCreate);
 }
+
+export function* watchFetchLeadLoadUpdate(){
+    yield takeLatest(actionType.LEAD_LOAD_UPDATE,leadLoadUpdate);
+}
+
 
 export function* watchFetchLeadDetail(){
     yield takeLatest(actionType.LEAD_DETAIL_FETCH,fetchLeadDetail);

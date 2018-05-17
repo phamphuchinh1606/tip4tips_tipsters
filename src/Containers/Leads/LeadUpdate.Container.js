@@ -9,21 +9,15 @@ const mapStateToProps = (state) => {
         regions: state.leadReducer.regions,
         products : state.leadReducer.products,
         tipsterId : state.LoginReducer.userId,
-        lead: state.leadReducer.lead,
+        leadUpdate: state.leadReducer.leadUpdate,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        regionFetch: ()=>{
-            dispatch(action.regionFetch());
+        loadUpdate: (tipsterId,leadId) =>{
+            dispatch(action.leadLoadUpdate(tipsterId,leadId));
         },
-        productFetch: ()=>{
-            dispatch(action.productFetch());
-        },
-        fetchLeadDetail: (leadId)=>{
-            dispatch(action.leadDetailFetch(leadId));
-        }
     }
 }
 

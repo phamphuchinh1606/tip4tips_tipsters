@@ -77,6 +77,29 @@ export const leadLoadCreateFailed = (error) => {
     }
 }
 
+//lead lead update
+export const leadLoadUpdate = (tipsterId, leadId) => {
+    return{
+        type: actionType.LEAD_LOAD_UPDATE,
+        tipsterId: tipsterId,
+        leadId: leadId
+    }
+}
+
+export const leadLoadUpdateSuccess = (leadUpdate) => {
+    return{
+        type : actionType.LEAD_LOAD_UPDATE_SUCCESS,
+        leadUpdate: leadUpdate
+    }
+}
+
+export const leadLoadUpdateFailed = (error) => {
+    return{
+        type : actionType.LEAD_LOAD_UPDATE_FAILED,
+        error: error
+    }
+}
+
 export const regionFetch = () => {
     return{
         type: actionType.REGION_FETCH
