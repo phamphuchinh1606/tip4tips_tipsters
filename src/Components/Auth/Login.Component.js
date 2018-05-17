@@ -28,6 +28,7 @@ export default class LoginComponent extends Component {
             let userInfo = JSON.parse(userInfoRoot);
             if(!userInfo.loginState){
             }else{
+                this.props.onLoginSuccess(userInfo);
                 return <Redirect to="/"/>
             }
         }

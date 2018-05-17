@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import Fullscreen from "react-full-screen";
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -17,16 +18,33 @@ let store = createStore(allReducers,
   applyMiddleware(sagaMiddleware));
 
 class App extends Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      isFull: true,
+    };
+  }
+  goFull = () => {
+    this.setState({ isFull: true });
+  }
+
+  componentDidMount() {
+    this.goFull();
+  }
   render() {
     return (
-
-      <Provider store={store}>
+      <Fullscreen
+        enabled={this.state.isFull}
+        onChange={isFull => this.setState({ isFull })}
+      >
+        <Provider store={store}>
           <BrowserRouter>
             <RootLayout />
           </BrowserRouter>
-          
-      </Provider>
 
+        </Provider>
+      </Fullscreen>
     );
   }
 }

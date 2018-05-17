@@ -14,3 +14,11 @@ export const checkLogin = () => {
     }
     return true;
 }
+
+export const getLogin =() =>{
+    let isLogin = checkLogin();
+    if(isLogin){
+        return JSON.parse(localStorage.getItem("userInfo"));
+    }
+    return null;
+}

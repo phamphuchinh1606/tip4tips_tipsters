@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 
 import LoginComponent from '../../Components/Auth/Login.Component';
-import {loginAction} from '../../Actions/index';
+import {loginAction,loginSuccess} from '../../Actions/index';
 
 const mapStateToProps = (state) => {
     return{
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => {
     return{
         onLogin: (value)=>{
             dispatch(loginAction(value));
+        },
+        onLoginSuccess: (userInfo)=>{
+            dispatch(loginSuccess(userInfo));
         }
     }
 }

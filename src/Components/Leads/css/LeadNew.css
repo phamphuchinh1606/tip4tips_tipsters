@@ -1,3 +1,7 @@
 .Gender{
     width:100%;
 }
+
+tr.odd{
+    display: none;
+}

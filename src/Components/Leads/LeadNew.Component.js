@@ -1,23 +1,42 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import * as Utils from '../../Commons/Utils';
 
 import './css/LeadNew.css';
 
-export default class LeadNew extends Component{
-    constructor(props){
-        super(props);
+export default class LeadNew extends Component {
+
+    componentDidMount() {
+        this.props.onLoginSuccess(Utils.getLogin());
+        let { loadCreate, tipsterId } = this.props;
+        loadCreate(tipsterId);
     }
 
-    componentDidMount(){
-        let {regionFetch, productFetch} = this.props;
-        regionFetch();
-        productFetch();
-    }
-
-    render(){
-        let {regions, products} = this.props;
-        console.log(products);
-        return(
+    render() {
+        let { leadCreate } = this.props;
+        let regions = [];
+        if (leadCreate.regions) {
+            regions = leadCreate.regions.map((item, index) => {
+                return (
+                    <option value={item.id} key={index}>{item.name}</option>
+                )
+            });
+        }
+        let products = [];
+        if (leadCreate.products) {
+            products = leadCreate.products.map((item, index) => {
+                return (
+                    <option value={item.id} key={index}>{item.name}</option>
+                )
+            });
+        }
+        let tipster = [];
+        console.log(leadCreate.tipsters);
+        if(leadCreate.tipsters){
+            console.log("vao day");
+            tipster = <option value={leadCreate.tipsters.id} selected> {leadCreate.tipsters.username} </option>
+        }
+        return (
             <form method="post" action="">
                 <div className="row">
                     <div className="col-md-8">
@@ -30,7 +49,7 @@ export default class LeadNew extends Component{
                                     <i className="fa fa-angle-left"></i> Back to list
                                 </Link>
                             </div>
-                            
+
                             {/* box-body */}
                             <div className="box-body">
                                 <div className="row">
@@ -38,7 +57,7 @@ export default class LeadNew extends Component{
                                         {/* text input */}
                                         <div className="form-group">
                                             <label>Full name</label>
-                                            <input name="fullname" value="" type="text" className="form-control" placeholder="Enter ..." required/>
+                                            <input name="fullname" value="" type="text" className="form-control" placeholder="Enter ..." required />
                                         </div>
                                     </div>
                                     <div className="col-xs-6">
@@ -46,13 +65,13 @@ export default class LeadNew extends Component{
                                             <label className="Gender">Gender</label>
                                             <div className="radio-inline">
                                                 <label>
-                                                    <input type="radio" value="0" name="gender" checked/>
+                                                    <input type="radio" value="0" name="gender" checked />
                                                     Male
                                                 </label>
                                             </div>
                                             <div className="radio-inline">
                                                 <label>
-                                                    <input type="radio" value="1" name="gender"/>
+                                                    <input type="radio" value="1" name="gender" />
                                                     Female
                                                 </label>
                                             </div>
@@ -65,13 +84,13 @@ export default class LeadNew extends Component{
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input name="phone" value="" type="text" class="form-control" placeholder="Enter ..."/>
+                                            <input name="phone" value="" type="text" class="form-control" placeholder="Enter ..." />
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input name="email" value="" type="text" class="form-control" placeholder="Enter ..."/>
+                                            <input name="email" value="" type="text" class="form-control" placeholder="Enter ..." />
                                         </div>
                                     </div>
                                 </div>
@@ -82,13 +101,14 @@ export default class LeadNew extends Component{
                                             <label>Region</label>
                                             <select name="region" class="form-control" required>
                                                 <option value="" disabled selected>Please pick a region</option>
-                                                {
-                                                    regions.map((item,index)=>{
+                                                {/* {
+                                                    lead.regions.map((item,index)=>{
                                                         return(
                                                             <option value={item.regionId} key={index}>{item.regionName}</option>
                                                         )
                                                     })
-                                                }
+                                                } */}
+                                                {regions}
                                             </select>
                                         </div>
                                     </div>
@@ -97,14 +117,14 @@ export default class LeadNew extends Component{
                                             <label>Product</label>
                                             <select name="product" class="form-control" required>
                                                 <option value="" disabled selected>Please pick a product</option>
-                                                {
+                                                {/* {
                                                     products.map((item,index)=>{
                                                         return(
                                                             <option value={item.productId} key={index}>{item.productName}</option>
                                                         )
                                                     })
-                                                }
-                                                
+                                                } */}
+                                                {products}
                                             </select>
                                         </div>
                                     </div>
@@ -132,8 +152,8 @@ export default class LeadNew extends Component{
                                 <div class="form-group">
                                     <label>Tipster reference</label>
                                     <select name="tipster" class="form-control">
-                                        <option  value="" disabled selected>Please pick a tipster</option>
-                                        <option value="1" >2 </option>
+                                        <option value="" disabled>Please pick a tipster</option>
+                                        {tipster}
                                     </select>
                                 </div>
                             </div>

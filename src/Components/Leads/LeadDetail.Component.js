@@ -34,7 +34,7 @@ export default class LeadDetailComponent extends Component {
                         {/* box-body */}
                         <div className="box-body">
                             <div className="block__profile">
-                                <h3 className="profile__name">{lead.leadName}</h3>
+                                <h3 className="profile__name">{lead.fullname}</h3>
 
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-phone margin-r-5"></i> Phone</span>
@@ -73,7 +73,7 @@ export default class LeadDetailComponent extends Component {
                         <div className="box-body">
                             <div className="block__action">
                                 <p>Tipster reference:
-                                    <span className="text-highlight">{lead.tipsterReference}</span></p>
+                                    <span className="text-highlight">{lead.tipster}</span></p>
                             </div>
                             {/* <div className="block__action">
                                 <p>Be Assigned to:<br/>
@@ -87,7 +87,7 @@ export default class LeadDetailComponent extends Component {
                                             return(
                                                 <li className="label-quote}" key={index}>
                                                     <span className="history__time">{item.date}</span>
-                                                    <span className="history__info">{item.status}</span>
+                                                    <span className="history__info">{item.status_name}</span>
                                                 </li>
                                             )
                                         })

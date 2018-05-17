@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     leads: [],
     regions: [],
     products: [],
-    lead:{
+    lead: {
         leadName: '',
         phone: '',
         email: '',
@@ -18,7 +18,8 @@ const INITIAL_STATE = {
                 status: ''
             }
         ]
-    }
+    },
+    leadCreate: []
 };
 
 var leadReducer = (state = INITIAL_STATE, action) => {
@@ -35,6 +36,9 @@ var leadReducer = (state = INITIAL_STATE, action) => {
             return stateCopy;
         case actionType.LEAD_DETAIL_FETCH_SUCCESS:
             stateCopy.lead = action.lead;
+            return stateCopy;
+        case actionType.LEAD_LOAD_CREATE_SUCCESS:
+            stateCopy.leadCreate = action.lead;
             return stateCopy;
         default:
             return state;

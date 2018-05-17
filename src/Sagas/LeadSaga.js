@@ -116,12 +116,11 @@ const lead = {
 function* fetchLeads(action){
     try{
         let {tipsterId} = action;
-        // let leads = leadService.fetchLeads(tipsterId);
-        // console.log(leads);
-        yield put(actionFunction.leadFetchSuccess(leads));
+        let leadsFetch = yield leadService.fetchLeads(tipsterId);
+        yield put(actionFunction.leadFetchSuccess(leadsFetch));
     }catch(error){
         console.log(error);
-        yield put(actionFunction.leadFetchFailead(error));
+        yield put(actionFunction.leadFetchSuccess(leads));
     }
 }
 
@@ -143,10 +142,24 @@ function* fetchProducts(){
     }
 }
 
+function* leadLoadCreate(action){
+    try{
+        let {tipsterId} = action;
+        let leadFetch = yield leadService.leadLoadCreate(tipsterId);
+        console.log(leadFetch);
+        yield put(actionFunction.leadLoadCreateSuccess(leadFetch));
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.leadLoadCreateFailed(error));
+    }
+}
+
 function* fetchLeadDetail(action){
     try{
         let {leadId} = action;
-        yield put(actionFunction.leadDetailFetchSuccess(lead));
+        let leadFetch = yield leadService.fetchLeadDetail(leadId);
+        console.log(leadFetch);
+        yield put(actionFunction.leadDetailFetchSuccess(leadFetch));
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadDetailFetchFailed(error));
@@ -165,6 +178,11 @@ export function* watchFetchProducts(){
     yield takeLatest(actionType.PRODUCT_FETCH,fetchProducts);
 }
 
+export function* watchFetchLeadLoadCreate(){
+    yield takeLatest(actionType.LEAD_LOAD_CREATE,leadLoadCreate);
+}
+
 export function* watchFetchLeadDetail(){
     yield takeLatest(actionType.LEAD_DETAIL_FETCH,fetchLeadDetail);
 }
+

@@ -1,10 +1,19 @@
-import React, {Component} from 'react';
-import DashboardComponent from '../../Components/Home/Dashboard.Component';
+import {connect} from 'react-redux';
 
-export default class DashboardContainer extends Component{
-    render(){
-        return(
-            <DashboardComponent/>
-        );
+import DashboardComponent from '../../Components/Home/Dashboard.Component';
+import {loginSuccess} from '../../Actions/index';
+
+const mapStateToProps = (state) => {
+    return{}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onLoginSuccess: (userInfo)=>{
+            dispatch(loginSuccess(userInfo));
+        }
     }
 }
+
+const DashboardContainer = connect(mapStateToProps, mapDispatchToProps)(DashboardComponent);
+export default DashboardContainer;

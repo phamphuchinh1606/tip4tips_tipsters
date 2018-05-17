@@ -6,6 +6,7 @@ import * as action from '../../Actions/index';
 const mapStateToProps = (state) => {
     console.log(state.LoginReducer);
     return{
+        leadCreate: state.leadReducer.leadCreate,
         regions: state.leadReducer.regions,
         products : state.leadReducer.products,
         tipsterId : state.LoginReducer.userId
@@ -14,11 +15,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
+        loadCreate: (tipsterId) =>{
+            dispatch(action.leadLoadCreate(tipsterId));
+        },
         regionFetch: ()=>{
             dispatch(action.regionFetch());
         },
         productFetch: ()=>{
             dispatch(action.productFetch());
+        },
+        onLoginSuccess: (userInfo)=>{
+            dispatch(action.loginSuccess(userInfo));
         }
     }
 }

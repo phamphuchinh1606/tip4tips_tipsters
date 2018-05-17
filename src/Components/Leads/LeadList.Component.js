@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './css/LeadNew.css';
 
 export default class LeadListComponent extends Component {
     constructor(props) {
@@ -7,8 +8,8 @@ export default class LeadListComponent extends Component {
     }
 
     componentDidMount() {
-        let { leadFetch, tipsterId } = this.props;
-        leadFetch(tipsterId);
+        let { leadFetch, userInfo } = this.props;
+        leadFetch(userInfo.userId);
     }
 
     render() {
@@ -46,14 +47,14 @@ export default class LeadListComponent extends Component {
                                     leads.map((item, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td width="40" align="center">{index}</td>
+                                                <td width="40" align="center">{index+1}</td>
                                                 <td>{item.fullname}</td>
                                                 <td>{item.product}</td>
                                                 <td>{item.tipster}</td>
                                                 <td>{item.date}</td>
                                                 <td>
                                                     <span className="label-status {{Common::showColorStatus($lead->status)}}">
-                                                        {item.status}
+                                                        {item.status_text}
                                                     </span>
                                                 </td>
                                                 <td className="actions text-center" style={{ width: 100 }}>
