@@ -1,5 +1,6 @@
 import React from 'react';
 import * as leadService from '../Services/Ledas/LeadService';
+import * as productService from '../Services/Products/ProductService';
 import * as actionType from '../Actions/ActionType';
 import * as actionFunction from '../Actions/index';
 import {put, takeLatest} from 'redux-saga/effects';
@@ -135,7 +136,8 @@ function* fetchRegions(){
 
 function* fetchProducts(){
     try{
-        yield put(actionFunction.productFetchSuccess(products));
+        let productsFetch = yield productService.fetchProducts();
+        yield put(actionFunction.productFetchSuccess(productsFetch));
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadFetchFailead(error));
@@ -148,6 +150,20 @@ function* leadLoadCreate(action){
         let leadFetch = yield leadService.leadLoadCreate(tipsterId);
         console.log(leadFetch);
         yield put(actionFunction.leadLoadCreateSuccess(leadFetch));
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.leadLoadCreateFailed(error));
+    }
+}
+
+function* leadCreate(action){
+    try{
+        let {lead} = action;
+        let isSuccess = yield leadService.leadCreate(lead);
+        console.log(isSuccess);
+        if(isSuccess){
+            yield put(actionFunction.leadCreateSuccess(lead));
+        }
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadLoadCreateFailed(error));
@@ -192,6 +208,10 @@ export function* watchFetchProducts(){
 
 export function* watchFetchLeadLoadCreate(){
     yield takeLatest(actionType.LEAD_LOAD_CREATE,leadLoadCreate);
+}
+
+export function* watchLeadCreate(){
+    yield takeLatest(actionType.LEAD_CREATE,leadCreate);
 }
 
 export function* watchFetchLeadLoadUpdate(){

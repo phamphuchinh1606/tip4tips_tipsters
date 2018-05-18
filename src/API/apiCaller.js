@@ -5,10 +5,10 @@ export default function callApi(endpoint,method='GET',body){
 	return axios({
 		method:method,
 		url:`${URL.URL_PAGE}${endpoint}`,
-		body:body,
+		data:body,
 		headers: {
 			"Accept": 'application/json',
-            "Content-Type" : 'application/json'
+			"Content-Type": "application/x-www-form-urlencoded"
 		   
         }
 	}).catch(err =>{

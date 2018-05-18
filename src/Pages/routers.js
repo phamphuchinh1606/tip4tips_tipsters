@@ -33,7 +33,7 @@ const routers = [
 	{
 		path: '/leads/add',
 		exact: true,
-		main: () => <LeadNew />
+		main: ({history,match}) => <LeadNew history = {history} match = {match}/>
 	},
 	{
 		path: '/leads/show/:id',

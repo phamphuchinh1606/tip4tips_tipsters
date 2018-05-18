@@ -6,10 +6,51 @@ import './css/LeadNew.css';
 
 export default class LeadNew extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            fullname: '',
+            gender: '0',
+            phone: '',
+            email: '',
+            regionId: '',
+            productId: '',
+            notes: '',
+            tipsterId: ''
+        }
+    }
+
     componentDidMount() {
+        //fet data drop box
         this.props.onLoginSuccess(Utils.getLogin());
         let { loadCreate, tipsterId } = this.props;
         loadCreate(tipsterId);
+        this.state.tipsterId = tipsterId;
+        if (this.props.history.location.state) {
+            let productParamId = this.props.history.location.state.productId;
+            this.state.productId = productParamId;
+        }
+        this.setState(this.state);
+    }
+
+    handleChangeInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        let lead = {};
+        lead.fullname = this.state.fullname;
+        lead.email = this.state.email;
+        lead.gender = this.state.gender;
+        lead.phone = this.state.phone;
+        lead.notes = this.state.notes;
+        lead.product = this.state.productId;
+        lead.region = this.state.regionId;
+        lead.tipster = this.state.tipsterId;
+        this.props.onCreateLead(lead);
     }
 
     render() {
@@ -25,19 +66,22 @@ export default class LeadNew extends Component {
         let products = [];
         if (leadCreate.products) {
             products = leadCreate.products.map((item, index) => {
+                if (this.state.productId == item.id) {
+                    return (
+                        <option value={item.id} key={index} selected>{item.name}</option>
+                    )
+                }
                 return (
                     <option value={item.id} key={index}>{item.name}</option>
                 )
             });
         }
         let tipster = [];
-        console.log(leadCreate.tipsters);
-        if(leadCreate.tipsters){
-            console.log("vao day");
+        if (leadCreate.tipsters) {
             tipster = <option value={leadCreate.tipsters.id} selected> {leadCreate.tipsters.username} </option>
         }
         return (
-            <form method="post" action="">
+            <form onSubmit={this.onSubmit}>
                 <div className="row">
                     <div className="col-md-8">
                         {/* create manager form */}
@@ -57,7 +101,8 @@ export default class LeadNew extends Component {
                                         {/* text input */}
                                         <div className="form-group">
                                             <label>Full name</label>
-                                            <input name="fullname" value="" type="text" className="form-control" placeholder="Enter ..." required />
+                                            <input name="fullname" value={this.state.fullname} type="text" className="form-control" placeholder="Enter ..." required
+                                                onChange={this.handleChangeInput.bind(this)} />
                                         </div>
                                     </div>
                                     <div className="col-xs-6">
@@ -65,13 +110,13 @@ export default class LeadNew extends Component {
                                             <label className="Gender">Gender</label>
                                             <div className="radio-inline">
                                                 <label>
-                                                    <input type="radio" value="0" name="gender" checked />
+                                                    <input type="radio" value="0" name="gender" checked onChange={this.handleChangeInput.bind(this)}/>
                                                     Male
                                                 </label>
                                             </div>
                                             <div className="radio-inline">
                                                 <label>
-                                                    <input type="radio" value="1" name="gender" />
+                                                    <input type="radio" value="1" name="gender" onChange={this.handleChangeInput.bind(this)}/>
                                                     Female
                                                 </label>
                                             </div>
@@ -84,13 +129,15 @@ export default class LeadNew extends Component {
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input name="phone" value="" type="text" class="form-control" placeholder="Enter ..." />
+                                            <input name="phone" value={this.state.phone} type="text" class="form-control" placeholder="Enter ..."
+                                                onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input name="email" value="" type="text" class="form-control" placeholder="Enter ..." />
+                                            <input name="email" value={this.state.email} type="text" class="form-control" placeholder="Enter ..."
+                                                onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                 </div>
@@ -99,15 +146,8 @@ export default class LeadNew extends Component {
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Region</label>
-                                            <select name="region" class="form-control" required>
+                                            <select name="regionId" class="form-control" required onChange={this.handleChangeInput.bind(this)}>
                                                 <option value="" disabled selected>Please pick a region</option>
-                                                {/* {
-                                                    lead.regions.map((item,index)=>{
-                                                        return(
-                                                            <option value={item.regionId} key={index}>{item.regionName}</option>
-                                                        )
-                                                    })
-                                                } */}
                                                 {regions}
                                             </select>
                                         </div>
@@ -115,15 +155,8 @@ export default class LeadNew extends Component {
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Product</label>
-                                            <select name="product" class="form-control" required>
+                                            <select name="productId" class="form-control" required onChange={this.handleChangeInput.bind(this)}>
                                                 <option value="" disabled selected>Please pick a product</option>
-                                                {/* {
-                                                    products.map((item,index)=>{
-                                                        return(
-                                                            <option value={item.productId} key={index}>{item.productName}</option>
-                                                        )
-                                                    })
-                                                } */}
                                                 {products}
                                             </select>
                                         </div>
@@ -131,7 +164,8 @@ export default class LeadNew extends Component {
                                     <div class="col-xs-12">
                                         <div class="form-group">
                                             <label>Notes</label>
-                                            <textarea name="notes" class="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5"></textarea>
+                                            <textarea name="notes" class="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5"
+                                                onChange={this.handleChangeInput.bind(this)} value={this.state.notes}></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +185,7 @@ export default class LeadNew extends Component {
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>Tipster reference</label>
-                                    <select name="tipster" class="form-control">
+                                    <select name="tipsterId" class="form-control" onChange={this.handleChangeInput.bind(this)} required>
                                         <option value="" disabled>Please pick a tipster</option>
                                         {tipster}
                                     </select>

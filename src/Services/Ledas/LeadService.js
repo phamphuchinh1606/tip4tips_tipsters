@@ -21,6 +21,20 @@ export function* leadLoadCreate(tipsterId){
     return lead;
 }
 
+export function* leadCreate(lead){
+    let body = lead;
+    let urlEndPoint = URL.END_PONNT_LEAD_CREATE;
+    let isSuccess = false;
+    console.log(body);
+    yield apiCaller(urlEndPoint,"POST", body).then(res=>{
+        console.log(res);
+        if(res.data && res.data.status == "0"){
+            isSuccess = true;
+        }
+    });
+    return isSuccess;
+}
+
 export function* leadLoadUpdate(tipsterId,leadId){
     let lead = {};
     console.log(tipsterId);

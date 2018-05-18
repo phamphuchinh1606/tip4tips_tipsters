@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './MenuParner.css';
 
 const menuPartner = [
@@ -42,11 +42,17 @@ const menuPartner = [
 ];
 
 export default class MenuParnerComponent extends Component {
-    _onClickInsuranceType(){
+    _onClickInsuranceType() {
 
     }
 
+    componentDidMount() {
+        this.props.productFetch();
+    }
+
     render() {
+        let { products } = this.props;
+        console.log(products);
         return (
             <div className="row">
                 <div>
@@ -62,7 +68,7 @@ export default class MenuParnerComponent extends Component {
                         <div className="row">
                             <div class="list-type">
                                 <ul>
-                                    {
+                                    {/* {
                                         menuPartner.map((item, index) => {
                                             return (
                                                 <li>
@@ -71,6 +77,22 @@ export default class MenuParnerComponent extends Component {
                                                     </Link>
                                                     <br />
                                                     <div class="partner_text">{item.text}</div>
+                                                </li>
+                                            );
+                                        })
+                                    } */}
+                                    {
+                                        products.map((item, index) => {
+                                            return (
+                                                <li>
+                                                    <Link to={{
+                                                        pathname: '/leads/add',
+                                                        state: { productId: item.id }
+                                                    }}>
+                                                        <img src={item.path_image + '/' + item.thumbnail} alt={item.name} title={item.name} />
+                                                    </Link>
+                                                    <br />
+                                                    <div class="partner_text">{item.name}</div>
                                                 </li>
                                             );
                                         })

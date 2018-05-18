@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch) => {
         loadCreate: (tipsterId) =>{
             dispatch(action.leadLoadCreate(tipsterId));
         },
+        onCreateLead: (lead) =>{
+            dispatch(action.leadCreate(lead));
+        },
         regionFetch: ()=>{
             dispatch(action.regionFetch());
         },

@@ -77,6 +77,27 @@ export const leadLoadCreateFailed = (error) => {
     }
 }
 
+export const leadCreate = (lead) => {
+    return{
+        type: actionType.LEAD_CREATE,
+        lead: lead
+    }
+}
+
+export const leadCreateSuccess = (lead) => {
+    return{
+        type : actionType.LEAD_CREATE_SUCCESS,
+        lead: lead
+    }
+}
+
+export const leadCreateFailed = (error) => {
+    return{
+        type : actionType.LEAD_CREATE_FAILED,
+        error: error
+    }
+}
+
 //lead lead update
 export const leadLoadUpdate = (tipsterId, leadId) => {
     return{

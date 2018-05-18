@@ -1,12 +1,23 @@
-import React, { Component } from 'react';
-import MenuParnerComponent from '../../Components/Parners/MenuParner.Component';
+import {connect} from 'react-redux';
 
-class MenuParnerContainer extends Component {
-    render() {
-        return (
-            <MenuParnerComponent/>
-        );
+import MenuParnerComponent from '../../Components/Parners/MenuParner.Component';
+import * as action from '../../Actions/index';
+
+const mapStateToProps = (state) => {
+    console.log(state.LoginReducer);
+    return{
+        products : state.leadReducer.products,
+        tipsterId : state.LoginReducer.userId
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return{
+        productFetch: ()=>{
+            dispatch(action.productFetch());
+        }
+    }
+}
+
+const MenuParnerContainer = connect(mapStateToProps, mapDispatchToProps)(MenuParnerComponent);
 export default MenuParnerContainer;
