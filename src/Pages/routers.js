@@ -11,11 +11,6 @@ import NotFound from './NotFound.Page';
 
 const routers = [
 	{
-		path: '/menuparner',
-		exact: true,
-		main: () => <MenuParnerPage />
-	},
-	{
 		path: '/',
 		exact: true,
 		main: () => <Dashboard />	
@@ -23,7 +18,7 @@ const routers = [
 	{
 		path: '/login',
 		exact: true,
-		main: () => <Login />	
+		main: ({history,match}) => <Login history = {history} match = {match}/>	
 	},
 	{
 		path: '/leads',
@@ -44,6 +39,11 @@ const routers = [
 		path: '/leads/edit/:id',
 		exact: true,
 		main: ({history,match}) => <LeadUpdate  history = {history} match = {match}/>
+	},
+	{
+		path: '/menuparner',
+		exact: true,
+		main: () => <MenuParnerPage />
 	},
 	{
 		path: '',

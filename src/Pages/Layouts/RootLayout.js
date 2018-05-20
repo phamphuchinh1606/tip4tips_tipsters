@@ -37,7 +37,7 @@ class RootLayout extends Component {
         return <Fullscreen
             enabled={this.state.isFull}
         >  
-            <LogigPage />
+            <LogigPage {...this.props}/>
         </Fullscreen>
     }
 

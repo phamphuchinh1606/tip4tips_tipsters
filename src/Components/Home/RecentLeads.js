@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 const dataLeads = [
     {
@@ -40,6 +41,10 @@ const dataLeads = [
 
 export default class RecentLeads extends Component {
     render() {
+        let {recentleads} = this.props;
+        if(!recentleads){
+            recentleads = [];
+        }
         return (
             <div className="box box-default">
                 {/* box-header */}
@@ -51,17 +56,17 @@ export default class RecentLeads extends Component {
                     <div className="row">
                         <ul className="ul__users lead__list clearfix">
                             {
-                                dataLeads.map((item, index) => {
+                                recentleads.map((item, index) => {
                                     return (
                                         <li key={index}>
                                             <span className="lead__box">
-                                            <span className="lead__create-at">{item.date}</span>
-                                            <a className="lead__info" href="">
+                                            <span className="lead__create-at">{item.created_date}</span>
+                                            <Link to={`leads/show/${item.id}`} className="lead__info">
                                                 <span className="lead__name">{item.fullname}
-                                                    <span className="lead__status" style={{color:'#e08e0b'}}>{item.status}</span>
+                                                    <span className="lead__status" style={{color: item.status_color}}>{item.status_text}</span>
                                                 </span>
                                                 <span className="lead__product">{item.product}</span>
-                                            </a>
+                                            </Link>
                                             </span>
                                         </li>
                                     );
@@ -72,7 +77,9 @@ export default class RecentLeads extends Component {
                     {/* /.row */}
                 </div>
                 <div className="box-footer text-center">
-                    <a href="" className="uppercase">View More Leads &#8594;</a>
+                    <Link to="/leads" className="uppercase">
+                        View More Leads &#8594;
+                    </Link>
                 </div>
             </div>
         );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import * as Utils from '../../Commons/Utils';
 import './MenuParner.css';
 
 const menuPartner = [
@@ -48,6 +49,7 @@ export default class MenuParnerComponent extends Component {
 
     componentDidMount() {
         this.props.productFetch();
+        this.props.onLoginSuccess(Utils.getLogin());
     }
 
     render() {
@@ -66,25 +68,12 @@ export default class MenuParnerComponent extends Component {
                             </h3>
                         </div>
                         <div className="row">
-                            <div class="list-type">
+                            <div className="list-type">
                                 <ul>
-                                    {/* {
-                                        menuPartner.map((item, index) => {
-                                            return (
-                                                <li>
-                                                    <Link to="/leads/add">
-                                                        <img src={item.image} alt={item.text} title={item.text} />
-                                                    </Link>
-                                                    <br />
-                                                    <div class="partner_text">{item.text}</div>
-                                                </li>
-                                            );
-                                        })
-                                    } */}
                                     {
                                         products.map((item, index) => {
                                             return (
-                                                <li>
+                                                <li key={index}>
                                                     <Link to={{
                                                         pathname: '/leads/add',
                                                         state: { productId: item.id }
@@ -92,7 +81,7 @@ export default class MenuParnerComponent extends Component {
                                                         <img src={item.path_image + '/' + item.thumbnail} alt={item.name} title={item.name} />
                                                     </Link>
                                                     <br />
-                                                    <div class="partner_text">{item.name}</div>
+                                                    <div className="partner_text">{item.name}</div>
                                                 </li>
                                             );
                                         })

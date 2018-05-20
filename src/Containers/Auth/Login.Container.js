@@ -5,7 +5,9 @@ import {loginAction,loginSuccess} from '../../Actions/index';
 
 const mapStateToProps = (state) => {
     return{
-        userInfo: state.LoginReducer
+        userInfo: state.LoginReducer,
+        loginState: state.LoginReducer.loginState,
+        loginError: state.LoginReducer.loginError
     }
 }
 

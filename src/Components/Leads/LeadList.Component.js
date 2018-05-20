@@ -8,12 +8,26 @@ export default class LeadListComponent extends Component {
     }
 
     componentDidMount() {
-        let { leadFetch, userInfo } = this.props;
+        let { leadFetch, userInfo, leadCreateInit, leadUpdateInit, leadDeleteInit } = this.props;
         leadFetch(userInfo.userId);
+        leadCreateInit();
+        leadUpdateInit();
+        leadDeleteInit();
     }
 
     render() {
-        let { leads } = this.props;
+        let { leads, leadCreaeStatus, leadDeleteStatus } = this.props;
+        if(!leads) leads = []; 
+        let headerInfo = [];
+        if(leadCreaeStatus.status){
+            if(leadCreaeStatus.status === "0"){
+                headerInfo = <div class="alert alert-success clearfix"><p>{leadCreaeStatus.message}</p></div>
+            }
+        }else if(leadDeleteStatus.status){
+            if(leadDeleteStatus.status === "0"){
+                headerInfo = <div class="alert alert-success clearfix"><p>{leadDeleteStatus.message}</p></div>
+            }
+        }
         return (
             <div className="box box-list">
                 {/* box-header */}
@@ -25,9 +39,8 @@ export default class LeadListComponent extends Component {
                 </div>
 
                 <div className="box-body">
-                    <div className="alert alert-success clearfix">
-                        <p>Tao lead thanh cong</p>
-                    </div>
+                    {/* header info */}
+                    {headerInfo}
                     <br />
                     <div className="table-responsive">
                         <table id="viewList" className="table table-hover table-striped">

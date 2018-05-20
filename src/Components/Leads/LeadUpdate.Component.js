@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import apiCaller from '../../API/apiCaller';
 import * as URL from '../../API/URL';
 
@@ -28,12 +28,21 @@ export default class LeadUpdate extends Component {
             regions : [],
             products : [],
             tipsters : [],
-            lead: {}
+            id: '',
+            fullname: '',
+            gender: '0',
+            phone: '',
+            email: '',
+            regionId: '',
+            productId: '',
+            notes: '',
+            tipsterId: ''
         }
     }
 
     async componentDidMount() {
-        let {tipsterId, loadUpdate } = this.props;
+        let {tipsterId, loadUpdate, leadUpdateInit } = this.props;
+        leadUpdateInit();
         let { id } = this.props.match.params;
         let urlEndPoint = URL.END_POINT_LEAD_UPDATE + "/" + tipsterId + "/" + id;
         await apiCaller(urlEndPoint,"GET", null).then(res=>{
@@ -41,56 +50,97 @@ export default class LeadUpdate extends Component {
                 this.state.regions = res.data.regions;
                 this.state.products = res.data.products;
                 this.state.tipsters = res.data.tipsters;
-                this.state.lead = res.data.lead;
+                this.state.id = res.data.lead.id;
+                this.state.fullname = res.data.lead.fullname;
+                this.state.gender = res.data.lead.gender;
+                this.state.phone = res.data.lead.phone;
+                this.state.email = res.data.lead.email;
+                this.state.regionId = res.data.lead.region_id;
+                this.state.productId = res.data.lead.product_id;
+                this.state.notes = res.data.lead.notes;
+                this.state.tipsterId = res.data.lead.tipster_id;
                 this.setState(this.state);
             }
         });
+        
     }
 
     handleChangeInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({ lead: {[name]: value }});
+        this.setState({ [name]: value });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        let lead = {};
+        lead.id = this.state.id;
+        lead.fullname = this.state.fullname;
+        lead.email = this.state.email;
+        lead.gender = this.state.gender;
+        lead.phone = this.state.phone;
+        lead.notes = this.state.notes;
+        lead.product = this.state.productId;
+        lead.region = this.state.regionId;
+        lead.tipster = this.state.tipsterId;
+        console.log(lead);
+        this.props.onUpdate(lead);
     }
 
     render() {
         let regions = this.state.regions.map((item, index) => {
+            if(this.state.regionId == item.id){
+                return <option value={item.id} key={index} selected>{item.name}</option>
+            }
             return (
                 <option value={item.id} key={index}>{item.name}</option>
             )
         });
 
         let products = this.state.products.map((item, index) => {
+            if(this.state.productId == item.id){
+                return <option value={item.id} key={index} selected>{item.name}</option>;
+            }
             return (
                 <option value={item.id} key={index}>{item.name}</option>
             )
         });
 
         let tipsters = this.state.tipsters.map((item, index) => {
+            if(this.state.tipsterId == item.id){
+                <option value={item.id} selected key={index}> {item.username} </option>
+            }
             return (
-                <option value={item.id} selected> {item.username} </option>
+                <option value={item.id} selected key={index}> {item.username} </option>
             )
         });
-
-        let lead = this.state.lead;
-        let inputMale = <input type="radio" value="0" name="gender" />;
+        let inputMale = (<input type="radio" value="0" name="gender" />);
         let inputFemale = <input type="radio" value="1" name="gender" />
-        if(lead){
-            if(lead.gender === '0'){
-                inputMale = <input type="radio" value="0" name="gender" checked/>;
+        if(this.state.gender === '0'){
+            inputMale = <input type="radio" value="0" name="gender" checked onChange={this.handleChangeInput.bind(this)}/>;
+        }else{
+            inputFemale = <input type="radio" value="1" name="gender" checked onChange={this.handleChangeInput.bind(this)}/>
+        }
+
+        let headerError = [];
+        let {leadUpdateStatus} = this.props;
+        console.log(leadUpdateStatus);
+        if(leadUpdateStatus.status){
+            if(leadUpdateStatus.status == "1"){
+                headerError = <div className="alert alert-danger clearfix"><p>{leadUpdateStatus.message}</p></div>
             }else{
-                inputFemale = <input type="radio" value="1" name="gender" checked/>
+                return <Redirect to="/leads"/>
             }
         }
         return (
-            // <form method="post" action="">
+            <form onSubmit={this.onSubmit}>
                 <div className="row">
                     <div className="col-md-8">
                         {/* create manager form */}
                         <div className="box box-success">
                             {/* box-header */}
                             <div className="box-header with-border">
-                                <h3 className="box-title">Create Lead</h3>
+                                <h3 className="box-title">Update Lead</h3>
                                 <Link to="/leads" className="btn btn-xs btn-default pull-right">
                                     <i className="fa fa-angle-left"></i> Back to list
                                 </Link>
@@ -98,15 +148,17 @@ export default class LeadUpdate extends Component {
 
                             {/* box-body */}
                             <div className="box-body">
+                                {/* header error */}
+                                {headerError}
                                 <div className="row">
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         {/* text input */}
                                         <div className="form-group">
                                             <label>Full name</label>
-                                            <input name="fullname" value={lead.fullname} type="text" className="form-control" placeholder="Enter ..." required onChange={this.handleChangeInput.bind(this)}/>
+                                            <input name="fullname" value={this.state.fullname} type="text" className="form-control" placeholder="Enter ..." required onChange={this.handleChangeInput.bind(this)}/>
                                         </div>
                                     </div>
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         <div className="form-group group__gender">
                                             <label className="Gender">Gender</label>
                                             <div className="radio-inline">
@@ -127,34 +179,34 @@ export default class LeadUpdate extends Component {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         <div className="form-group">
                                             <label>Phone</label>
-                                            <input name="phone" value={lead.phone} type="text" className="form-control" placeholder="Enter ..." onChange={this.handleChangeInput.bind(this)}/>
+                                            <input name="phone" value={this.state.phone} type="text" className="form-control" placeholder="Enter ..." onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         <div className="form-group">
                                             <label>Email</label>
-                                            <input name="email" value={lead.email} type="text" className="form-control" placeholder="Enter ..." onChange={this.handleChangeInput.bind(this)}/>
+                                            <input name="email" value={this.state.email} type="text" className="form-control" placeholder="Enter ..." onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         <div className="form-group">
                                             <label>Region</label>
-                                            <select name="region" className="form-control" required>
+                                            <select name="regionId" className="form-control" required onChange={this.handleChangeInput.bind(this)} required>
                                                 <option value="" disabled selected>Please pick a region</option>
                                                 {regions}
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         <div className="form-group">
                                             <label>Product</label>
-                                            <select name="product" className="form-control" required>
+                                            <select name="productId" className="form-control" required onChange={this.handleChangeInput.bind(this)} required>
                                                 <option value="" disabled selected>Please pick a product</option>
                                                 {products}
                                             </select>
@@ -163,7 +215,7 @@ export default class LeadUpdate extends Component {
                                     <div className="col-xs-12">
                                         <div className="form-group">
                                             <label>Notes</label>
-                                            <textarea name="notes" className="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5" value={lead.notes} 
+                                            <textarea name="notes" className="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5" value={this.state.notes} 
                                                 onChange={this.handleChangeInput.bind(this)}>
                                             </textarea>
                                         </div>
@@ -172,8 +224,10 @@ export default class LeadUpdate extends Component {
                             </div>
 
                             <div className="box-footer">
-                                <a href="" className="btn btn-default">Cancel</a>
-                                <button type="submit" onClick="return false" className="btn btn-primary pull-right">Create</button>
+                                <Link to="/leads" className="btn btn-default">
+                                    Cancel
+                                </Link>
+                                <button type="submit" className="btn btn-primary pull-right">Update</button>
                             </div>
                         </div>
                     </div>
@@ -185,7 +239,7 @@ export default class LeadUpdate extends Component {
                             <div className="box-body">
                                 <div className="form-group">
                                     <label>Tipster reference</label>
-                                    <select name="tipster" className="form-control">
+                                    <select name="tipsterId" className="form-control" onChange={this.handleChangeInput.bind(this)} required>
                                         <option value="" disabled selected>Please pick a tipster</option>
                                         {tipsters}
                                     </select>
@@ -194,7 +248,7 @@ export default class LeadUpdate extends Component {
                         </div>
                     </div>
                 </div>
-            // </form>
+            </form>
         );
     }
 }

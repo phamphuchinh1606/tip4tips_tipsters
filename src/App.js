@@ -40,7 +40,7 @@ class App extends Component {
       >
         <Provider store={store}>
           <BrowserRouter>
-            <RootLayout />
+            <RootLayout {...this.props}/>
           </BrowserRouter>
 
         </Provider>

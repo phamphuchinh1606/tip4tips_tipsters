@@ -1,29 +1,24 @@
 import React, { Component } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-
-const data = {
-    labels: [
-        'Red',
-        'Green',
-        'Yellow'
-    ],
-    datasets: [{
-        data: [300, 50, 100],
-        backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
-        ],
-        hoverBackgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
-        ]
-    }]
-};
+import {Link} from 'react-router-dom';
 
 export default class LeadStatus extends Component {
     render() {
+        let {statusLead} = this.props;
+        let dataView = [300, 50, 100];
+        let backgroundColor = [ '#FF6384','#36A2EB','#FFCE56'];
+        if(statusLead){
+            dataView = [statusLead.new, statusLead.call, statusLead.quote, statusLead.win, statusLead.lost];
+            backgroundColor = [statusLead.colorNew, statusLead.colorCall, statusLead.colorQuote, statusLead.colorWin, statusLead.colorLost];
+        }
+        let data = {
+            labels: [ "New", "Call", "Quote", "Win", "Lost"],
+            datasets: [{
+                data: dataView,
+                backgroundColor: backgroundColor,
+                hoverBackgroundColor: backgroundColor
+            }]
+        };
         return (
             <div className="box box-default">
                 {/* box-header */}
@@ -48,7 +43,9 @@ export default class LeadStatus extends Component {
                     </div>
                 </div>
                 <div className="box-footer text-center">
-                    <a href="" className="uppercase">View More Leads &#8594;</a>
+                    <Link to="/leads" className="uppercase">
+                        View More Leads &#8594;
+                    </Link>
                 </div>
             </div>
         );

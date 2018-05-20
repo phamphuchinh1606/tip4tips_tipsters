@@ -1,20 +1,54 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export default class LeadDetailComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    componentDidMount(){
-        let {id} = this.props.match.params;
-        let {fetchLeadDetail} = this.props;
+    componentDidMount() {
+        let { id } = this.props.match.params;
+        let { fetchLeadDetail, leadDeleteInit } = this.props;
         fetchLeadDetail(id);
+        leadDeleteInit();
+    }
+
+    _onClickDelete = () => {
+        let { onDeleteLead, lead } = this.props;
+        let message = "Do you really want to delete lead :" + lead.fullname+ " ?";
+        confirmAlert({
+            title: 'Confirm delete lead',
+            message: message,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        onDeleteLead(lead.id);
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => {
+
+                    }
+                }
+            ]
+        })
     }
 
     render() {
-        let {lead} = this.props;
+        let { lead , leadDeleteStatus} = this.props;
         let listStatus = lead.historys;
+        let headerError = [];
+        if(leadDeleteStatus.status){
+            if(leadDeleteStatus.status === "1"){
+                headerError = <div class="alert alert-danger clearfix"><p>{leadDeleteStatus.message}</p></div>
+            }else{
+                return <Redirect to="/leads"/>
+            }
+        }
         return (
             <div className="row">
                 <div className="col-md-8">
@@ -27,12 +61,18 @@ export default class LeadDetailComponent extends Component {
                                 <Link to="/leads" className="btn btn-xs btn-default">
                                     <i className="fa fa-angle-left"></i> Back to list
                                 </Link>
-                                <a href="" className="btn btn-xs btn-info"><i className="fa fa-pencil"></i> Edit</a>
-                                <a data-toggle="modal" data-target="#popup-confirm" className="btn btn-xs btn-danger"><i className="fa fa-trash"></i> Delete</a>
+                                <Link to={`/leads/edit/${lead.id}`} className="btn btn-xs btn-info">
+                                    <i className="fa fa-pencil"></i> Edit
+                                </Link>
+                                <a className="btn btn-xs btn-danger" onClick={this._onClickDelete.bind(this)}>
+                                    <i className="fa fa-trash"></i> Delete
+                                </a>
                             </span>
                         </div>
                         {/* box-body */}
                         <div className="box-body">
+                            {/* header error */}
+                            {headerError}
                             <div className="block__profile">
                                 <h3 className="profile__name">{lead.fullname}</h3>
 
@@ -83,8 +123,8 @@ export default class LeadDetailComponent extends Component {
                                 <p>Status history</p>
                                 <ul className="list-unstyled history-statuses">
                                     {
-                                        listStatus.map((item,index)=>{
-                                            return(
+                                        listStatus.map((item, index) => {
+                                            return (
                                                 <li className="label-quote}" key={index}>
                                                     <span className="history__time">{item.date}</span>
                                                     <span className="history__info">{item.status_name}</span>

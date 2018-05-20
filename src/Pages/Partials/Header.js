@@ -15,6 +15,8 @@ class Header extends Component {
     }
 
     render() {
+        let {userInfo} = this.props;
+        console.log(userInfo);
         return (
             <header className="main-header">
                 {/* Logo  */}
@@ -102,17 +104,17 @@ class Header extends Component {
                                 {/* Menu Toggle Button */}
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                                     {/* The user image in the navbar*/}
-                                    <img src="" className="user-image" alt=""/>
+                                    <img src={`${userInfo.pathImage}/${userInfo.avata}`} className="user-image" alt="user-image"/>
                                     {/* hidden-xs hides the username on small devices so only the image appears. */}
-                                    <span className="hidden-xs">full name</span>
+                                    <span className="hidden-xs">{userInfo.fullName}</span>
                                 </a>
                                 <ul className="dropdown-menu">
                                     {/* The user image in the menu */}
                                     <li className="user-header">
-                                        <img src="" className="img-circle" alt="User Image"/>
+                                        <img src={`${userInfo.pathImage}/${userInfo.avata}`} className="img-circle" alt="User Image"/>
                                         <p>
-                                            user name
-                                            <small>Member since ngay thang</small>
+                                            {userInfo.userName}
+                                            <small>Member since : {userInfo.date}</small>
                                         </p>
                                     </li>
                                     {/* Menu Footer*/}
@@ -124,9 +126,6 @@ class Header extends Component {
                                             <Link to="/login" onClick={()=>this._onClickLogout()} className="btn btn-default btn-flat">
                                                 Sign out
                                             </Link>
-                                            {/* <a href="/login" className="btn btn-default btn-flat" onClick={this._onClickLogout.bind(this)}>
-                                                Sign out
-                                            </a> */}
                                         </div>
                                     </li>
                                 </ul>
@@ -142,7 +141,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        userInfo: state.userInfo
+        userInfo: state.LoginReducer
     }
 }
 

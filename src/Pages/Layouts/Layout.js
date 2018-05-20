@@ -27,7 +27,6 @@ export default class Layout extends Component {
                         path={route.path}
                         exact={route.exact}
                         component={route.main}
-
                     />
                 );
             });
@@ -53,7 +52,7 @@ export default class Layout extends Component {
                     {/* main content start*/}
                     <div className="content-wrapper" style={{ minHeight: 660 }}>
                         {/* Content Header (Page header) */}
-                        <section className="content-header">
+                        {/* <section className="content-header">
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item">
                                     <a href="http://tip4tips-v2.amagumolabs.io/home">
@@ -65,7 +64,7 @@ export default class Layout extends Component {
                                 </li>
                                 <li className="breadcrumb-item active">Edit Product</li>
                             </ol>
-                        </section>
+                        </section> */}
                         <section className="content">
                             <Switch>
                                 {this.showContentRoute(routers)}

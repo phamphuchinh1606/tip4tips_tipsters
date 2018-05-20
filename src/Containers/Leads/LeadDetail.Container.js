@@ -6,6 +6,7 @@ import * as action from '../../Actions/index';
 const mapStateToProps = (state) => {
     return{
         lead: state.leadReducer.lead,
+        leadDeleteStatus: state.leadReducer.leadDeleteStatus
     }
 }
 
@@ -13,7 +14,14 @@ const mapDispatchToProps = (dispatch) => {
     return{
         fetchLeadDetail: (leadId)=>{
             dispatch(action.leadDetailFetch(leadId));
-        }
+        },
+        leadDeleteInit: ()=>{
+            dispatch(action.leadDeleteInit());
+        },
+        onDeleteLead: (leadId) =>{
+            dispatch(action.leadDelete(leadId));
+        },
+
     }
 }
 

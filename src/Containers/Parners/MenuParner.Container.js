@@ -15,7 +15,10 @@ const mapDispatchToProps = (dispatch) => {
     return{
         productFetch: ()=>{
             dispatch(action.productFetch());
-        }
+        },
+        onLoginSuccess: (userInfo)=>{
+            dispatch(action.loginSuccess(userInfo));
+        },
     }
 }
 

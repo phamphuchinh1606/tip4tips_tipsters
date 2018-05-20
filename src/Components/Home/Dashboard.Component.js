@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import RecentLeads from './RecentLeads';
 import LeadStatus from './LeadStatus';
 import * as Utils from '../../Commons/Utils';
@@ -8,20 +9,26 @@ export default class DashboardComponent extends Component{
         super(props);
     }
     componentDidMount() {
-        console.log(Utils.getLogin());
-        console.log(this.props);
-        this.props.onLoginSuccess(Utils.getLogin());
+        let {onLoginSuccess, fetchRecentStatus, userInfo} = this.props;
+        onLoginSuccess(Utils.getLogin());
+        if(userInfo){
+            fetchRecentStatus(userInfo.userId);
+        }
+        
     }
     render(){
+        let {recentStatusLeads} = this.props;
+        let recentleads = recentStatusLeads.recentleads;
+        let statusLead = recentStatusLeads.statusLead;  
         return(
             <div className="row dashboard">
                 <div className="col-sm-12 col-lg-6">
                     {/* LEADS LIST */}
-                    <RecentLeads />
+                    <RecentLeads recentleads={recentleads}/>
                 </div>
                 <div className="col-sm-12 col-lg-6">
                     {/* LEADS LIST */}
-                    <LeadStatus />
+                    <LeadStatus statusLead={statusLead}/>
                 </div>
             </div>
         );

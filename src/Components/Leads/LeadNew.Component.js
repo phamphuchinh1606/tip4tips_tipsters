@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import * as Utils from '../../Commons/Utils';
 
 import './css/LeadNew.css';
@@ -23,7 +23,8 @@ export default class LeadNew extends Component {
     componentDidMount() {
         //fet data drop box
         this.props.onLoginSuccess(Utils.getLogin());
-        let { loadCreate, tipsterId } = this.props;
+        let { loadCreate, tipsterId, leadCreateInit } = this.props;
+        leadCreateInit();
         loadCreate(tipsterId);
         this.state.tipsterId = tipsterId;
         if (this.props.history.location.state) {
@@ -54,7 +55,7 @@ export default class LeadNew extends Component {
     }
 
     render() {
-        let { leadCreate } = this.props;
+        let { leadCreate, leadCreaeStatus } = this.props;
         let regions = [];
         if (leadCreate.regions) {
             regions = leadCreate.regions.map((item, index) => {
@@ -80,6 +81,15 @@ export default class LeadNew extends Component {
         if (leadCreate.tipsters) {
             tipster = <option value={leadCreate.tipsters.id} selected> {leadCreate.tipsters.username} </option>
         }
+        let headerError = [];
+        console.log(leadCreaeStatus);
+        if(leadCreaeStatus.status){
+            if(leadCreaeStatus.status === "1"){
+                headerError = <div class="alert alert-danger clearfix"><p>{leadCreaeStatus.message}</p></div>
+            }else{
+                return <Redirect to="/leads"/>
+            }
+        }
         return (
             <form onSubmit={this.onSubmit}>
                 <div className="row">
@@ -96,8 +106,10 @@ export default class LeadNew extends Component {
 
                             {/* box-body */}
                             <div className="box-body">
+                                {/* show header error */}
+                                {headerError}
                                 <div className="row">
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         {/* text input */}
                                         <div className="form-group">
                                             <label>Full name</label>
@@ -105,7 +117,7 @@ export default class LeadNew extends Component {
                                                 onChange={this.handleChangeInput.bind(this)} />
                                         </div>
                                     </div>
-                                    <div className="col-xs-6">
+                                    <div className="col-xs-12 col-sm-6">
                                         <div className="form-group group__gender">
                                             <label className="Gender">Gender</label>
                                             <div className="radio-inline">
@@ -126,24 +138,24 @@ export default class LeadNew extends Component {
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input name="phone" value={this.state.phone} type="text" class="form-control" placeholder="Enter ..."
                                                 onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input name="email" value={this.state.email} type="text" class="form-control" placeholder="Enter ..."
+                                            <input name="email" value={this.state.email} type="email" class="form-control" placeholder="Enter ..."
                                                 onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Region</label>
                                             <select name="regionId" class="form-control" required onChange={this.handleChangeInput.bind(this)}>
@@ -152,7 +164,7 @@ export default class LeadNew extends Component {
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Product</label>
                                             <select name="productId" class="form-control" required onChange={this.handleChangeInput.bind(this)}>
@@ -172,7 +184,9 @@ export default class LeadNew extends Component {
                             </div>
 
                             <div class="box-footer">
-                                <a href="" class="btn btn-default">Cancel</a>
+                                <Link to="/leads" className="btn btn-default">
+                                    Cancel
+                                </Link>
                                 <button type="submit" class="btn btn-primary pull-right">Create</button>
                             </div>
                         </div>

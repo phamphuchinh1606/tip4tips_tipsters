@@ -77,6 +77,12 @@ export const leadLoadCreateFailed = (error) => {
     }
 }
 
+export const leadCreaeInit = () => {
+    return{
+        type: actionType.LEAD_CREATE_INIT
+    }
+}
+
 export const leadCreate = (lead) => {
     return{
         type: actionType.LEAD_CREATE,
@@ -84,17 +90,17 @@ export const leadCreate = (lead) => {
     }
 }
 
-export const leadCreateSuccess = (lead) => {
+export const leadCreateSuccess = (success) => {
     return{
         type : actionType.LEAD_CREATE_SUCCESS,
-        lead: lead
+        leadCreaeStatus: success
     }
 }
 
 export const leadCreateFailed = (error) => {
     return{
         type : actionType.LEAD_CREATE_FAILED,
-        error: error
+        leadCreaeStatus: error
     }
 }
 
@@ -118,6 +124,61 @@ export const leadLoadUpdateFailed = (error) => {
     return{
         type : actionType.LEAD_LOAD_UPDATE_FAILED,
         error: error
+    }
+}
+
+export const leadUpdateInit = () => {
+    return{
+        type: actionType.LEAD_UPDATE_INIT
+    }
+}
+
+export const leadUpdate = (lead) => {
+    return{
+        type: actionType.LEAD_UPDATE,
+        lead: lead
+    }
+}
+
+export const leadUpdateSuccess = (success) => {
+    return{
+        type : actionType.LEAD_UPDATE_SUCCESS,
+        leadUpdateStatus: success
+    }
+}
+
+export const leadUpdateFailed = (error) => {
+    return{
+        type : actionType.LEAD_UPDATE_FAILED,
+        leadUpdateStatus: error
+    }
+}
+
+//lead delete
+export const leadDeleteInit = () => {
+    return{
+        type: actionType.LEAD_DELETE_INIT
+    }
+}
+
+export const leadDelete = (leadId) => {
+    return{
+        type: actionType.LEAD_DELETE,
+        leadId: leadId
+    }
+}
+
+export const leadDeleteSuccess = (success) => {
+    return{
+        type : actionType.LEAD_DELETE_SUCCESS,
+        leadDeleteStatus: success
+    }
+}
+
+export const leadDeleteFailed = (error) => {
+    return{
+        type : actionType.LEAD_DELETE_FAILED,
+        leadDeleteStatus: error
     }
 }
 
@@ -178,6 +239,28 @@ export const leadDetailFetchSuccess = (lead) =>{
 export const leadDetailFetchFailed = (error) =>{
     return{
         type: actionType.LEAD_DETAIL_FETCH_FAILED,
+        error: error
+    }
+}
+
+//Home
+export const recentStatusLeadsFetch = (tipsterId) => {
+    return{
+        type: actionType.RECENT_STATUS_LEADS_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const recentStatusLeadsFetchSuccess = (recentStatusLeads) => {
+    return{
+        type: actionType.RECENT_STATUS_LEADS_FETCH_SUCCESS,
+        recentStatusLeads: recentStatusLeads
+    }
+}
+
+export const recentStatusLeadsFetchFailed = (error) => {
+    return{
+        type: actionType.RECENT_STATUS_LEADS_FETCH_FAILED,
         error: error
     }
 }

@@ -159,14 +159,36 @@ function* leadLoadCreate(action){
 function* leadCreate(action){
     try{
         let {lead} = action;
-        let isSuccess = yield leadService.leadCreate(lead);
-        console.log(isSuccess);
-        if(isSuccess){
-            yield put(actionFunction.leadCreateSuccess(lead));
+        let data = yield leadService.leadCreate(lead);
+        console.log(data);
+        if(data && data.status == "0"){
+            let jsonValue = { message : "create lead : " + lead.fullname + " success", status : "0"};
+            yield put(actionFunction.leadCreateSuccess(jsonValue));
+        }else{
+            let jsonValue = { message : data.message, status : "1"};
+            yield put(actionFunction.leadCreateFailed(jsonValue));
         }
     }catch(error){
         console.log(error);
-        yield put(actionFunction.leadLoadCreateFailed(error));
+        yield put(actionFunction.leadCreateFailed(error));
+    }
+}
+
+function* leadDelete(action){
+    try{
+        let {leadId} = action;
+        let isSuccess = yield leadService.leadDelete(leadId);
+        console.log(isSuccess);
+        if(isSuccess){
+            let jsonValue = { message : "delete lead success", status : "0"};
+            yield put(actionFunction.leadDeleteSuccess(jsonValue));
+        }else{
+            let jsonValue = { message : "delete lead fail . Please try again", status : "1"};
+            yield put(actionFunction.leadDeleteFailed(jsonValue));
+        }
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.leadDeleteFailed(error));
     }
 }
 
@@ -182,6 +204,24 @@ function* leadLoadUpdate(action){
     }
 }
 
+function* leadUpdate(action){
+    try{
+        let {lead} = action;
+        let isSuccess = yield leadService.leadUpdate(lead);
+        console.log(isSuccess);
+        if(isSuccess){
+            let jsonValue = { message : "Update lead : " + lead.fullname + " success", status : "0"};
+            yield put(actionFunction.leadUpdateSuccess(jsonValue));
+        }else{
+            let jsonValue = { message : "Update lead fail . Please try again", status : "1"};
+            yield put(actionFunction.leadUpdateFailed(jsonValue));
+        }
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.leadUpdateFailed(error));
+    }
+}
+
 function* fetchLeadDetail(action){
     try{
         let {leadId} = action;
@@ -191,6 +231,19 @@ function* fetchLeadDetail(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadDetailFetchFailed(error));
+    }
+}
+
+function* fetchRecentStatusLeads(action){
+    
+    try{
+        let {tipsterId} = action;
+        let leadsFetch = yield leadService.fetchRecentStatusLeads(tipsterId);
+        console.log(leadsFetch);
+        yield put(actionFunction.recentStatusLeadsFetchSuccess(leadsFetch));
+    }catch(error){
+        console.log(error);
+        yield put(actionFunction.recentStatusLeadsFetchFailed(error));
     }
 }
 
@@ -214,6 +267,14 @@ export function* watchLeadCreate(){
     yield takeLatest(actionType.LEAD_CREATE,leadCreate);
 }
 
+export function* watchLeadUpdate(){
+    yield takeLatest(actionType.LEAD_UPDATE, leadUpdate);
+}
+
+export function* watchLeadDelete(){
+    yield takeLatest(actionType.LEAD_DELETE, leadDelete);
+}
+
 export function* watchFetchLeadLoadUpdate(){
     yield takeLatest(actionType.LEAD_LOAD_UPDATE,leadLoadUpdate);
 }
@@ -221,5 +282,9 @@ export function* watchFetchLeadLoadUpdate(){
 
 export function* watchFetchLeadDetail(){
     yield takeLatest(actionType.LEAD_DETAIL_FETCH,fetchLeadDetail);
+}
+
+export function* watchFetchRecentStatusLeads(){
+    yield takeLatest(actionType.RECENT_STATUS_LEADS_FETCH,fetchRecentStatusLeads);
 }
 

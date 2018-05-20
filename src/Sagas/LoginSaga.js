@@ -7,7 +7,7 @@ import * as API from '../API/apiCaller';
 
 const userInfoSuccess = {
     userName: 'phamphuchinh',
-    userId : '1',
+    userId : '2',
     avata: 'avata.jpg',
     fullName: 'phạm phú chinh',
     error: null,
@@ -26,10 +26,27 @@ const USER_DEFAULT = {
 function* login(action){
     try{
         let {email, password} = action.value;
-        let userInfo = loginService.loginAction(email,password);
-        userInfo = userInfoSuccess;
-        yield localStorage.setItem("userInfo",JSON.stringify(userInfoSuccess));
-        yield put(loginSuccess(userInfo));
+        let userInfo = yield loginService.loginAction(email,password);
+        if(userInfo.status){
+            if(userInfo.status === "0"){
+                let userInfoSuccess = {};
+                userInfoSuccess.userName = userInfo.user_info.username;
+                userInfoSuccess.userId = userInfo.user_info.id;
+                userInfoSuccess.avata = userInfo.user_info.avatar;
+                userInfoSuccess.pathImage = userInfo.user_info.path_image,
+                userInfoSuccess.fullName = userInfo.user_info.fullname,
+                userInfoSuccess.date = userInfo.user_info.date,
+                userInfoSuccess.error = null,
+                userInfoSuccess. loginState = true;
+
+                yield put(loginSuccess(userInfoSuccess));
+                yield localStorage.setItem("userInfo",JSON.stringify(userInfoSuccess));
+            }else{
+                yield put(loginFailed(userInfo.message));
+            }
+        }else{
+            yield put(loginFailed(userInfo.message));
+        }
     }catch(error){
         console.log(error);
         yield put(loginFailed(error));
