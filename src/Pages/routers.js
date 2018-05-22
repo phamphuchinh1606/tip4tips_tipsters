@@ -20,11 +20,7 @@ const routers = [
 		exact: true,
 		main: ({history,match}) => <Login history = {history} match = {match}/>	
 	},
-	{
-		path: '/leads',
-		exact: true,
-		main: () => <LeadList />
-	},
+	
 	{
 		path: '/leads/add',
 		exact: true,
@@ -44,6 +40,11 @@ const routers = [
 		path: '/menuparner',
 		exact: true,
 		main: () => <MenuParnerPage />
+	},
+	{
+		path: '/leads',
+		exact: true,
+		main: () => <LeadList />
 	},
 	{
 		path: '',

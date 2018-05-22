@@ -50,7 +50,7 @@ export default class LeadDetailComponent extends Component {
             }
         }
         return (
-            <div className="row">
+            <div className="lead_detail row">
                 <div className="col-md-8">
                     {/* About Me Box */}
                     <div className="box box-primary">
@@ -108,24 +108,24 @@ export default class LeadDetailComponent extends Component {
                     {/* Profile Image */}
                     <div className="box box-primary">
                         <div className="box-header with-border">
-                            <h3 className="box-title">Advanced information</h3>
+                            <h3 className="box-title">History</h3>
                         </div>
                         <div className="box-body">
-                            <div className="block__action">
+                            {/* <div className="block__action">
                                 <p>Tipster reference:
                                     <span className="text-highlight">{lead.tipster}</span></p>
-                            </div>
+                            </div> */}
                             {/* <div className="block__action">
                                 <p>Be Assigned to:<br/>
                                 </p>
                             </div> */}
-                            <div className="block__action">
-                                <p>Status history</p>
+                            {/* <div className="block__action">
+                                <p>Status history</p> */}
                                 <ul className="list-unstyled history-statuses">
                                     {
                                         listStatus.map((item, index) => {
                                             return (
-                                                <li className="label-quote}" key={index}>
+                                                <li className={item.lable_status} key={index}>
                                                     <span className="history__time">{item.date}</span>
                                                     <span className="history__info">{item.status_name}</span>
                                                 </li>
@@ -133,7 +133,7 @@ export default class LeadDetailComponent extends Component {
                                         })
                                     }
                                 </ul>
-                            </div>
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>

@@ -84,7 +84,7 @@ tr.message__read{
 /*
 css custom form*/
 .content{
-    padding: 0;
+    padding: 5px;
 }
 label{
     font-weight: normal;
@@ -98,7 +98,7 @@ input[type=date]::-webkit-inner-spin-button {
 .box-header,
 .box-body,
 .box-footer{
-    padding: 15px;
+    /* padding: 15px; */
 }
 
 .box-footer .btn-danger{
@@ -175,7 +175,7 @@ input[type=date]::-webkit-inner-spin-button {
     margin: 20px auto;
 }
 .block__profile .profile__name{
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 .block__profile .profile__title{
     font-size: 18px;
@@ -192,12 +192,10 @@ input[type=date]::-webkit-inner-spin-button {
 }
 .block__profile .text-label{
     width: 100px;
-    padding-right: 30px;
 }
 .block__profile .text-highlight{
     width: calc(100% - 100px);
     font-weight: normal;
-    padding-left: 30px;
 }
 /*end profile*/
 /*tipster update in lead*/
@@ -517,6 +515,10 @@ Table style*/
 }
 .lead__list_mobile .lead__box .lead__product{
     display: block;
+}
+.lead__list_mobile .lead__box .lead__name{
+    display: block;
+    font-weight: bold;
 }
 
 /*Pie Chart*/

@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 
 import DashboardComponent from '../../Components/Home/Dashboard.Component';
 import * as action from '../../Actions/index';
+import * as Utils from '../../Commons/Utils';
 
 const mapStateToProps = (state) => {
     return{

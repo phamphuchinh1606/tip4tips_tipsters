@@ -18,8 +18,10 @@ const MenuLink = ({ to, ...rest}) =>{
 }
 
 class Menu extends Component {
-    _clickMenuItem =() =>{
+    _clickMenuItem =(menuClassName) =>{
         $('body').removeClass("sidebar-open");
+        $('.sidebar-menu li').removeClass("active");
+        $('.sidebar-menu li .'+ menuClassName).parent().addClass("active");
     }
 
     render() {
@@ -41,39 +43,12 @@ class Menu extends Component {
                         </div>
                     </div>
 
-                    {/* search form (Optional) */}
-                    {/* <form action="#" method="get" className="sidebar-form">
-                        <div className="input-group">
-                            <input type="text" name="q" className="form-control" placeholder="Search..." />
-                            <span className="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" className="btn btn-flat"><i className="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form> */}
-                    {/* search form */}
-
                     {/* Sidebar Menu */}
                     <ul className="sidebar-menu" data-widget="tree">
                         <li className="header">MAIN</li>
                         {/* Optionally, you can add icons to the links */}
-                        {/* <li className="active">
-                            <NavLink to="/">
-                                <i className="fa fa-home"></i><span>HOME</span>
-                            </NavLink >
-                        </li> */}
-                        {/* <li>
-                            <NavLink to="/leads">
-                                <i className="fa fa-street-view"></i><span>Leads</span>
-                            </NavLink >
-                        </li>
-                        <li>
-                            <NavLink to="/menuparner">
-                                <i className="fa fa-shield"></i><span>Choose insurance</span>
-                            </NavLink >
-                        </li> */}
-                        <MenuLink to="/" exact onClick={this._clickMenuItem.bind(this)} >Home</MenuLink>
-                        <MenuLink to="/leads" exact onClick={this._clickMenuItem.bind(this)}>MY LEADS</MenuLink>
+                        <MenuLink to="/" exact onClick={()=>this._clickMenuItem('menu-home')} className="menu-home">Home</MenuLink>
+                        <MenuLink to="/leads" exact onClick={()=>this._clickMenuItem('menu-leads')} className="menu-leads">My Leads</MenuLink>
                     </ul>
                     {/* /.sidebar-menu */}
                 </section>

@@ -37,6 +37,6 @@ ul, ol {
     .list-type {
         float: left;
         clear: both;
-        margin-left: 35px;
+        margin-left: 20px;
     }
 }

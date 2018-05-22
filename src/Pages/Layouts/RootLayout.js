@@ -51,7 +51,7 @@ class RootLayout extends Component {
                 <Fullscreen
                     enabled={this.state.isFull}
                 >
-                    <Layout />
+                    <Layout {...this.props}/>
                 </Fullscreen>
             );
         }

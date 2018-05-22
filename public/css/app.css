@@ -2051,9 +2051,9 @@ pre code {
   clear: both;
 }
 
-.row {
+.dashboard .row, .lead_detail.row{
   margin-left: -15px;
-  margin-right: -15px;
+  margin-right:-15px;
 }
 
 .row:before,

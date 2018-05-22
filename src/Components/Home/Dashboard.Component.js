@@ -8,14 +8,23 @@ export default class DashboardComponent extends Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        let { onLoginSuccess, fetchRecentStatus, userInfo } = this.props;
-        onLoginSuccess(Utils.getLogin());
+    async componentDidMount() {
+        let { fetchRecentStatus, userInfo } = this.props;
+        console.log("lay du lieu");
         if (userInfo) {
             fetchRecentStatus(userInfo.userId);
         }
 
     }
+
+    async componentWillMount(){
+        let { onLoginSuccess } = this.props;
+         onLoginSuccess(Utils.getLogin());
+         const res = await fetch('https://api.ipify.org?format=json');
+         console.log(res);
+         console.log("chay login")
+    }
+
     render() {
         let { recentStatusLeads } = this.props;
         let recentleads = recentStatusLeads.recentleads;

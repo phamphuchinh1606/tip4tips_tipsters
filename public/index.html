@@ -5,14 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tip4tips</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="apple-mobile-web-app-title" content="Smartnet">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
 
   <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="shortcut icon" href="https://www.google.com.vn/images/branding/product/ico/googleg_lodp.ico">
+  <link rel="apple-touch-icon"  href="https://www.google.com.vn/images/branding/product/ico/googleg_lodp.ico" />
+  <link rel="apple-touch-icon-precomposed" href="https://www.google.com.vn/images/branding/product/ico/googleg_lodp.ico" />
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;subset=vietnamese" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
@@ -43,8 +49,7 @@
   <!-- Google Font -->
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;subset=vietnamese" rel="stylesheet">
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -55,7 +60,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>React App</title>
+  <title>Tip4tips</title>
 </head>
 
 <body class="hold-transition skin-blue  sidebar-mini">
@@ -93,19 +98,19 @@
   <script src="%PUBLIC_URL%/js/admin/dataTables.bootstrap.min.js"></script>
 
   <script>
-      $(function () {
-        $('#viewList').DataTable({
-          'paging'      : true,
-          'lengthChange': false,
-          'searching'   : true,
-          'ordering'    : true,
-          'info'        : true,
-          'autoWidth'   : true,
-          'order': [],
-          'columnDefs': [ { orderable: false, targets: [0]}]
-        })
+    $(function () {
+      $('#viewList').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': true,
+        'order': [],
+        'columnDefs': [{ orderable: false, targets: [0] }]
       })
-    </script>
+    })
+  </script>
 </body>
 
 </html>

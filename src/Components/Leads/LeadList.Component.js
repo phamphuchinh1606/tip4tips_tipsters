@@ -68,7 +68,7 @@ export default class LeadListComponent extends Component {
                                                 </td>
                                                 <td className="lead__status">
                                                     <div className="lead__box">
-                                                        <span className="lead__name">
+                                                        <span className="lead__name" style={{color: item.status_color}}>
                                                             {item.status_text}
                                                         </span>
                                                         <span className="lead__product">{item.date}</span>
