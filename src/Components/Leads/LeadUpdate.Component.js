@@ -135,7 +135,7 @@ export default class LeadUpdate extends Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-12">
                         {/* create manager form */}
                         <div className="box box-success">
                             {/* box-header */}
@@ -227,11 +227,15 @@ export default class LeadUpdate extends Component {
                                 <Link to="/leads" className="btn btn-default">
                                     Cancel
                                 </Link>
+                                
                                 <button type="submit" className="btn btn-primary pull-right">Update</button>
+                                <Link to="/leads" className="btn btn-danger pull-right">
+                                    Delete
+                                </Link>
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    {/* <div className="col-md-4">
                         <div className="box box-success">
                             <div className="box-header with-border">
                                 <h3 className="box-title">Actions</h3>
@@ -246,7 +250,7 @@ export default class LeadUpdate extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </form>
         );

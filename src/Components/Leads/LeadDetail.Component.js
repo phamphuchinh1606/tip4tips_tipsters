@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+// import { confirmAlert } from 'react-confirm-alert'; // Import
+// import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export default class LeadDetailComponent extends Component {
     constructor(props) {
@@ -18,24 +18,24 @@ export default class LeadDetailComponent extends Component {
     _onClickDelete = () => {
         let { onDeleteLead, lead } = this.props;
         let message = "Do you really want to delete lead :" + lead.fullname+ " ?";
-        confirmAlert({
-            title: 'Confirm delete lead',
-            message: message,
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => {
-                        onDeleteLead(lead.id);
-                    }
-                },
-                {
-                    label: 'No',
-                    onClick: () => {
+        // confirmAlert({
+        //     title: 'Confirm delete lead',
+        //     message: message,
+        //     buttons: [
+        //         {
+        //             label: 'Yes',
+        //             onClick: () => {
+        //                 onDeleteLead(lead.id);
+        //             }
+        //         },
+        //         {
+        //             label: 'No',
+        //             onClick: () => {
 
-                    }
-                }
-            ]
-        })
+        //             }
+        //         }
+        //     ]
+        // })
     }
 
     render() {
@@ -64,9 +64,9 @@ export default class LeadDetailComponent extends Component {
                                 <Link to={`/leads/edit/${lead.id}`} className="btn btn-xs btn-info">
                                     <i className="fa fa-pencil"></i> Edit
                                 </Link>
-                                <a className="btn btn-xs btn-danger" onClick={this._onClickDelete.bind(this)}>
+                                {/* <a className="btn btn-xs btn-danger" onClick={this._onClickDelete.bind(this)}>
                                     <i className="fa fa-trash"></i> Delete
-                                </a>
+                                </a> */}
                             </span>
                         </div>
                         {/* box-body */}

@@ -1,34 +1,44 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect, Link } from 'react-router-dom';
 import RecentLeads from './RecentLeads';
 import LeadStatus from './LeadStatus';
 import * as Utils from '../../Commons/Utils';
 
-export default class DashboardComponent extends Component{
-    constructor(props){
+export default class DashboardComponent extends Component {
+    constructor(props) {
         super(props);
     }
     componentDidMount() {
-        let {onLoginSuccess, fetchRecentStatus, userInfo} = this.props;
+        let { onLoginSuccess, fetchRecentStatus, userInfo } = this.props;
         onLoginSuccess(Utils.getLogin());
-        if(userInfo){
+        if (userInfo) {
             fetchRecentStatus(userInfo.userId);
         }
-        
+
     }
-    render(){
-        let {recentStatusLeads} = this.props;
+    render() {
+        let { recentStatusLeads } = this.props;
         let recentleads = recentStatusLeads.recentleads;
-        let statusLead = recentStatusLeads.statusLead;  
-        return(
+        let statusLead = recentStatusLeads.statusLead;
+        return (
             <div className="row dashboard">
-                <div className="col-sm-12 col-lg-6">
-                    {/* LEADS LIST */}
-                    <RecentLeads recentleads={recentleads}/>
+                <div className="row margin-bottom-10">
+                    <div className="col-sm-12 col-lg-12">
+                        <Link className="btn btn-primary btn-block btn-add-lead" to="/menuparner">
+                            <i className="fa fa-plus"></i>
+                            <span className="margin-left-10">ADD NEW LEAD</span>
+                        </Link>
+                    </div>
                 </div>
-                <div className="col-sm-12 col-lg-6">
-                    {/* LEADS LIST */}
-                    <LeadStatus statusLead={statusLead}/>
+                <div className="row">
+                    <div className="col-sm-12 col-lg-6">
+                        {/* LEADS LIST */}
+                        <RecentLeads recentleads={recentleads} />
+                    </div>
+                    <div className="col-sm-12 col-lg-6">
+                        {/* LEADS LIST */}
+                        <LeadStatus statusLead={statusLead} />
+                    </div>
                 </div>
             </div>
         );

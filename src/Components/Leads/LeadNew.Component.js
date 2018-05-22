@@ -93,7 +93,7 @@ export default class LeadNew extends Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-12">
                         {/* create manager form */}
                         <div className="box box-success">
                             {/* box-header */}
@@ -191,7 +191,7 @@ export default class LeadNew extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {/* <div class="col-md-4">
                         <div class="box box-success">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Actions</h3>
@@ -206,7 +206,7 @@ export default class LeadNew extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </form>
         );

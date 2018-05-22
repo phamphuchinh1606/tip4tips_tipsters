@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import $ from 'jquery';
 import {  BrowserRouter as Router, NavLink, Link, Route } from 'react-router-dom';
 
 const MenuLink = ({ to, ...rest}) =>{
@@ -17,6 +18,10 @@ const MenuLink = ({ to, ...rest}) =>{
 }
 
 class Menu extends Component {
+    _clickMenuItem =() =>{
+        $('body').removeClass("sidebar-open");
+    }
+
     render() {
         let {userInfo} = this.props;
         return (
@@ -67,9 +72,8 @@ class Menu extends Component {
                                 <i className="fa fa-shield"></i><span>Choose insurance</span>
                             </NavLink >
                         </li> */}
-                        <MenuLink to="/" exact>Home</MenuLink>
-                        <MenuLink to="/leads" exact>Leads</MenuLink>
-                        <MenuLink to="/menuparner" exact>Choose insurance</MenuLink>
+                        <MenuLink to="/" exact onClick={this._clickMenuItem.bind(this)} >Home</MenuLink>
+                        <MenuLink to="/leads" exact onClick={this._clickMenuItem.bind(this)}>MY LEADS</MenuLink>
                     </ul>
                     {/* /.sidebar-menu */}
                 </section>

@@ -83,6 +83,9 @@ tr.message__read{
 }
 /*
 css custom form*/
+.content{
+    padding: 0;
+}
 label{
     font-weight: normal;
 }
@@ -96,6 +99,10 @@ input[type=date]::-webkit-inner-spin-button {
 .box-body,
 .box-footer{
     padding: 15px;
+}
+
+.box-footer .btn-danger{
+    margin-right: 20px;
 }
 .form-control{
     border-radius: 3px;
@@ -460,6 +467,58 @@ Table style*/
 .lead__list .lead__box .lead__product{
     display: block;
 }
+
+/* lead list view mobile */
+.lead__list_mobile td.lead__no{
+    width: 10px;
+}
+.lead__list_mobile td.lead__name{
+    width: 45%;
+}
+.lead__list_mobile td.lead__status{
+
+}
+.lead__list_mobile td.lead__actions{
+    width: 15px;
+}
+.lead__list_mobile{
+}
+.lead__list_mobile > li{
+}
+.lead__list_mobile > li > span{
+    float: left;
+}
+
+.lead__list_mobile > .lih{
+    font-weight: bold;
+}
+.lead__list_mobile .lead__box{
+    display: table;
+    width: 100%;
+}
+.lead__list_mobile .lead__box .lead__info,
+.lead__list_mobile .lead__box .lead__create-at{
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+}
+.lead__list_mobile .lead__box .lead__create-at{
+    width: 90px;
+    text-align: left;
+}
+.lead__list_mobile .lead__box .lead__info{
+    width: calc(100% - 90px);
+    border-left: 4px solid #337ab7;
+    padding-left: 10px;
+}
+.lead__list_mobile .lead__box .lead__status{
+    float: right;
+    font-size: 14px;
+}
+.lead__list_mobile .lead__box .lead__product{
+    display: block;
+}
+
 /*Pie Chart*/
 #pieChartLeads{
     margin-top: -35px;
@@ -490,6 +549,10 @@ Table style*/
     text-align: right;
 }
 /*List of activities*/
+.btn-add-lead{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
 .activities{
     padding: 15px;
     margin: 0;
