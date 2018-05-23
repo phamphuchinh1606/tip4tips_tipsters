@@ -5,3 +5,12 @@
 tr.odd{
     display: none;
 }
+
+.group__gender .radio-inline{
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.radio-inline.gender_female{
+    margin-left: 40px;
+}

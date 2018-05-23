@@ -4,6 +4,10 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGIN_CHECK = "LOGIN_CHECK";
 export const LOG_OUT = "LOG_OUT";
 
+//Loading
+export const LOADDING_TRUE = "LOADDING_TRUE";
+export const LOADDING_FALSE = "LOADDING_FALSE";
+
 //Leads
 export const LEAD_FETCH = "LEAD_FETCH";
 export const LEAD_FETCH_SUCCESS = "LEAD_FETCH_SUCCESS";

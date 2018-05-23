@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import apiCaller from '../../API/apiCaller';
 import * as URL from '../../API/URL';
+import * as Utils from '../../Commons/Utils';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 import './css/LeadNew.css';
 
@@ -41,7 +44,12 @@ export default class LeadUpdate extends Component {
     }
 
     async componentDidMount() {
-        let {tipsterId, loadUpdate, leadUpdateInit } = this.props;
+        let {tipsterId, loadUpdate, leadUpdateInit, onLoginSuccess } = this.props;
+        let userInfo = Utils.getLogin();
+        onLoginSuccess(Utils.getLogin());
+        if (userInfo) {
+            tipsterId = userInfo.userId;
+        }
         leadUpdateInit();
         let { id } = this.props.match.params;
         let urlEndPoint = URL.END_POINT_LEAD_UPDATE + "/" + tipsterId + "/" + id;
@@ -85,6 +93,29 @@ export default class LeadUpdate extends Component {
         lead.tipster = this.state.tipsterId;
         console.log(lead);
         this.props.onUpdate(lead);
+    }
+
+    _onClickDelete = () => {
+        let { onDeleteLead, lead } = this.props;
+        let message = "Do you really want to delete lead :" + this.state.fullname + " ?";
+        confirmAlert({
+            title: 'Confirm delete lead',
+            message: message,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        onDeleteLead(this.state.id);
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => {
+
+                    }
+                }
+            ]
+        })
     }
 
     render() {
@@ -132,9 +163,18 @@ export default class LeadUpdate extends Component {
                 return <Redirect to="/leads"/>
             }
         }
+
+        let { leadDeleteStatus} = this.props;
+        if(leadDeleteStatus.status){
+            if(leadDeleteStatus.status === "1"){
+                headerError = <div class="alert alert-danger clearfix"><p>{leadDeleteStatus.message}</p></div>
+            }else{
+                return <Redirect to="/leads"/>
+            }
+        }
         return (
             <form onSubmit={this.onSubmit}>
-                <div className="row">
+                <div className="lead_update row">
                     <div className="col-md-12">
                         {/* create manager form */}
                         <div className="box box-success">
@@ -229,9 +269,9 @@ export default class LeadUpdate extends Component {
                                 </Link>
                                 
                                 <button type="submit" className="btn btn-primary pull-right">Update</button>
-                                <Link to="/leads" className="btn btn-danger pull-right">
+                                <button type="button" className="btn btn-danger pull-right" onClick={this._onClickDelete.bind(this)}>
                                     Delete
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </div>

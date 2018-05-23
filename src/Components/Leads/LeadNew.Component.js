@@ -22,8 +22,12 @@ export default class LeadNew extends Component {
 
     componentDidMount() {
         //fet data drop box
-        this.props.onLoginSuccess(Utils.getLogin());
-        let { loadCreate, tipsterId, leadCreateInit } = this.props;
+        let { loadCreate, tipsterId, leadCreateInit, onLoginSuccess } = this.props;
+        let userInfo = Utils.getLogin();
+        onLoginSuccess(Utils.getLogin());
+        if (userInfo) {
+            tipsterId = userInfo.userId;
+        }
         leadCreateInit();
         loadCreate(tipsterId);
         this.state.tipsterId = tipsterId;
@@ -92,7 +96,7 @@ export default class LeadNew extends Component {
         }
         return (
             <form onSubmit={this.onSubmit}>
-                <div className="row">
+                <div className="lead_new row">
                     <div className="col-md-12">
                         {/* create manager form */}
                         <div className="box box-success">
@@ -126,7 +130,7 @@ export default class LeadNew extends Component {
                                                     Male
                                                 </label>
                                             </div>
-                                            <div className="radio-inline">
+                                            <div className="radio-inline gender_female">
                                                 <label>
                                                     <input type="radio" value="1" name="gender" onChange={this.handleChangeInput.bind(this)}/>
                                                     Female

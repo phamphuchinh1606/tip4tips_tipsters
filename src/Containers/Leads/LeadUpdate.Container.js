@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
         products: state.leadReducer.products,
         tipsterId: state.LoginReducer.userId,
         leadUpdate: state.leadReducer.leadUpdate,
-        leadUpdateStatus: state.leadReducer.leadUpdateStatus
+        leadUpdateStatus: state.leadReducer.leadUpdateStatus,
+        leadDeleteStatus: state.leadReducer.leadDeleteStatus
     }
 }
 
@@ -24,6 +25,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         leadUpdateInit: () => {
             dispatch(action.leadUpdateInit());
+        },
+        onLoginSuccess: (userInfo)=>{
+            dispatch(action.loginSuccess(userInfo));
+        },
+        onDeleteLead: (leadId) =>{
+            dispatch(action.leadDelete(leadId));
         },
     }
 }

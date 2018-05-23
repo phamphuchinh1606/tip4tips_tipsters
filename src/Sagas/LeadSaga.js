@@ -116,51 +116,62 @@ const lead = {
 
 function* fetchLeads(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {tipsterId} = action;
         let leadsFetch = yield leadService.fetchLeads(tipsterId);
         yield put(actionFunction.leadFetchSuccess(leadsFetch));
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadFetchSuccess(leads));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* fetchRegions(){
     try{
+        yield put(actionFunction.loaddingTrue());
         yield put(actionFunction.regionFetchSuccess(regions));
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadFetchFailead(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* fetchProducts(){
     try{
+        yield put(actionFunction.loaddingTrue());
         let productsFetch = yield productService.fetchProducts();
         yield put(actionFunction.productFetchSuccess(productsFetch));
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadFetchFailead(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* leadLoadCreate(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {tipsterId} = action;
         let leadFetch = yield leadService.leadLoadCreate(tipsterId);
-        console.log(leadFetch);
         yield put(actionFunction.leadLoadCreateSuccess(leadFetch));
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadLoadCreateFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* leadCreate(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {lead} = action;
         let data = yield leadService.leadCreate(lead);
-        console.log(data);
         if(data && data.status == "0"){
             let jsonValue = { message : "create lead : " + lead.fullname + " success", status : "0"};
             yield put(actionFunction.leadCreateSuccess(jsonValue));
@@ -171,14 +182,16 @@ function* leadCreate(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadCreateFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* leadDelete(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {leadId} = action;
         let isSuccess = yield leadService.leadDelete(leadId);
-        console.log(isSuccess);
         if(isSuccess){
             let jsonValue = { message : "delete lead success", status : "0"};
             yield put(actionFunction.leadDeleteSuccess(jsonValue));
@@ -189,11 +202,14 @@ function* leadDelete(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadDeleteFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* leadLoadUpdate(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {tipsterId,leadId} = action;
         let leadFetch = yield leadService.leadLoadUpdate(tipsterId,leadId);
         console.log(leadFetch);
@@ -201,11 +217,14 @@ function* leadLoadUpdate(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadLoadUpdateFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* leadUpdate(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {lead} = action;
         let isSuccess = yield leadService.leadUpdate(lead);
         console.log(isSuccess);
@@ -219,11 +238,14 @@ function* leadUpdate(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadUpdateFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* fetchLeadDetail(action){
     try{
+        yield put(actionFunction.loaddingTrue());
         let {leadId} = action;
         let leadFetch = yield leadService.fetchLeadDetail(leadId);
         console.log(leadFetch);
@@ -231,12 +253,14 @@ function* fetchLeadDetail(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadDetailFetchFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 
 function* fetchRecentStatusLeads(action){
-    
     try{
+        yield put(actionFunction.loaddingTrue());
         let {tipsterId} = action;
         let leadsFetch = yield leadService.fetchRecentStatusLeads(tipsterId);
         console.log(leadsFetch);
@@ -244,6 +268,8 @@ function* fetchRecentStatusLeads(action){
     }catch(error){
         console.log(error);
         yield put(actionFunction.recentStatusLeadsFetchFailed(error));
+    }finally{
+        yield put(actionFunction.loaddingFalse());
     }
 }
 

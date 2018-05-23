@@ -11,6 +11,8 @@ import { checkLogin } from '../../Commons/Utils';
 import LogigPage from '../Auth/Login.Page';
 import Layout from './Layout';
 
+import Loadding from '../../Components/Commons/Loadding';
+
 const userInfoSuccess = {
     userName: 'phamphuchinh',
     userId: '1',
@@ -52,6 +54,7 @@ class RootLayout extends Component {
                     enabled={this.state.isFull}
                 >
                     <Layout {...this.props}/>
+                    <Loadding/>
                 </Fullscreen>
             );
         }

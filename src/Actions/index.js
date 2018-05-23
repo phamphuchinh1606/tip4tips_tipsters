@@ -33,6 +33,19 @@ export const loginFailed = (error) => {
     }
 }
 
+//Loadding
+export const loaddingTrue = () =>{
+    return{
+        type : actionType.LOADDING_TRUE
+    }
+}
+
+export const loaddingFalse = () =>{
+    return{
+        type : actionType.LOADDING_FALSE
+    }
+}
+
 //Lead
 export const leadFetch = (tipsterId) => {
     return{

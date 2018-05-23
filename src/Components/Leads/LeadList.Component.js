@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './css/LeadNew.css';
+import * as Utils from '../../Commons/Utils';
 
 export default class LeadListComponent extends Component {
     constructor(props) {
@@ -8,8 +9,12 @@ export default class LeadListComponent extends Component {
     }
 
     componentDidMount() {
-        let { leadFetch, userInfo, leadCreateInit, leadUpdateInit, leadDeleteInit } = this.props;
-        leadFetch(userInfo.userId);
+        let { leadFetch, leadCreateInit, leadUpdateInit, leadDeleteInit, onLoginSuccess } = this.props;
+        let userInfo = Utils.getLogin();
+        onLoginSuccess(Utils.getLogin());
+        if (userInfo) {
+            leadFetch(userInfo.userId);
+        }
         leadCreateInit();
         leadUpdateInit();
         leadDeleteInit();
@@ -32,7 +37,7 @@ export default class LeadListComponent extends Component {
             <div className="box box-list">
                 {/* box-header */}
                 <div className="box-header">
-                    <h3 className="box-title">List of leads to My Leads</h3>
+                    <h3 className="box-title">My Leads</h3>
                     <Link to="/leads/add" className="btn btn-md btn-primary pull-right">
                         <i className="fa fa-plus"></i> New Lead
                     </Link>
