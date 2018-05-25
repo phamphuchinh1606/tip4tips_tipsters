@@ -7,6 +7,7 @@ import LeadNew from './Leads/LeadNew.Page';
 import LeadDetail from './Leads/LeadDetail.Page';
 import LeadUpdate from './Leads/LeadUpdate.Page';
 import MenuParnerPage from './Parners/MenuParner.Page';
+import MessagesPage from './Messages/Messages.Page';
 import NotFound from './NotFound.Page';
 
 const routers = [
@@ -45,6 +46,11 @@ const routers = [
 		path: '/leads',
 		exact: true,
 		main: () => <LeadList />
+	},
+	{
+		path: '/messages',
+		exact: true,
+		main: () => <MessagesPage />
 	},
 	{
 		path: '',

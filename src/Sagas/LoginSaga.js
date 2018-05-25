@@ -26,6 +26,8 @@ const USER_DEFAULT = {
 function* login(action){
     try{
         let {email, password} = action.value;
+        // yield put(loginSuccess(userInfoSuccess));
+        // yield localStorage.setItem("userInfo",JSON.stringify(userInfoSuccess));
         let userInfo = yield loginService.loginAction(email,password);
         if(userInfo.status){
             if(userInfo.status === "0"){

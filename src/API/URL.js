@@ -1,4 +1,4 @@
-export const URL_PAGE = "http://bachhoagiadung.com/server/public/api/";
+export const URL_PAGE = "http://localhost:8000/api/";
 
 //Login
 export const END_POINT_LOGIN = "login";

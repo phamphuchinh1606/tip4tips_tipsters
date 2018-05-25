@@ -36,6 +36,7 @@ export default class LeadNew extends Component {
             this.state.productId = productParamId;
         }
         this.setState(this.state);
+        this.refs.fullname.focus();
     }
 
     handleChangeInput = (e) => {
@@ -118,7 +119,7 @@ export default class LeadNew extends Component {
                                         <div className="form-group">
                                             <label>Full name</label>
                                             <input name="fullname" value={this.state.fullname} type="text" className="form-control" placeholder="Enter ..." required
-                                                onChange={this.handleChangeInput.bind(this)} />
+                                                onChange={this.handleChangeInput.bind(this)} ref="fullname"/>
                                         </div>
                                     </div>
                                     <div className="col-xs-12 col-sm-6">

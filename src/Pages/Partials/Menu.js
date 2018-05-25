@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import $ from 'jquery';
-import {  BrowserRouter as Router, NavLink, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink, Link, Route } from 'react-router-dom';
 
-const MenuLink = ({ to, ...rest}) =>{
-    return(
-        <Route exact path={to} children={({ match }) =>{
+const MenuLink = ({ to, ...rest }) => {
+    return (
+        <Route exact path={to} children={({ match }) => {
             var active = match ? 'active 123' : '';
             console.log(match);
-            return(
+            return (
                 <li className={active}>
-                    <NavLink to={to} {...rest}/>
+                    <NavLink to={to} {...rest} />
                 </li>
             )
-        }}/>
+        }} />
     )
 }
 
 class Menu extends Component {
-    _clickMenuItem =(menuClassName) =>{
+    _clickMenuItem = (menuClassName) => {
         $('body').removeClass("sidebar-open");
         $('.sidebar-menu li').removeClass("active");
-        $('.sidebar-menu li .'+ menuClassName).parent().addClass("active");
+        $('.sidebar-menu li .' + menuClassName).parent().addClass("active");
     }
 
     render() {
-        let {userInfo} = this.props;
+        let { userInfo } = this.props;
         return (
             <aside className="main-sidebar">
                 <section className="sidebar">
@@ -47,8 +47,21 @@ class Menu extends Component {
                     <ul className="sidebar-menu" data-widget="tree">
                         <li className="header">MAIN</li>
                         {/* Optionally, you can add icons to the links */}
-                        <MenuLink to="/" exact onClick={()=>this._clickMenuItem('menu-home')} className="menu-home">Home</MenuLink>
-                        <MenuLink to="/leads" exact onClick={()=>this._clickMenuItem('menu-leads')} className="menu-leads">My Leads</MenuLink>
+                        <MenuLink to="/" exact onClick={() => this._clickMenuItem('menu-home')} className="menu-home">
+                            <i class="fa fa-home"></i>
+                            <span>Home</span>
+                        </MenuLink>
+                        <MenuLink to="/leads" exact onClick={() => this._clickMenuItem('menu-leads')} className="menu-leads">
+                            <i class="fa fa-street-view"></i>
+                            <span>My Leads</span>
+                        </MenuLink>
+                        <MenuLink to="/messages" exact onClick={() => this._clickMenuItem('menu-messages')} className="menu-messages">
+                            <i class="fa fa-envelope"></i>
+                            <span>Messages</span>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green">0</small>
+                            </span>
+                        </MenuLink>
                     </ul>
                     {/* /.sidebar-menu */}
                 </section>
