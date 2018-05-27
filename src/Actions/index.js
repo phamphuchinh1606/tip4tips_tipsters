@@ -194,7 +194,7 @@ export const leadDeleteFailed = (error) => {
         leadDeleteStatus: error
     }
 }
-
+//Regions
 export const regionFetch = () => {
     return{
         type: actionType.REGION_FETCH
@@ -214,7 +214,7 @@ export const regionFetchFailed = (error) =>{
         error: error
     }
 }
-
+//Products
 export const productFetch = () => {
     return{
         type: actionType.PRODUCT_FETCH
@@ -231,6 +231,28 @@ export const productFetchSuccess = (products) =>{
 export const productFetchFailed = (error) =>{
     return{
         type: actionType.PRODUCT_FETCH_FAILED,
+        error: error
+    }
+}
+
+//Tipster
+export const tipsterFetch = (tipsterId) => {
+    return{
+        type: actionType.TIPSTER_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const tipsterFetchSuccess = (tipsters) =>{
+    return{
+        type: actionType.TIPSTER_FETCH_SUCCESS,
+        tipsters: tipsters
+    }
+}
+
+export const tipsterFetchFailed = (error) =>{
+    return{
+        type: actionType.TIPSTER_FETCH_FAILED,
         error: error
     }
 }
@@ -275,5 +297,79 @@ export const recentStatusLeadsFetchFailed = (error) => {
     return{
         type: actionType.RECENT_STATUS_LEADS_FETCH_FAILED,
         error: error
+    }
+}
+
+//Message
+export const messageNewFetch = (tipsterId) => {
+    return{
+        type: actionType.MESSAGE_NEW_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const messageNewFetchSuccess = (messageNews, messageNewCount) => {
+    return{
+        type: actionType.MESSAGE_NEW_FETCH_SUCCESS,
+        messageNews: messageNews,
+        messageNewCount: messageNewCount
+    }
+}
+
+export const messageNewFetchFailed = (error) => {
+    return{
+        type: actionType.MESSAGE_NEW_FETCH_FAILED,
+        error: error
+    }
+}
+
+export const messageAllFetch = (tipsterId) => {
+    return{
+        type: actionType.MESSAGE_ALL_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const messageAllFetchSuccess = (messageAll, messageAllCount) => {
+    return{
+        type: actionType.MESSAGE_ALL_FETCH_SUCCESS,
+        messageAll: messageAll,
+        messageAllCount: messageAllCount
+    }
+}
+
+export const messageAllFetchFailed = (error) => {
+    return{
+        type: actionType.MESSAGE_ALL_FETCH_FAILED,
+        error: error
+    }
+}
+
+export const messageDetailFetch = (messageId) => {
+    return{
+        type: actionType.MESSAGE_DETAIL_FETCH,
+        messageId: messageId
+    }
+}
+
+export const messageDetailFetchSuccess = (messageDetail) => {
+    return{
+        type: actionType.MESSAGE_DETAIL_FETCH_SUCCESS,
+        messageDetail: messageDetail
+    }
+}
+
+export const messageDetailFetchFailed = (error) => {
+    return{
+        type: actionType.MESSAGE_DETAIL_FETCH_FAILED,
+        error: error
+    }
+}
+
+//Network
+export const networkSet = (isConnection)=>{
+    return{
+        type: actionType.NETWORD_SET,
+        isConnection: isConnection
     }
 }

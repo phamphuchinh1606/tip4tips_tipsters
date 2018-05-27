@@ -1,10 +1,11 @@
 import { fork } from 'redux-saga/effects';
 import { watchLogin, watchLogout } from './LoginSaga';
 import {
-    watchFetchLeads, watchFetchRegions, watchFetchProducts, watchFetchLeadDetail,
+    watchFetchLeads, watchFetchRegions,watchFetchTipsters, watchFetchProducts, watchFetchLeadDetail,
     watchFetchLeadLoadCreate, watchLeadCreate, watchFetchLeadLoadUpdate, watchLeadDelete,
     watchLeadUpdate, watchFetchRecentStatusLeads
 } from './LeadSaga';
+import {watchMessageNewFetch, watchMessageAllFetch, watchMessageDetailFetch} from './MessageSaga';
 
 export default function* rootSaga() {
     yield [
@@ -14,6 +15,7 @@ export default function* rootSaga() {
         //leads
         fork(watchFetchLeads),
         fork(watchFetchRegions),
+        fork(watchFetchTipsters),
         fork(watchFetchProducts),
         fork(watchFetchLeadDetail),
         fork(watchFetchLeadLoadCreate),
@@ -21,6 +23,11 @@ export default function* rootSaga() {
         fork(watchLeadUpdate),
         fork(watchFetchLeadLoadUpdate),
         fork(watchLeadDelete),
-        fork(watchFetchRecentStatusLeads)
+        fork(watchFetchRecentStatusLeads),
+
+        //messages
+        fork(watchMessageNewFetch),
+        fork(watchMessageAllFetch),
+        fork(watchMessageDetailFetch)
     ];
 }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import { confirmAlert } from 'react-confirm-alert'; // Import
-// import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export default class LeadDetailComponent extends Component {
     constructor(props) {
@@ -18,28 +16,10 @@ export default class LeadDetailComponent extends Component {
     _onClickDelete = () => {
         let { onDeleteLead, lead } = this.props;
         let message = "Do you really want to delete lead :" + lead.fullname+ " ?";
-        // confirmAlert({
-        //     title: 'Confirm delete lead',
-        //     message: message,
-        //     buttons: [
-        //         {
-        //             label: 'Yes',
-        //             onClick: () => {
-        //                 onDeleteLead(lead.id);
-        //             }
-        //         },
-        //         {
-        //             label: 'No',
-        //             onClick: () => {
-
-        //             }
-        //         }
-        //     ]
-        // })
     }
 
     render() {
-        let { lead , leadDeleteStatus} = this.props;
+        let { lead, isConnection , leadDeleteStatus} = this.props;
         let listStatus = lead.historys;
         let headerError = [];
         if(leadDeleteStatus.status){
@@ -47,6 +27,21 @@ export default class LeadDetailComponent extends Component {
                 headerError = <div class="alert alert-danger clearfix"><p>{leadDeleteStatus.message}</p></div>
             }else{
                 return <Redirect to="/leads"/>
+            }
+        }
+        if(!listStatus){
+            listStatus = [];
+        }
+        let linkDelete = <Link to={`/leads/edit/${lead.id}`} className="btn btn-xs btn-info">
+                            <i className="fa fa-pencil"></i> Edit
+                        </Link>
+        if(!isConnection){
+            if(!lead.new_offline){
+                linkDelete = null;
+            }
+        }else{
+            if(lead.new_offline){
+                linkDelete = null;
             }
         }
         return (
@@ -61,12 +56,7 @@ export default class LeadDetailComponent extends Component {
                                 <Link to="/leads" className="btn btn-xs btn-default">
                                     <i className="fa fa-angle-left"></i> Back to list
                                 </Link>
-                                <Link to={`/leads/edit/${lead.id}`} className="btn btn-xs btn-info">
-                                    <i className="fa fa-pencil"></i> Edit
-                                </Link>
-                                {/* <a className="btn btn-xs btn-danger" onClick={this._onClickDelete.bind(this)}>
-                                    <i className="fa fa-trash"></i> Delete
-                                </a> */}
+                                {linkDelete}
                             </span>
                         </div>
                         {/* box-body */}
@@ -74,8 +64,10 @@ export default class LeadDetailComponent extends Component {
                             {/* header error */}
                             {headerError}
                             <div className="block__profile">
-                                <h3 className="profile__name">{lead.fullname}</h3>
-
+                                <h3 className="profile__name">
+                                    {lead.fullname}
+                                    <span className="not_sync"> {lead.new_offline_text} </span>
+                                </h3>
                                 <p className="text-muted">
                                     <span className="text-label"><i className="fa fa-phone margin-r-5"></i> Phone</span>
                                     <span className="text-highlight">{lead.phone}</span>

@@ -14,3 +14,14 @@ export const END_POINT_LEAD_RECENT_STATUS = "dashboard";
 
 //products
 export const END_POINT_PRODUCT_LIST = "products";
+
+//regions
+export const END_POINT_REGION_LIST = "regions";
+
+//tipster
+export const END_POINT_TIPSTER_LIST = "tipsters";
+
+//message
+export const END_POINT_MESSAGE_NEW = "message-new";
+export const END_POINT_MESSAGE_ALL = "message-all";
+export const END_POINT_MESSAGE_DETAIL = "message-detail";

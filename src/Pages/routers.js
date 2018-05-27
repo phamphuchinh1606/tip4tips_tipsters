@@ -8,6 +8,7 @@ import LeadDetail from './Leads/LeadDetail.Page';
 import LeadUpdate from './Leads/LeadUpdate.Page';
 import MenuParnerPage from './Parners/MenuParner.Page';
 import MessagesPage from './Messages/Messages.Page';
+import MessageDetailPage from './Messages/MessageDetail.Page';
 import NotFound from './NotFound.Page';
 
 const routers = [
@@ -51,6 +52,11 @@ const routers = [
 		path: '/messages',
 		exact: true,
 		main: () => <MessagesPage />
+	},
+	{
+		path: '/messages/show/:id',
+		exact: true,
+		main: ({history,match}) => <MessageDetailPage history = {history} match = {match}/>
 	},
 	{
 		path: '',

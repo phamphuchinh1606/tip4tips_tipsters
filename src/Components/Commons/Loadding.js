@@ -6,12 +6,12 @@ import './Loadding.css';
 
 class Loadding extends Component {
     render() {
-        if(true){
+        if(!this.props.isLoading){
             return null;
         }
         return (
             <div className='loadding'>
-                <img src="/images/loadding.gif"/>
+                <img src="/images/svg/spiner.svg" alt="loading"/>
             </div>
         );
     }

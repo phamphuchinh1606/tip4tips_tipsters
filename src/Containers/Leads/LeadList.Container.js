@@ -1,34 +1,43 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import LeadListComponent from '../../Components/Leads/LeadList.Component';
 import * as action from '../../Actions/index';
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         leads: state.leadReducer.leads,
-        leadCreaeStatus : state.leadReducer.leadCreaeStatus,
+        leadCreaeStatus: state.leadReducer.leadCreaeStatus,
         leadDeleteStatus: state.leadReducer.leadDeleteStatus,
-        userInfo : state.LoginReducer
+        userInfo: state.LoginReducer
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
-        leadFetch: (tipsterId)=>{
+    return {
+        leadFetch: (tipsterId) => {
             dispatch(action.leadFetch(tipsterId));
         },
-        leadCreateInit: ()=>{
+        leadCreateInit: () => {
             dispatch(action.leadCreaeInit());
         },
         leadUpdateInit: () => {
             dispatch(action.leadUpdateInit());
         },
-        leadDeleteInit: ()=>{
+        leadDeleteInit: () => {
             dispatch(action.leadDeleteInit());
         },
-        onLoginSuccess: (userInfo)=>{
+        onLoginSuccess: (userInfo) => {
             dispatch(action.loginSuccess(userInfo));
         },
+        onFetchProducts: () => {
+            dispatch(action.productFetch());
+        },
+        onFetchRegions: () => {
+            dispatch(action.regionFetch());
+        },
+        onFetchTipsters: (tipsterId) =>{
+            dispatch(action.tipsterFetch(tipsterId));
+        }
     }
 }
 

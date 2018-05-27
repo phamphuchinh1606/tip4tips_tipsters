@@ -6,7 +6,8 @@ import * as action from '../../Actions/index';
 const mapStateToProps = (state) => {
     return{
         lead: state.leadReducer.lead,
-        leadDeleteStatus: state.leadReducer.leadDeleteStatus
+        leadDeleteStatus: state.leadReducer.leadDeleteStatus,
+        isConnection: state.networkReducer.isConnection
     }
 }
 

@@ -8,7 +8,6 @@ export function* loginAction(email, password){
     };
     let userInfo = {};
     yield apiCaller(URL.END_POINT_LOGIN,"POST", body).then(res=>{
-        console.log(res);
         if(res.data){
             userInfo = res.data;
         }

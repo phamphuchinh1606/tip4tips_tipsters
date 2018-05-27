@@ -7,7 +7,6 @@ const MenuLink = ({ to, ...rest }) => {
     return (
         <Route exact path={to} children={({ match }) => {
             var active = match ? 'active 123' : '';
-            console.log(match);
             return (
                 <li className={active}>
                     <NavLink to={to} {...rest} />
@@ -48,18 +47,18 @@ class Menu extends Component {
                         <li className="header">MAIN</li>
                         {/* Optionally, you can add icons to the links */}
                         <MenuLink to="/" exact onClick={() => this._clickMenuItem('menu-home')} className="menu-home">
-                            <i class="fa fa-home"></i>
+                            <i className="fa fa-home"></i>
                             <span>Home</span>
                         </MenuLink>
                         <MenuLink to="/leads" exact onClick={() => this._clickMenuItem('menu-leads')} className="menu-leads">
-                            <i class="fa fa-street-view"></i>
+                            <i className="fa fa-street-view"></i>
                             <span>My Leads</span>
                         </MenuLink>
                         <MenuLink to="/messages" exact onClick={() => this._clickMenuItem('menu-messages')} className="menu-messages">
-                            <i class="fa fa-envelope"></i>
+                            <i className="fa fa-envelope"></i>
                             <span>Messages</span>
-                            <span class="pull-right-container">
-                                <small class="label pull-right bg-green">0</small>
+                            <span className="pull-right-container">
+                                <small className="label pull-right bg-green">{this.props.messageNewCount}</small>
                             </span>
                         </MenuLink>
                     </ul>
@@ -72,7 +71,8 @@ class Menu extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userInfo: state.LoginReducer
+        userInfo: state.LoginReducer,
+        messageNewCount: state.messageReducer.messageNewCount
     }
 }
 

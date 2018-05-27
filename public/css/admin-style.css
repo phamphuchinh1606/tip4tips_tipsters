@@ -12,6 +12,19 @@ img{
 .actions form{
     display: inline-block;
 }
+.network{
+    background-color: #fafaae;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 3px; 
+    height: 30px;
+    color: #ff0000;
+    line-height: 30px;
+    border: 1PX solid #ddd;
+}
+.not_sync{
+    color: #ff0000;
+}
 /*---------------------------------
 style for message
 -----------------------------------*/
@@ -521,6 +534,74 @@ Table style*/
     font-weight: bold;
 }
 
+/* messages list view mobile */
+.messages__list_mobile td.message__no{
+    width: 10px;
+}
+.messages__list_mobile td.message__sender{
+}
+.messages__list_mobile td.messege__title{
+    word-wrap:break-word;
+    display: block;
+}
+.messages__list_mobile td.message__actions{
+    width: 15px;
+}
+.messages__list_mobile{
+}
+.messages__list_mobile > li{
+}
+.messages__list_mobile > li > span{
+    float: left;
+}
+
+.messages__list_mobile > .lih{
+    font-weight: bold;
+}
+.messages__list_mobile .message__box{
+    display: table;
+    width: 100%;
+}
+.messages__list_mobile .message__box .message__info,
+.messages__list_mobile .message__box .message__create-at{
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+}
+.messages__list_mobile .message__box .message__create-at{
+    width: 90px;
+    text-align: left;
+}
+.messages__list_mobile .message__box .message__content{
+    word-wrap:break-word;
+    display: block;
+}
+.messages__list_mobile .message__box .message__info{
+    width: calc(100% - 90px);
+    border-left: 4px solid #337ab7;
+    padding-left: 10px;
+}
+.messages__list_mobile .message__box .message__status{
+    float: right;
+    font-size: 14px;
+}
+.messages__list_mobile .message__box .message__date{
+    display: block;
+}
+.messages__list_mobile .message__box .message__sender, .messages__list_mobile .message__box .message__title{
+    display: block;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 3px;
+}
+.mailbox-read-info .sj{
+    font-weight: bold;
+}
+.mailbox-read-info .sj span{
+    font-size: 18px;
+    color: #ddd;
+    font-weight: normal;
+}
 /*Pie Chart*/
 #pieChartLeads{
     margin-top: -35px;

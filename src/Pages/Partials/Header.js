@@ -1,11 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOutAction } from '../../Actions';
+import InnerHTML from 'dangerously-set-inner-html';
+import { RawHTML } from 'react-dom';
+import * as actionFunction from '../../Actions';
+import * as Utils from '../../Commons/Utils';
+import { Network } from '../../Commons/Utils';
 
 class Header extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        let { onLoadMessageNew } = this.props;
+        let userInfo = Utils.getLogin();
+        if (userInfo) {
+            onLoadMessageNew(userInfo.userId);
+        }
     }
 
     _onClickLogout = () => {
@@ -15,10 +27,45 @@ class Header extends Component {
     }
 
     render() {
-        let { userInfo } = this.props;
-        console.log(userInfo);
+        let { userInfo, messageNews, messageNewCount } = this.props;
+        let messagesHtml = <li>No messages.</li>;
+        if (messageNews && messageNews.length > 0) {
+            messagesHtml = messageNews.map((item, index) => {
+                return (
+                    <li key={index}>{/* start message */}
+                        <Link to={`/messages/show/${item.id}`}>
+                            <div className="pull-left">
+                                {/* User Image */}
+                                <img src={`${item.pathImage}/${item.senderAvatar}`} className="img-circle" alt="" />
+                            </div>
+                            {/* Message title and timestamp */}
+                            <h4>
+                                {item.senderUsername}
+                                <small><i className="fa fa-clock-o"></i>
+                                    <span dangerouslySetInnerHTML={{ __html: item.dateSend }} />
+                                </small>
+                            </h4>
+                            {/* The message */}
+                            <p dangerouslySetInnerHTML={{ __html: item.contentShow }} />
+                        </Link>
+
+                    </li>
+                )
+            })
+        }
         return (
             <header className="main-header">
+                <Network
+                    onChange={({ online }) => {
+                        if (online && window.cornify_add) {
+                            window.cornify_add()
+                        }
+                    }}
+                    render={({ online }) => {
+                        this.props.onSetNetwork(online);
+                        return null;
+                    }}
+                />
                 {/* Logo  */}
                 <Link className="logo" to="#">
                     {/* mini logo for sidebar mini 50x50 pixels  */}
@@ -40,36 +87,21 @@ class Header extends Component {
                                 {/* Menu toggle button */}
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                                     <i className="fa fa-envelope-o"></i>
-                                    <span className="label label-success">New message</span>
+                                    <span className="label label-success">{messageNewCount}</span>
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li className="header">You have new messages</li>
+                                    <li className="header">You have {messageNewCount} new messages</li>
                                     <li>
                                         {/* inner menu: contains the messages */}
                                         <ul className="menu">
-
-                                            <li>{/* start message */}
-                                                <a href="{{route('messages.show', $newmessage->id)}}">
-                                                    <div className="pull-left">
-                                                        {/* User Image */}
-                                                        <img src="/images/avatar5.png" class="img-circle" alt=""/>
-                                                    </div>
-                                                    {/* Message title and timestamp */}
-                                                    <h4>
-                                                        admin
-                                                        <small><i className="fa fa-clock-o"></i>  Today : 18:11 </small>
-                                                    </h4>
-                                                    {/* The message */}
-                                                    <p>noi dung mamil</p>
-                                                </a>
-                                            </li>
+                                            {messagesHtml}
                                             {/* end message */}
-                                            <li>No messages.</li>
-
                                         </ul>
                                         {/* /.menu */}
                                     </li>
-                                    <li className="footer"><a href="">See All Messages</a></li>
+                                    <li className="footer">
+                                        <Link to="/messages">See All Messages</Link>
+                                    </li>
                                 </ul>
                             </li>
                             {/* messages-menu */}
@@ -107,7 +139,6 @@ class Header extends Component {
                             </li>
                         </ul>
                     </div>
-
                 </nav>
             </header>
         );
@@ -116,14 +147,23 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userInfo: state.LoginReducer
+        userInfo: state.LoginReducer,
+        messageNews: state.messageReducer.messageNews,
+        messageNewCount: state.messageReducer.messageNewCount,
+        isConnection: state.networkReducer.isConnection
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => {
-            dispatch(logOutAction());
+            dispatch(actionFunction.logOutAction());
+        },
+        onLoadMessageNew: ($tipsterId) => {
+            dispatch(actionFunction.messageNewFetch($tipsterId));
+        },
+        onSetNetwork: (isConnection) =>{
+            dispatch(actionFunction.networkSet(isConnection));
         }
     }
 }

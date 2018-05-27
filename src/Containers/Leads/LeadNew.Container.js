@@ -4,7 +4,6 @@ import LeadNewComponent from '../../Components/Leads/LeadNew.Component';
 import * as action from '../../Actions/index';
 
 const mapStateToProps = (state) => {
-    console.log(state.LoginReducer);
     return{
         leadCreate: state.leadReducer.leadCreate,
         leadCreaeStatus : state.leadReducer.leadCreaeStatus,

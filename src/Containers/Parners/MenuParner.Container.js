@@ -4,7 +4,6 @@ import MenuParnerComponent from '../../Components/Parners/MenuParner.Component';
 import * as action from '../../Actions/index';
 
 const mapStateToProps = (state) => {
-    console.log(state.LoginReducer);
     return{
         products : state.leadReducer.products,
         tipsterId : state.LoginReducer.userId

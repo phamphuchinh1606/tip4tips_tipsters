@@ -6,7 +6,7 @@ import routers from '../routers';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 
-import { checkLogin } from '../../Commons/Utils';
+import { checkLogin, Network } from '../../Commons/Utils';
 
 import Header from '../Partials/Header';
 import Footer from '../Partials/Footer';
@@ -41,40 +41,42 @@ export default class Layout extends Component {
         }
         return (
             <div className="main-content">
-                
-                    {/* header-starts */}
-                    <Header />
-                    {/* //header-ends */}
-                    {/*left-fixed -navigation*/}
-                    <Menu />
-                    {/*left-fixed -navigation*/}
+                {/* header-starts */}
+                <Header />
+                {/* //header-ends */}
+                {/*left-fixed -navigation*/}
+                <Menu />
+                {/*left-fixed -navigation*/}
 
-                    {/* main content start*/}
-                    <div className="content-wrapper" style={{ minHeight: 660 }}>
-                        {/* Content Header (Page header) */}
-                        {/* <section className="content-header">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item">
-                                    <a href="http://tip4tips-v2.amagumolabs.io/home">
-                                        <i className="fa fa-home"></i>Home
-                                </a>
-                                </li>
-                                <li className="breadcrumb-item">
-                                    <a href="http://tip4tips-v2.amagumolabs.io/admin/products">List of Products</a>
-                                </li>
-                                <li className="breadcrumb-item active">Edit Product</li>
-                            </ol>
-                        </section> */}
-                        <section className="content">
-                            <Switch>
-                                {this.showContentRoute(routers)}
-                            </Switch>
-                            <div className="clearfix"> </div>
-                        </section>
-                    </div>
-                    {/*footer*/}
-                    <Footer />
-                    {/*//footer*/}
+                {/* main content start*/}
+                <div className="content-wrapper" style={{ minHeight: 660 }}>
+                    <section className="content">
+                        <Network
+                            onChange={({ online }) => {
+                                if (online && window.cornify_add) {
+                                    window.cornify_add()
+                                }
+                            }}
+                            render={({ online }) => {
+                                if(!online){
+                                    return (
+                                        <div className="network">
+                                            No internet connection
+                                        </div>
+                                    )
+                                }
+                                return null;
+                            }}
+                        />
+                        <Switch>
+                            {this.showContentRoute(routers)}
+                        </Switch>
+                        <div className="clearfix"> </div>
+                    </section>
+                </div>
+                {/*footer*/}
+                <Footer />
+                {/*//footer*/}
             </div>
         );
     }

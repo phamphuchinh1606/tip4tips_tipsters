@@ -87,7 +87,6 @@ export default class LeadNew extends Component {
             tipster = <option value={leadCreate.tipsters.id} selected> {leadCreate.tipsters.username} </option>
         }
         let headerError = [];
-        console.log(leadCreaeStatus);
         if(leadCreaeStatus.status){
             if(leadCreaeStatus.status === "1"){
                 headerError = <div class="alert alert-danger clearfix"><p>{leadCreaeStatus.message}</p></div>
@@ -142,57 +141,57 @@ export default class LeadNew extends Component {
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-xs-12 col-sm-6">
+                                        <div className="form-group">
                                             <label>Phone</label>
-                                            <input name="phone" value={this.state.phone} type="text" class="form-control" placeholder="Enter ..."
+                                            <input name="phone" value={this.state.phone} type="text" className="form-control" placeholder="Enter ..."
                                                 onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
+                                    <div className="col-xs-12 col-sm-6">
+                                        <div className="form-group">
                                             <label>Email</label>
-                                            <input name="email" value={this.state.email} type="email" class="form-control" placeholder="Enter ..."
+                                            <input name="email" value={this.state.email} type="email" className="form-control" placeholder="Enter ..."
                                                 onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-xs-12 col-sm-6">
+                                        <div className="form-group">
                                             <label>Region</label>
-                                            <select name="regionId" class="form-control" required onChange={this.handleChangeInput.bind(this)}>
+                                            <select name="regionId" className="form-control" required onChange={this.handleChangeInput.bind(this)}>
                                                 <option value="" disabled selected>Please pick a region</option>
                                                 {regions}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="form-group">
+                                    <div className="col-xs-12 col-sm-6">
+                                        <div className="form-group">
                                             <label>Product</label>
-                                            <select name="productId" class="form-control" required onChange={this.handleChangeInput.bind(this)}>
+                                            <select name="productId" className="form-control" required onChange={this.handleChangeInput.bind(this)}>
                                                 <option value="" disabled selected>Please pick a product</option>
                                                 {products}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
+                                    <div className="col-xs-12">
+                                        <div className="form-group">
                                             <label>Notes</label>
-                                            <textarea name="notes" class="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5"
+                                            <textarea name="notes" className="form-control" placeholder="URGENT - PLEASE CONTACT ASAP" rows="5"
                                                 onChange={this.handleChangeInput.bind(this)} value={this.state.notes}></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="box-footer">
+                            <div className="box-footer">
                                 <Link to="/leads" className="btn btn-default">
                                     Cancel
                                 </Link>
-                                <button type="submit" class="btn btn-primary pull-right">Create</button>
+                                <button type="submit" className="btn btn-primary pull-right">Create</button>
                             </div>
                         </div>
                     </div>

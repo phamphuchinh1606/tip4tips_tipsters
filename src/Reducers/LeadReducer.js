@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     leads: [],
     regions: [],
     products: [],
+    tipsters:[],
     lead: {
         leadName: '',
         phone: '',
@@ -38,6 +39,9 @@ var leadReducer = (state = INITIAL_STATE, action) => {
             return stateCopy;
         case actionType.PRODUCT_FETCH_SUCCESS:
             stateCopy.products = action.products;
+            return stateCopy;
+        case actionType.TIPSTER_FETCH_SUCCESS:
+            stateCopy.tipsters = action.tipsters;
             return stateCopy;
         case actionType.LEAD_DETAIL_FETCH_SUCCESS:
             stateCopy.lead = action.lead;

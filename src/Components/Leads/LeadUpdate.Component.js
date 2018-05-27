@@ -5,6 +5,7 @@ import * as URL from '../../API/URL';
 import * as Utils from '../../Commons/Utils';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import * as LocalStorageAction from '../../Commons/LocalStorageAction';
 
 import './css/LeadNew.css';
 
@@ -39,12 +40,13 @@ export default class LeadUpdate extends Component {
             regionId: '',
             productId: '',
             notes: '',
-            tipsterId: ''
+            tipsterId: '',
+            lead : null
         }
     }
 
     async componentDidMount() {
-        let {tipsterId, loadUpdate, leadUpdateInit, onLoginSuccess } = this.props;
+        let {tipsterId, loadUpdate, leadUpdateInit, onLoginSuccess, isConnection } = this.props;
         let userInfo = Utils.getLogin();
         onLoginSuccess(Utils.getLogin());
         if (userInfo) {
@@ -52,25 +54,44 @@ export default class LeadUpdate extends Component {
         }
         leadUpdateInit();
         let { id } = this.props.match.params;
-        let urlEndPoint = URL.END_POINT_LEAD_UPDATE + "/" + tipsterId + "/" + id;
-        await apiCaller(urlEndPoint,"GET", null).then(res=>{
-            if(res){
-                this.state.regions = res.data.regions;
-                this.state.products = res.data.products;
-                this.state.tipsters = res.data.tipsters;
-                this.state.id = res.data.lead.id;
-                this.state.fullname = res.data.lead.fullname;
-                this.state.gender = res.data.lead.gender;
-                this.state.phone = res.data.lead.phone;
-                this.state.email = res.data.lead.email;
-                this.state.regionId = res.data.lead.region_id;
-                this.state.productId = res.data.lead.product_id;
-                this.state.notes = res.data.lead.notes;
-                this.state.tipsterId = res.data.lead.tipster_id;
-                this.setState(this.state);
+        if(isConnection){
+            let urlEndPoint = URL.END_POINT_LEAD_UPDATE + "/" + tipsterId + "/" + id;
+            await apiCaller(urlEndPoint,"GET", null).then(res=>{
+                if(res){
+                    this.state.regions = res.data.regions;
+                    this.state.products = res.data.products;
+                    this.state.tipsters = res.data.tipsters;
+                    this.state.id = res.data.lead.id;
+                    this.state.fullname = res.data.lead.fullname;
+                    this.state.gender = res.data.lead.gender;
+                    this.state.phone = res.data.lead.phone;
+                    this.state.email = res.data.lead.email;
+                    this.state.regionId = res.data.lead.region_id;
+                    this.state.productId = res.data.lead.product_id;
+                    this.state.notes = res.data.lead.notes;
+                    this.state.tipsterId = res.data.lead.tipster_id;
+                    this.setState(this.state);
+                }
+            });
+        }else{
+            this.state.regions = LocalStorageAction.getRegionsList();
+            this.state.products = LocalStorageAction.getProductsList();
+            this.state.tipsters = LocalStorageAction.getTipstersList();
+            let lead = LocalStorageAction.getLeadDetail(id);
+            if(lead){
+                this.state.id = lead.id;
+                this.state.fullname = lead.fullname;
+                this.state.gender = lead.gender;
+                this.state.phone = lead.phone;
+                this.state.email = lead.email;
+                this.state.regionId = lead.region_id;
+                this.state.productId = lead.product_id;
+                this.state.notes = lead.notes;
+                this.state.tipsterId = lead.tipster_id;
+                this.state.lead = lead;
             }
-        });
-        
+            this.setState(this.state);
+        }
     }
 
     handleChangeInput = (e) => {
@@ -82,6 +103,9 @@ export default class LeadUpdate extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         let lead = {};
+        if(this.state.lead){
+            lead = this.state.lead;
+        }
         lead.id = this.state.id;
         lead.fullname = this.state.fullname;
         lead.email = this.state.email;
@@ -91,7 +115,6 @@ export default class LeadUpdate extends Component {
         lead.product = this.state.productId;
         lead.region = this.state.regionId;
         lead.tipster = this.state.tipsterId;
-        console.log(lead);
         this.props.onUpdate(lead);
     }
 
@@ -155,7 +178,6 @@ export default class LeadUpdate extends Component {
 
         let headerError = [];
         let {leadUpdateStatus} = this.props;
-        console.log(leadUpdateStatus);
         if(leadUpdateStatus.status){
             if(leadUpdateStatus.status == "1"){
                 headerError = <div className="alert alert-danger clearfix"><p>{leadUpdateStatus.message}</p></div>

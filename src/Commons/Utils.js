@@ -1,5 +1,7 @@
 import { Redirect } from 'react-router-dom';
 
+export const Network = require('react-network').default;
+
 export const checkLogin = () => {
     let userInfoRoot = localStorage.getItem("userInfo");
     if (userInfoRoot === null) {

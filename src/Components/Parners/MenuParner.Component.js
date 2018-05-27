@@ -54,7 +54,6 @@ export default class MenuParnerComponent extends Component {
 
     render() {
         let { products } = this.props;
-        console.log(products);
         return (
             <div className="row">
                 <div>

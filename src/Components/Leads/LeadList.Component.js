@@ -9,12 +9,15 @@ export default class LeadListComponent extends Component {
     }
 
     componentDidMount() {
-        let { leadFetch, leadCreateInit, leadUpdateInit, leadDeleteInit, onLoginSuccess } = this.props;
+        let { leadFetch, leadCreateInit, leadUpdateInit, leadDeleteInit, onLoginSuccess,onFetchProducts, onFetchRegions, onFetchTipsters } = this.props;
         let userInfo = Utils.getLogin();
         onLoginSuccess(Utils.getLogin());
         if (userInfo) {
             leadFetch(userInfo.userId);
+            onFetchTipsters(userInfo.userId);
         }
+        onFetchProducts();
+        onFetchRegions();
         leadCreateInit();
         leadUpdateInit();
         leadDeleteInit();
@@ -26,17 +29,17 @@ export default class LeadListComponent extends Component {
         let headerInfo = [];
         if (leadCreaeStatus.status) {
             if (leadCreaeStatus.status === "0") {
-                headerInfo = <div class="alert alert-success clearfix"><p>{leadCreaeStatus.message}</p></div>
+                headerInfo = <div className="alert alert-success clearfix"><p>{leadCreaeStatus.message}</p></div>
             }
         } else if (leadDeleteStatus.status) {
             if (leadDeleteStatus.status === "0") {
-                headerInfo = <div class="alert alert-success clearfix"><p>{leadDeleteStatus.message}</p></div>
+                headerInfo = <div className="alert alert-success clearfix"><p>{leadDeleteStatus.message}</p></div>
             }
         }
         return (
             <div className="box box-list">
                 {/* box-header */}
-                <div className="box-header">
+                <div className="box-header with-border">
                     <h3 className="box-title">My Leads</h3>
                     <Link to="/leads/add" className="btn btn-md btn-primary pull-right">
                         <i className="fa fa-plus"></i> New Lead
@@ -46,7 +49,6 @@ export default class LeadListComponent extends Component {
                 <div>
                     {/* header info */}
                     {headerInfo}
-                    <br />
                     <div>
                         <table className="table table-hover table-striped lead__list_mobile">
                             <thead>
@@ -75,6 +77,7 @@ export default class LeadListComponent extends Component {
                                                     <div className="lead__box">
                                                         <span className="lead__name" style={{color: item.status_color}}>
                                                             {item.status_text}
+                                                            <span className="not_sync"> {item.new_offline_text} </span>
                                                         </span>
                                                         <span className="lead__product">{item.date}</span>
                                                     </div>
@@ -83,10 +86,6 @@ export default class LeadListComponent extends Component {
                                                     <Link to={{ pathname: `/leads/show/${item.id}` }} className="btn btn-xs btn-success">
                                                         <i className="fa fa-eye"></i>
                                                     </Link>
-                                                    {/* <Link to={{ pathname: `/leads/edit/${item.id}` }} className="btn btn-xs btn-info" title="Edit">
-                                                        <i className="fa fa-pencil"></i>
-                                                    </Link> */}
-                                                    {/* <a href="{{route('leads.edit', $lead->id)}}" className="btn btn-xs btn-info" title="Edit"><i className="fa fa-pencil"></i></a> */}
                                                 </td>
                                             </tr>
                                         )

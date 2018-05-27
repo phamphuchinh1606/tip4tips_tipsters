@@ -9,7 +9,6 @@ var LoaddingReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case actionType.LOADDING_TRUE:
             stateCopy.isLoading = true;
-            console.log("thiet lap loading");
             return stateCopy;
         case actionType.LOADDING_FALSE:
             stateCopy.isLoading = false;
