@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './css/LeadNew.css';
 import * as Utils from '../../Commons/Utils';
+import * as LocalStorageAction from '../../Commons/LocalStorageAction';
 
 export default class LeadListComponent extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export default class LeadListComponent extends Component {
     }
 
     render() {
-        let { leads, leadCreaeStatus, leadDeleteStatus } = this.props;
+        let { leads, leadCreaeStatus, leadDeleteStatus, isConnection } = this.props;
         if (!leads) leads = [];
         let headerInfo = [];
         if (leadCreaeStatus.status) {
@@ -36,6 +37,14 @@ export default class LeadListComponent extends Component {
                 headerInfo = <div className="alert alert-success clearfix"><p>{leadDeleteStatus.message}</p></div>
             }
         }
+        let leadsSync = LocalStorageAction.getLeadNotSync();
+        let buttonSync = null;
+        if(isConnection && leadsSync && leadsSync.length > 0){
+            buttonSync = <button className="btn btn-md btn-warning pull-right sync-leads">
+                            <i class="fa fa-refresh"></i> Synchronize
+                        </button>;
+        }
+        
         return (
             <div className="box box-list">
                 {/* box-header */}
@@ -44,6 +53,7 @@ export default class LeadListComponent extends Component {
                     <Link to="/leads/add" className="btn btn-md btn-primary pull-right">
                         <i className="fa fa-plus"></i> New Lead
                     </Link>
+                    {buttonSync}
                 </div>
 
                 <div>

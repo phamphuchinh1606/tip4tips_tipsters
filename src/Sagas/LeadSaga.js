@@ -366,9 +366,16 @@ function* fetchLeadDetail(action){
 function* fetchRecentStatusLeads(action){
     try{
         yield put(actionFunction.loaddingTrue());
-        let {tipsterId} = action;
-        let leadsFetch = yield leadService.fetchRecentStatusLeads(tipsterId);
-        yield put(actionFunction.recentStatusLeadsFetchSuccess(leadsFetch));
+        const isOnline = yield checkIsOnline();
+        if(!isOnline){
+            let leadsFetch = yield LocalStorageAction.getHome();
+            yield put(actionFunction.recentStatusLeadsFetchSuccess(leadsFetch));
+        }else{
+            let {tipsterId} = action;
+            let leadsFetch = yield leadService.fetchRecentStatusLeads(tipsterId);
+            yield LocalStorageAction.setHome(leadsFetch);
+            yield put(actionFunction.recentStatusLeadsFetchSuccess(leadsFetch));
+        }
     }catch(error){
         console.log(error);
         yield put(actionFunction.recentStatusLeadsFetchFailed(error));

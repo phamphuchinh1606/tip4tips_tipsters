@@ -226,3 +226,41 @@ export const getTipsterDetail = (tipsterId) =>{
     }
     return {};
 }
+
+//Messages
+export const setMessagesList = (messages) =>{
+    localStorage.setItem(LocalStorageType.LOCAL_MESSAGE_LIST, JSON.stringify(messages));
+}
+
+export const getMessagesList = () => {
+    let messages = localStorage.getItem(LocalStorageType.LOCAL_MESSAGE_LIST);
+    if(messages){
+        messages = JSON.parse(messages);
+    }
+    return messages;
+}
+
+export const getMessageDetail = (messageId) =>{
+    let messages = getMessagesList();
+    if (messages) {
+        for (let index in messages) {
+            let message = messages[index];
+            if (message.id == messageId) {
+                return message;
+            }
+        }
+    }
+    return {};
+}
+//Home
+export const setHome = (home) =>{
+    localStorage.setItem(LocalStorageType.LOCAL_HOME, JSON.stringify(home));
+}
+
+export const getHome = () => {
+    let home = localStorage.getItem(LocalStorageType.LOCAL_HOME);
+    if(home){
+        home = JSON.parse(home);
+    }
+    return home;
+}

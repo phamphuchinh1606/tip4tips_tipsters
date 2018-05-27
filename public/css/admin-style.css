@@ -352,6 +352,9 @@ Table style*/
 /*End
 Table style*/
 /*.ul__leads*/
+.sync-leads{
+    margin-right: 10px;
+}
 .ul__leads{
     padding: 10px 15px;
 }

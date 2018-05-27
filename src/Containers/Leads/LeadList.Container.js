@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
         leads: state.leadReducer.leads,
         leadCreaeStatus: state.leadReducer.leadCreaeStatus,
         leadDeleteStatus: state.leadReducer.leadDeleteStatus,
-        userInfo: state.LoginReducer
+        userInfo: state.LoginReducer,
+        isConnection: state.networkReducer.isConnection
     }
 }
 
