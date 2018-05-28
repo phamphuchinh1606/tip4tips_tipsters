@@ -53,9 +53,9 @@ export default class LeadNew extends Component {
         lead.gender = this.state.gender;
         lead.phone = this.state.phone;
         lead.notes = this.state.notes;
-        lead.product = this.state.productId;
-        lead.region = this.state.regionId;
-        lead.tipster = this.state.tipsterId;
+        lead.product_id = this.state.productId;
+        lead.region_id = this.state.regionId;
+        lead.tipster_id = this.state.tipsterId;
         this.props.onCreateLead(lead);
     }
 

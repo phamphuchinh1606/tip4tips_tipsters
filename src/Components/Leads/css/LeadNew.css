@@ -14,3 +14,34 @@ tr.odd{
 .radio-inline.gender_female{
     margin-left: 40px;
 }
+
+.header-modal h3{
+    margin: 0;
+    padding: 0.4em;
+    text-align: center;
+    font-size: 2.4em;
+    font-weight: 300;
+    opacity: 0.8;
+    background: rgba(0,0,0,0.1);
+    border-radius: 3px 3px 0 0;
+}
+
+.content-modal img{
+    position: absolute;
+    z-index: 1073;
+    left: 50%;
+    top: 50%;
+    width: 200px;
+    height: 200px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.content-modal .total_leads{
+    float: left;
+}
+
+.content-modal .synchronized{
+    float: right;
+}

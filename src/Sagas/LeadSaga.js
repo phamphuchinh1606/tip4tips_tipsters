@@ -175,6 +175,7 @@ function* fetchProducts(){
             yield put(actionFunction.productFetchSuccess(productsFetch));
         }else{
             let productsFetch = yield productService.fetchProducts();
+            console.log(productsFetch);
             yield LocalStorageAction.setProductsList(productsFetch);
             yield put(actionFunction.productFetchSuccess(productsFetch));
         }

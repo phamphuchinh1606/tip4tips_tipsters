@@ -23,6 +23,20 @@ export const getLeadNotSync = () =>{
     return leadsNotSync;
 }
 
+export const setLeadSync = (lead) =>{
+    let leads = getLeadsList();
+    if (leads) {
+        for (let index in leads) {
+            if (leads[index].id == lead.id) {
+                leads[index].new_offline = null;
+                leads[index].new_offline_text = null;
+                break;
+            }
+        }
+        setLeadsList(leads);
+    }
+}
+
 export const getLeadDetail = (leadId) => {
     let leads = getLeadsList();
     if (leads) {
@@ -67,19 +81,19 @@ export const createLead = (lead) =>{
     date =  today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
     lead.date = date;
     //set region
-    lead.region_id = lead.region;
+    lead.region_id = lead.region_id;
     let regionDetail = getRegionDetail(lead.region_id);
     if(regionDetail){
         lead.region = regionDetail.name;
     }
     //set product
-    lead.product_id = lead.product;
+    lead.product_id = lead.product_id;
     let productDetail = getProductDetail(lead.product_id);
     if(productDetail){
         lead.product = productDetail.category;
     }
     //set tipster
-    lead.tipster_id = lead.tipster;
+    lead.tipster_id = lead.tipster_id;
     let tipsterDetail = getTipsterDetail(lead.tipster_id);
     if(tipsterDetail){
         lead.tipster = tipsterDetail.fullname;
@@ -105,19 +119,19 @@ export const updateLead = (lead) =>{
     date =  today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
     lead.updated_at = date;
     //set region
-    lead.region_id = lead.region;
+    lead.region_id = lead.region_id;
     let regionDetail = getRegionDetail(lead.region_id);
     if(regionDetail){
         lead.region = regionDetail.name;
     }
     //set product
-    lead.product_id = lead.product;
+    lead.product_id = lead.product_id;
     let productDetail = getProductDetail(lead.product_id);
     if(productDetail){
         lead.product = productDetail.category;
     }
     //set tipster
-    lead.tipster_id = lead.tipster;
+    lead.tipster_id = lead.tipster_id;
     let tipsterDetail = getTipsterDetail(lead.tipster_id);
     if(tipsterDetail){
         lead.tipster = tipsterDetail.fullname;
