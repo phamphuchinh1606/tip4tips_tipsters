@@ -77,9 +77,9 @@ class Header extends Component {
                 {/* Logo  */}
                 <Link className="logo" to="#">
                     {/* mini logo for sidebar mini 50x50 pixels  */}
-                    <span className="logo-mini">T4T</span>
+                    <span className="logo-mini"><img src="./logoTip4tip.png" width="20"/></span>
                     {/* logo for regular state and mobile devices  */}
-                    <span className="logo-lg">Tip4Tips</span>
+                    <span className="logo-lg"><img src="./logoTip4tip.png" width="20"/> Tip4Tips</span>
                 </Link>
                 {/* Header Navbar */}
                 {/* Right Side Of Navbar */}
@@ -100,8 +100,8 @@ class Header extends Component {
                                 <ul className="dropdown-menu">
                                     <li className="header">
                                         <span>You have {messageNewCount} new messages</span>
-                                        <button class="btn btn-xs btn-info pull-right" onClick={this._clickRefreshMail.bind(this)}>
-                                            <i class="fa fa-refresh"></i> Refresh
+                                        <button className="btn btn-xs btn-info pull-right" onClick={this._clickRefreshMail.bind(this)}>
+                                            <i className="fa fa-refresh"></i> Refresh
                                         </button>
                                     </li>
                                     <li>

@@ -3,22 +3,22 @@ CACHE:
 logoTip4tip.png
 favicon.ico
 
-css/app.css
-css/style.css
+css/app.css?v1.0
+css/style.css?v1.0
 
 https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&subset=vietnamese
 https://fonts.googleapis.com/css?family=Berkshire+Swash
 https://fonts.googleapis.com/css?family=Raleway:300,400,600
 
-css/icons/font-awesome.min.css
-css/icons/ionicons.min.css
-css/admin/AdminLTE.min.css
-css/admin/skins/skin-blue.min.css
-css/admin/morris.css
-css/admin/jquery-jvectormap.css
-css/admin/dataTables.bootstrap.min.css
-css/admin/bootstrap-datepicker.min.css
-css/admin-style.css?v1.1.6
+css/icons/font-awesome.min.css?v1.0
+css/icons/ionicons.min.css?v1.0
+css/admin/AdminLTE.min.css?v1.0
+css/admin/skins/skin-blue.min.css?v1.0
+css/admin/morris.css?v1.0
+css/admin/jquery-jvectormap.css?v1.0
+css/admin/dataTables.bootstrap.min.css?v1.0
+css/admin/bootstrap-datepicker.min.css?v1.0
+css/admin-style.css?v1.0
 
 js/app.js
 js/admin/morris.js
@@ -33,6 +33,8 @@ js/admin/jquery.dataTables.min.js
 js/admin/dataTables.bootstrap.min.js
 
 images/loadding.gif
+images/svg/spiner.svg
+images/sync_loadding.gif
 
 static/js/bundle.js
 
