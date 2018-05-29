@@ -26,6 +26,14 @@ class Header extends Component {
         <Redirect to="/login" />
     }
 
+    _clickRefreshMail = () =>{
+        let { onLoadMessageNew } = this.props;
+        let userInfo = Utils.getLogin();
+        if (userInfo) {
+            onLoadMessageNew(userInfo.userId);
+        }
+    }
+
     render() {
         let { userInfo, messageNews, messageNewCount } = this.props;
         let messagesHtml = <li>No messages.</li>;
@@ -90,7 +98,12 @@ class Header extends Component {
                                     <span className="label label-success">{messageNewCount}</span>
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li className="header">You have {messageNewCount} new messages</li>
+                                    <li className="header">
+                                        <span>You have {messageNewCount} new messages</span>
+                                        <button class="btn btn-xs btn-info pull-right" onClick={this._clickRefreshMail.bind(this)}>
+                                            <i class="fa fa-refresh"></i> Refresh
+                                        </button>
+                                    </li>
                                     <li>
                                         {/* inner menu: contains the messages */}
                                         <ul className="menu">
@@ -159,8 +172,8 @@ const mapDispatchToProps = (dispatch) => {
         onLogout: () => {
             dispatch(actionFunction.logOutAction());
         },
-        onLoadMessageNew: ($tipsterId) => {
-            dispatch(actionFunction.messageNewFetch($tipsterId));
+        onLoadMessageNew: (tipsterId) => {
+            dispatch(actionFunction.messageNewFetch(tipsterId));
         },
         onSetNetwork: (isConnection) =>{
             dispatch(actionFunction.networkSet(isConnection));

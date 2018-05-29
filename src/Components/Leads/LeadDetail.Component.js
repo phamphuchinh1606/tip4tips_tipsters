@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import * as Utils from '../../Commons/Utils';
 
 export default class LeadDetailComponent extends Component {
     constructor(props) {
@@ -8,7 +9,9 @@ export default class LeadDetailComponent extends Component {
 
     componentDidMount() {
         let { id } = this.props.match.params;
-        let { fetchLeadDetail, leadDeleteInit } = this.props;
+        let { fetchLeadDetail, leadDeleteInit, onLoginSuccess } = this.props;
+        let userInfo = Utils.getLogin();
+        onLoginSuccess(userInfo);
         fetchLeadDetail(id);
         leadDeleteInit();
     }

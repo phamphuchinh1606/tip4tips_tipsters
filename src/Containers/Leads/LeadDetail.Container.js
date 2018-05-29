@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
         onDeleteLead: (leadId) =>{
             dispatch(action.leadDelete(leadId));
         },
+        onLoginSuccess: (userInfo) => {
+            dispatch(action.loginSuccess(userInfo));
+        },
 
     }
 }

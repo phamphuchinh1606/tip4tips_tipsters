@@ -14,6 +14,12 @@ const mapDispatchToProps = (dispatch) => {
         onMessageDetailFetch : (messageId) =>{
             dispatch(action.messageDetailFetch(messageId));
         },
+        onLoadMessageNew: (tipsterId) => {
+            dispatch(action.messageNewFetch(tipsterId));
+        },
+        onLoginSuccess: (userInfo) => {
+            dispatch(action.loginSuccess(userInfo));
+        },
     }
 }
 

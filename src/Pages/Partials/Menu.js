@@ -25,6 +25,14 @@ class Menu extends Component {
 
     render() {
         let { userInfo } = this.props;
+        let statusOnline = <Link to="#">
+                                <i className="fa fa-circle text-success"></i> Online
+                            </Link>;
+        if(!this.props.isConnection){
+            statusOnline = <Link to="#">
+                                <i className="fa fa-circle-thin text-success"></i> Offline
+                            </Link>;
+        }
         return (
             <aside className="main-sidebar">
                 <section className="sidebar">
@@ -36,9 +44,7 @@ class Menu extends Component {
                         <div className="pull-left info">
                             <p>{userInfo.fullName}</p>
                             {/* Status */}
-                            <Link to="#">
-                                <i className="fa fa-circle text-success"></i> Online
-                            </Link>
+                            {statusOnline}
                         </div>
                     </div>
 
@@ -72,7 +78,8 @@ class Menu extends Component {
 const mapStateToProps = (state) => {
     return {
         userInfo: state.LoginReducer,
-        messageNewCount: state.messageReducer.messageNewCount
+        messageNewCount: state.messageReducer.messageNewCount,
+        isConnection: state.networkReducer.isConnection
     }
 }
 

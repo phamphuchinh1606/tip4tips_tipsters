@@ -13,9 +13,9 @@ const customStyles = {
         left: '50%',
         right: 'auto',
         bottom: 'auto',
-        with:'100%',
+        with: '100%',
         transform: 'translate(-50%, -50%)',
-        padding:0,
+        padding: 0,
 
     }
 };
@@ -26,8 +26,9 @@ export default class LeadListComponent extends Component {
         this.state = {
             modalIsOpen: false,
             leadsSync: [],
-            totalRecordSync : 0,
-            recordSynchronized : 0
+            leadSyncName: 'Phạm Phú Chinh',
+            totalRecordSync: 0,
+            recordSynchronized: 0
         };
         this.openSync = this.openSync.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -38,34 +39,42 @@ export default class LeadListComponent extends Component {
         this.setState({ modalIsOpen: true });
     }
 
+    delay = (ms) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(resolve, ms);
+        });
+    }
+
     async afterOpenModal() {
-        if(this.state.leadsSync){
-            if(this.state.leadsSync.length > 0){
+        if (this.state.leadsSync) {
+            if (this.state.leadsSync.length > 0) {
                 this.state.totalRecordSync = this.state.leadsSync.length;
                 this.state.recordSynchronized = 0;
                 this.setState(this.state);
-                try{
-                    let leads = this.state.leadsSync;
-                    let urlEndPoint = URL.END_PONNT_LEAD_CREATE;
-                    for (let index in leads) {
-                        await apiCaller(urlEndPoint,"POST", leads[index]).then(res=>{
-                            if(res.data){
-                                if(res.data.status == "0"){
-                                    LocalStorageAction.setLeadSync(leads[index]);
-                                    console.log("thanh cong");
-                                }
-                            }
-                            this.setState({recordSynchronized: this.state.recordSynchronized + 1});
-                        });
-                    }
-                    this.setState({ modalIsOpen: false });
-                    let userInfo = Utils.getLogin();
-                    if (userInfo) {
-                        this.props.leadFetch(userInfo.userId);
-                    }
-                }catch(error){
-                    console.log(error);
-                }
+                // try {
+                //     let leads = this.state.leadsSync;
+                //     let urlEndPoint = URL.END_PONNT_LEAD_CREATE;
+                //     for (let index in leads) {
+                //         this.setState({ leadSyncName: leads[index].fullname });
+                //         await apiCaller(urlEndPoint, "POST", leads[index]).then(res => {
+                //             if (res.data) {
+                //                 if (res.data.status == "0") {
+                //                     LocalStorageAction.setLeadSync(leads[index]);
+                //                     console.log("thanh cong");
+                //                 }
+                //             }
+                //             this.setState({ recordSynchronized: this.state.recordSynchronized + 1 });
+                //         });
+                //         await this.delay(5000);
+                //     }
+                //     this.setState({ modalIsOpen: false });
+                //     let userInfo = Utils.getLogin();
+                //     if (userInfo) {
+                //         this.props.leadFetch(userInfo.userId);
+                //     }
+                // } catch (error) {
+                //     console.log(error);
+                // }
             }
         }
     }
@@ -171,7 +180,7 @@ export default class LeadListComponent extends Component {
                         </table>
                     </div>
                 </div>
-                
+
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
@@ -183,7 +192,10 @@ export default class LeadListComponent extends Component {
                         <h3>Synchronize lead</h3>
                     </div>
                     <div className="content-modal">
-                        <img src="./images/sync_loadding.gif"/>
+                        <div>
+                            lead: {this.state.leadSyncName}
+                        </div>
+                        <img src="./images/sync_loadding.gif" />
                         <div>
                             <span className="total_leads">Total leads : {this.state.totalRecordSync}</span>
                             <span className="synchronized">Synchronized : {this.state.recordSynchronized}</span>

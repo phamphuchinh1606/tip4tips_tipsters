@@ -7,6 +7,12 @@ export default class MessageDetailComponent extends Component {
     componentDidMount() {
         let { id } = this.props.match.params;
         this.props.onMessageDetailFetch(id);
+        let { onLoadMessageNew, onLoginSuccess } = this.props;
+        let userInfo = Utils.getLogin();
+        onLoginSuccess(Utils.getLogin());
+        if (userInfo) {
+            onLoadMessageNew(userInfo.userId);
+        }
     }
     render() {
         let {messageDetail} = this.props;
