@@ -32,6 +32,12 @@ const mapDispatchToProps = (dispatch) => {
         onDeleteLead: (leadId) =>{
             dispatch(action.leadDelete(leadId));
         },
+        onLoaddingTrue: () =>{
+            dispatch(action.loaddingTrue());
+        },
+        onLoaddingFalse: () =>{
+            dispatch(action.loaddingFalse());
+        }
     }
 }
 

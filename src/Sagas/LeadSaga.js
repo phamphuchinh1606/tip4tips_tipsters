@@ -310,7 +310,6 @@ function* leadLoadUpdate(action){
 function* leadUpdate(action){
     try{
         yield put(actionFunction.loaddingTrue());
-        yield put(actionFunction.loaddingTrue());
         const isOnline = yield checkIsOnline();
         let {lead} = action;
         let isSuccess = false;
@@ -326,8 +325,6 @@ function* leadUpdate(action){
             let jsonValue = { message : "Update lead fail . Please try again", status : "1"};
             yield put(actionFunction.leadUpdateFailed(jsonValue));
         }
-        
-        
     }catch(error){
         console.log(error);
         yield put(actionFunction.leadUpdateFailed(error));
