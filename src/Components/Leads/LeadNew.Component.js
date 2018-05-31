@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import $ from 'jquery';
 import * as Utils from '../../Commons/Utils';
 
 import './css/LeadNew.css';
@@ -89,7 +90,10 @@ export default class LeadNew extends Component {
         let headerError = [];
         if(leadCreaeStatus.status){
             if(leadCreaeStatus.status === "1"){
-                headerError = <div class="alert alert-danger clearfix"><p>{leadCreaeStatus.message}</p></div>
+                headerError = <div className="alert alert-danger clearfix">
+                                    <p>{leadCreaeStatus.message}</p>
+                                </div>;
+                $(window).scrollTop(0);
             }else{
                 return <Redirect to="/leads"/>
             }
