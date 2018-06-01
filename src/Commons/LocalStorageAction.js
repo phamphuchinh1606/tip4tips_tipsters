@@ -278,3 +278,18 @@ export const getHome = () => {
     }
     return home;
 }
+
+//User
+export const setUserInfo = (userInfo) =>{
+    if(userInfo){
+        localStorage.setItem(LocalStorageType.LOCAL_USER_INFO, JSON.stringify(userInfo));
+    }
+}
+
+export const getUserInfo = () =>{
+    let userInfo = localStorage.getItem(LocalStorageType.LOCAL_USER_INFO);
+    if(userInfo){
+        userInfo = JSON.parse(userInfo);
+    }
+    return userInfo;
+}

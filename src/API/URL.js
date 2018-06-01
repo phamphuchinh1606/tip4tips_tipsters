@@ -25,3 +25,6 @@ export const END_POINT_TIPSTER_LIST = "tipsters";
 export const END_POINT_MESSAGE_NEW = "message-new";
 export const END_POINT_MESSAGE_ALL = "message-all";
 export const END_POINT_MESSAGE_DETAIL = "message-detail";
+
+//user
+export const END_POINT_USER_SHOW = "user/show";

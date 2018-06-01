@@ -25,7 +25,7 @@ const userInfoSuccess = {
 class RootLayout extends Component {
 
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             isFull: false,

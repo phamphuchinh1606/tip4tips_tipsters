@@ -366,6 +366,28 @@ export const messageDetailFetchFailed = (error) => {
     }
 }
 
+//Users
+export const userShowFetch = (tipsterId) => {
+    return{
+        type: actionType.USERS_SHOW_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const userShowFetchSuccess = (userInfo) => {
+    return{
+        type: actionType.USERS_SHOW_FETCH_SUCCESS,
+        userInfo: userInfo
+    }
+}
+
+export const userShowFetchFailed = (error) => {
+    return{
+        type: actionType.USERS_SHOW_FETCH_FAILED,
+        error: error
+    }
+}
+
 //Network
 export const networkSet = (isConnection)=>{
     return{

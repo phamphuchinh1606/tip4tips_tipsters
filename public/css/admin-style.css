@@ -726,8 +726,8 @@ Table style*/
 }
 .box-profile .upload__area-image > span{
     display: inline-block;
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;

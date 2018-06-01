@@ -70,7 +70,14 @@ class Header extends Component {
                         }
                     }}
                     render={({ online }) => {
+                        let reloadPage = false;
+                        if(!this.props.isConnection && online){
+                            reloadPage = true;
+                        }
                         this.props.onSetNetwork(online);
+                        if(reloadPage){
+                            window.location = "/";
+                        }
                         return null;
                     }}
                 />
@@ -140,7 +147,9 @@ class Header extends Component {
                                     {/* Menu Footer*/}
                                     <li className="user-footer">
                                         <div className="pull-left">
-                                            <a href="" className="btn btn-default btn-flat">Profile</a>
+                                            <Link to={`/user/show/${userInfo.userId}`} className="btn btn-default btn-flat">
+                                                Profile
+                                            </Link>
                                         </div>
                                         <div className="pull-right">
                                             <Link to="/login" onClick={() => this._onClickLogout()} className="btn btn-default btn-flat">

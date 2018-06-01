@@ -6,6 +6,7 @@ import {
     watchLeadUpdate, watchFetchRecentStatusLeads
 } from './LeadSaga';
 import {watchMessageNewFetch, watchMessageAllFetch, watchMessageDetailFetch} from './MessageSaga';
+import {watchfetchUserShow} from './UserSaga';
 
 export default function* rootSaga() {
     yield [
@@ -28,6 +29,9 @@ export default function* rootSaga() {
         //messages
         fork(watchMessageNewFetch),
         fork(watchMessageAllFetch),
-        fork(watchMessageDetailFetch)
+        fork(watchMessageDetailFetch),
+
+        //Users
+        fork(watchfetchUserShow)
     ];
 }

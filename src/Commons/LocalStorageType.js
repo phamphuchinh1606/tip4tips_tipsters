@@ -6,3 +6,6 @@ export const LOCAL_TIPSTER_LIST = "LOCAL_TIPSTER_LIST";
 //Mail
 export const LOCAL_MESSAGE_LIST = "LOCAL_MESSAGE_LIST";
 export const LOCAL_HOME = "LOCAL_HOME";
+
+//User
+export const LOCAL_USER_INFO = "LOCAL_USER_INFO";
