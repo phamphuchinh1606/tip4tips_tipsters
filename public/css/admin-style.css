@@ -25,6 +25,9 @@ img{
 .not_sync{
     color: #ff0000;
 }
+.width100_percent{
+    width: 100%
+}
 /*---------------------------------
 style for message
 -----------------------------------*/

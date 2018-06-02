@@ -4,7 +4,7 @@ import UserEditContainer from '../../Containers/Users/UserEdit.Container';
 export default class UserEditPage extends Component {
     render() {
         return (
-            <UserEditContainer/>
+            <UserEditContainer history = {this.props.history} match = {this.props.match}/>
         );
     }
 }

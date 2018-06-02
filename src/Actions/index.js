@@ -388,6 +388,54 @@ export const userShowFetchFailed = (error) => {
     }
 }
 
+export const userUpdateShowFetch = (tipsterId) => {
+    return{
+        type: actionType.USERS_UPDATE_SHOW_FETCH,
+        tipsterId: tipsterId
+    }
+}
+
+export const userUpdateShowFetchSuccess = (userUpdate) => {
+    return{
+        type: actionType.USERS_UPDATE_SHOW_FETCH_SUCCESS,
+        userUpdate: userUpdate
+    }
+}
+
+export const userUpdateShowFetchFailed = (error) => {
+    return{
+        type: actionType.USERS_UPDATE_SHOW_FETCH_FAILED,
+        error: error
+    }
+}
+
+export const userUpdate = (userInfo) => {
+    return{
+        type: actionType.USERS_UPDATE,
+        userInfo: userInfo
+    }
+}
+
+export const userUpdateInit = () =>{
+    return{
+        type: actionType.USERS_UPDATE_INIT
+    }
+}
+
+export const userUpdateSuccess = (userUpdate) => {
+    return{
+        type: actionType.USERS_UPDATE_SUCCESS,
+        userUpdate: userUpdate
+    }
+}
+
+export const userUpdateFailed = (error) => {
+    return{
+        type: actionType.USERS_UPDATE_FAILED,
+        error: error
+    }
+}
+
 //Network
 export const networkSet = (isConnection)=>{
     return{

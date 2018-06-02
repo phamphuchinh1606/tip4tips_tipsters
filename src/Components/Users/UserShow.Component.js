@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import * as Utils from '../../Commons/Utils';
 
 export default class UserShowComponent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let { id } = this.props.match.params;
-        let {onFetchUserShow, onLoginSuccess} = this.props;
+        let { onFetchUserShow, onLoginSuccess } = this.props;
         let userInfo = Utils.getLogin();
         onLoginSuccess(Utils.getLogin());
         if (userInfo) {
@@ -18,122 +18,106 @@ export default class UserShowComponent extends Component {
     }
 
     render() {
-        let {userInfo} = this.props;
+        let { userInfo } = this.props;
         return (
-            <Fragment>
-                <div class="row">
-                    <div class="col-md-4 col-md-push-8">
-                        {/* Profile Image */}
-                        <div class="box box-primary">
-                            <div class="box-body box-profile">
-                                <div class="upload__area-image">
-                                    <span>
-                                        <img id="imgHandle" src={`${userInfo.path_image}/${userInfo.avatar}`} />
-                                    </span>
-                                </div>
-                                <p class="text-muted text-center" title="Username">
-                                    <strong>
-                                        <i class="fa fa-user margin-r-5"></i>
-                                        {userInfo.username}
-                                </strong>
-                                </p>
-                                <p class="text-muted text-center tipster__point-total" title="Point total">
-                                    <span>{userInfo.point}</span><br />
-                                    points
-                            </p>
-                                <hr />
-                                <p class="text-center">
-                                    <span class="label label-success">Active</span>
-                                </p>
-                            </div>
+            <div className="user_show row">
+                <div className="col-md-8">
+                    {/* About Me Box */}
+                    <div className="box box-primary">
+                        {/* box-header */}
+                        <div className="box-header with-border">
+                            <h3 className="box-title">Tipster detail</h3>
+                            <span className="group__action pull-right">
+                                <Link to="/" className="btn btn-xs btn-default">
+                                    <i className="fa fa-angle-left"></i> Back to list
+                                    </Link>
+                                <Link to={`/user/edit/2`} className="btn btn-xs btn-info">
+                                    <i className="fa fa-pencil"></i> Edit
+                                    </Link>
+                            </span>
                         </div>
-                    </div>
-                    <div class="col-md-8 col-md-pull-4">
-                        {/* About Me Box */}
-                        <div class="box box-primary">
-                            {/* box-header */}
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Tipster detail</h3>
-                                <span class="group__action pull-right">
-                                    <Link to="/" class="btn btn-xs btn-default">
-                                        <i class="fa fa-angle-left"></i> Back to list
-                                    </Link>
-                                    <Link to={`/user/edit/2`} class="btn btn-xs btn-info">
-                                        <i class="fa fa-pencil"></i> Edit
-                                    </Link>
-                                </span>
+                        <div className="box-body">
+                            <div className="row box-line">
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-address-book margin-r-5"></i> Fullname
+                                            <span className="text-highlight">{userInfo.fullname}</span>
+                                    </p>
+                                </div>
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-building margin-r-5"></i> Level
+                                            <span className="text-highlight">{userInfo.level}</span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="box-body">
-                                <div class="row box-line">
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-globe margin-r-5"></i> Preferred language
-                                            <span class="text-highlight">{userInfo.lang_text}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row box-line">
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-address-book margin-r-5"></i> Fullname
-                                            <span class="text-highlight">{userInfo.fullname}</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-building margin-r-5"></i> Level
-                                            <span class="text-highlight">{userInfo.level}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row box-line">
-                                    <div class="col-sm-6">
+                            <div className="row box-line">
+                                <div className="col-sm-6">
 
-                                        <p class="text-muted">
-                                            <i class="fa fa-calendar margin-r-5"></i> Birthday
-                                        <span class="text-highlight">{userInfo.birthday}</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-venus-mars margin-r-5"></i> Gender
-                                            <span class="text-highlight">{userInfo.showGender}</span>
-                                        </p>
-                                    </div>
+                                    <p className="text-muted">
+                                        <i className="fa fa-calendar margin-r-5"></i> Birthday
+                                        <span className="text-highlight">{userInfo.birthday}</span>
+                                    </p>
                                 </div>
-                                <div class="row box-line">
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-envelope margin-r-5"></i> Email
-                                        <span class="text-highlight">{userInfo.email}</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-phone margin-r-5"></i> Phone
-                                        <span class="text-highlight">{userInfo.phone}</span>
-                                        </p>
-                                    </div>
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-venus-mars margin-r-5"></i> Gender
+                                            <span className="text-highlight">{userInfo.showGender}</span>
+                                    </p>
                                 </div>
-                                <div class="row box-line">
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-home margin-r-5"></i> Address
-                                        <span class="text-highlight">{userInfo.address}</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-muted">
-                                            <i class="fa fa-map-marker margin-r-5"></i> Location
-                                        <span class="text-highlight">{userInfo.region}</span>
-                                        </p>
-                                    </div>
+                            </div>
+                            <div className="row box-line">
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-envelope margin-r-5"></i> Email
+                                        <span className="text-highlight">{userInfo.email}</span>
+                                    </p>
+                                </div>
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-phone margin-r-5"></i> Phone
+                                        <span className="text-highlight">{userInfo.phone}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="row box-line">
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-home margin-r-5"></i> Address
+                                        <span className="text-highlight">{userInfo.address}</span>
+                                    </p>
+                                </div>
+                                <div className="col-sm-6">
+                                    <p className="text-muted">
+                                        <i className="fa fa-map-marker margin-r-5"></i> Location
+                                        <span className="text-highlight">{userInfo.region}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </Fragment>
+                <div className="col-md-4">
+                    {/* Profile Image */}
+                    <div className="box box-warning">
+                        <div className="box-header with-border">
+                            <h3 className="box-title">Actions</h3>
+                        </div>
+                        <div className="box-body box-profile">
+                            <div className="upload__area-image">
+                                <span>
+                                    <img id="imgHandle" src={`${userInfo.path_image}/${userInfo.avatar}`} />
+                                    <label htmlFor="imgAnchorInput">Upload image</label>
+                                </span>
+                                <h4>Avatar</h4>
+                            </div>
+                        </div>
+                        <div className="box-body box-points">
+                            <h4>Points total: <span>{userInfo.point}</span> points</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

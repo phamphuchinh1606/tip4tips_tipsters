@@ -1,157 +1,227 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import $ from 'jquery';
 import * as Utils from '../../Commons/Utils';
+import * as URL from '../../API/URL';
+import apiCaller from '../../API/apiCaller';
 
 export default class UserEditComponent extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            userInfo: {},
+            regions: []
+        }
+    }
+
+    async componentWillMount(){
+        let { id } = this.props.match.params;
+        let {onLoadUpdate, onLoginSuccess} = this.props;
+        let userInfo = Utils.getLogin();
+        onLoginSuccess(Utils.getLogin());
+        if (userInfo) {
+            try {
+                await this.props.onLoaddingTrue();
+                let urlEndPoint = URL.END_POINT_USER_UPDATE + "/" + userInfo.userId;
+                await apiCaller(urlEndPoint, "GET", null).then(res => {
+                    if(res.data && res.data.userInfo){
+                        this.state.userInfo = res.data.userInfo;
+                        this.state.regions = res.data.regions;
+                        this.setState(this.state);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            } finally {
+                await this.props.onLoaddingFalse();
+            }
+        }
+    }
+
+    componentDidMount() {
+        let parrentThis = this;
+        this.timerID = setInterval(
+            () => {
+                this.props.onUpdateInit();
+            },
+            3000
+        );
+    }
+
+    handleChangeInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({userInfo: {...this.state.userInfo,[name]: value }});
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        let userInfo = this.state.userInfo;
+        if(userInfo){
+            console.log(userInfo);
+            this.props.onUpdateAction(userInfo);
+        }
+    }
+
     render() {
+        let {userUpdateStatus} = this.props;
+        let headerError = [];
+        if(userUpdateStatus && userUpdateStatus.status){
+            if(userUpdateStatus.status == "0"){
+                headerError = <div className="alert alert-info clearfix">
+                                    <p>{userUpdateStatus.message}</p>
+                                </div>;
+            }else{
+                headerError = <div className="alert alert-danger clearfix">
+                                    <p>{userUpdateStatus.message}</p>
+                                </div>;
+            }
+            $(window).scrollTop(0);
+        }
+        let{userInfo} = this.state;
+        let regions = this.state.regions.map((item, index) => {
+            if (userInfo.region_id == item.id) {
+                return <option value={item.id} key={index} selected>{item.name}</option>
+            }
+            return (
+                <option value={item.id} key={index}>{item.name}</option>
+            )
+        });
+
+        let inputMale = (<input type="radio" value="0" name="gender" onChange={this.handleChangeInput.bind(this)}/>);
+        let inputFemale = <input type="radio" value="1" name="gender" onChange={this.handleChangeInput.bind(this)}/>
+        if (userInfo.gender === '0') {
+            inputMale = <input type="radio" value="0" name="gender" checked onChange={this.handleChangeInput.bind(this)} />;
+        } else {
+            inputFemale = <input type="radio" value="1" name="gender" checked onChange={this.handleChangeInput.bind(this)} />
+        }
+        console.log(userInfo);
+
         return (
-            <div class="row">
-                <div class="col-md-4 col-md-push-8">
-                    {/* Profile Image */}
-                    <div class="box box-warning">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Actions</h3>
-                        </div>
-                        <div class="box-body box-profile">
-                            <div class="upload__area-image">
-                                <span>
-                                    <img id="imgHandle" src="" />
-                                    <label for="imgAnchorInput">Upload image</label>
-                                </span>
-                                <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
-                                <h4>Avatar</h4>
-                            </div>
-                        </div>
-                        <div class="box-body box-points">
-                            <h4>Points total: <span>0</span> points</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 col-md-pull-4">
+            <div className="user_edit row">
+                <div className="col-md-8">
                     {/* create manager form */}
-                    <div class="box box-warning">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Edit Tipster</h3>
-                            <span class="group__action pull-right">
-                                <a href="{{route('changePassword')}}" class="btn-xs btn-link">Change Your Password</a>
-                                <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default">
-                                    <i class="fa fa-angle-left"></i> Back to home
-                                </a>
+                    <div className="box box-warning">
+                        <div className="box-header with-border">
+                            <h3 className="box-title">Edit Tipster</h3>
+                            <span className="group__action pull-right">
+                                {/* <a href="{{route('changePassword')}}" className="btn-xs btn-link">Change Your Password</a> */}
+                                <Link to={`/user/show/${userInfo.userId}`} className="btn btn-xs btn-default">
+                                    <i className="fa fa-angle-left"></i> Back to show user
+                                </Link>
                             </span>
                         </div>
-                        <form role="form" method="post" action="" enctype="multipart/form-data">
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label style={{ width: 300 }}>Preferred language</label>
-                                            <div class="radio-inline">
-                                                <label>
-                                                    <input type="radio" value="vn" name="preferred_lang" checked />
-                                                    Vietnam
-                                                </label>
-                                            </div>
-                                            <div class="radio-inline">
-                                                <label>
-                                                    <input type="radio" value="en" name="preferred_lang" />
-                                                    English
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label style={{ width: 300 }}>Status</label>
-                                            <div class="radio-inline">
-                                                <label>
-                                                    <input type="radio" value="0" name="status" checked />
-                                                    Active
-                                                </label>
-                                            </div>
-                                            <div class="radio-inline">
-                                                <label>
-                                                    <input type="radio" value="1" name="status" />
-                                                    Non Active
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
+                        <form onSubmit={this.onSubmit}>
+                            {headerError}
+                            <div className="box-body">
+                                <div className="row">
+                                    <div className="col-sm-6">
                                         {/* text input */}
-                                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                                        <div className="form-group">
                                             <label>Username</label>
-                                            <input name="username" type="text" class="form-control" value="" />
+                                            <input name="username" type="text" className="form-control" value={userInfo.username} 
+                                                onChange={this.handleChangeInput.bind(this)} disabled/>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group{{ $errors->has('fullname') ? ' has-error' : '' }}">
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
                                             <label>Full name</label>
-                                            <input name="fullname" type="text" class="form-control" value="" placeholder="Enter ..." />
+                                            <input name="fullname" type="text" className="form-control" value={userInfo.fullname} placeholder="Enter ..." 
+                                                onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
                                             <label>Birthday</label>
-                                            <input name="birthday" type="date" class="form-control" value="" placeholder="Enter ..." />
+                                            <input name="birthday" type="date" className="form-control" value={userInfo.birthday} placeholder="Enter ..." 
+                                                onChange={this.handleChangeInput.bind(this)}/>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label style={{ width: 300 }}>Gender</label>
-                                            <div class="radio-inline">
-                                                <label><input type="radio" value="0" name="gender" checked />
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label className="width100_percent">Gender</label>
+                                            <div className="radio-inline">
+                                                <label>
+                                                    {inputMale}
                                                     Male
                                                 </label>
                                             </div>
-                                            <div class="radio-inline">
-                                                <label><input type="radio" value="1" name="gender" />
+                                            <div className="radio-inline">
+                                                <label>
+                                                    {inputFemale}
                                                     Female
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <div className="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                             <label>Email</label>
-                                            <input name="email" type="text" class="form-control" value="" placeholder="Enter ..." />
+                                            <input name="email" type="text" className="form-control" value={userInfo.email} placeholder="Enter ..." 
+                                                onChange={this.handleChangeInput.bind(this)} disabled/>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
                                             <label>Phone</label>
-                                            <input name="phone" type="text" class="form-control" value="" placeholder="Enter ..." />
+                                            <input name="phone" type="text" className="form-control" value={userInfo.phone} placeholder="Enter ..." 
+                                                onChange={this.handleChangeInput.bind(this)} required/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
                                             <label>Address</label>
-                                            <textarea name="address" class="form-control" placeholder="Enter ..." rows="4">address</textarea>
+                                            <textarea name="address" className="form-control" placeholder="Enter ..." rows="4"
+                                                onChange={this.handleChangeInput.bind(this)} value={userInfo.address}>
+                                            </textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
                                             <label>Region</label>
-                                            <select name="region" class="form-control">
+                                            <select name="region" className="form-control" onChange={this.handleChangeInput.bind(this)} required>
                                                 <option value="" disabled selected>Please pick a region</option>
-                                                <option value="1">Ho chi minh</option>
+                                                {regions}
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-footer">
-                                <a href="" class="btn btn-default">Cancel</a>
-                                <button type="submit" class="btn btn-primary pull-right">Update</button>
+                            <div className="box-footer">
+                                <Link to="/" className="btn btn-default">
+                                    Cancel
+                                </Link>
+                                <button type="submit" className="btn btn-primary pull-right">Update</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div className="col-md-4">
+                    {/* Profile Image */}
+                    <div className="box box-warning">
+                        <div className="box-header with-border">
+                            <h3 className="box-title">Actions</h3>
+                        </div>
+                        <div className="box-body box-profile">
+                            <div className="upload__area-image">
+                                <span>
+                                    <img id="imgHandle" src={`${userInfo.path_image}/${userInfo.avatar}`} />
+                                    <label htmlFor="imgAnchorInput">Upload image</label>
+                                </span>
+                                <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
+                                <h4>Avatar</h4>
+                            </div>
+                        </div>
+                        <div className="box-body box-points">
+                            <h4>Points total: <span>0</span> points</h4>
+                        </div>
                     </div>
                 </div>
             </div>

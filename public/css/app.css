@@ -2051,7 +2051,7 @@ pre code {
   clear: both;
 }
 
-.dashboard .row, .lead_detail.row, .lead_new.row, .lead_update.row, .messages_list.row{
+.dashboard .row, .lead_detail.row, .lead_new.row, .lead_update.row, .messages_list.row, .user_edit.row, .user_show.row{
   margin-left: -15px;
   margin-right:-15px;
 }

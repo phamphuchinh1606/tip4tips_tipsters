@@ -28,3 +28,4 @@ export const END_POINT_MESSAGE_DETAIL = "message-detail";
 
 //user
 export const END_POINT_USER_SHOW = "user/show";
+export const END_POINT_USER_UPDATE = "user/edit";

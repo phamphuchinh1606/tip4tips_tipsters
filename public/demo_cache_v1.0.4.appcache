@@ -6,23 +6,18 @@ favicon.ico
 css/app.css?v1.0.2
 css/style.css?v1.0.2
 
-https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&subset=vietnamese
-https://fonts.googleapis.com/css?family=Berkshire+Swash
-https://fonts.googleapis.com/css?family=Raleway:300,400,600
+fonts/FontAwesome.otf?v=4.7.0
+fonts/fontawesome-webfont.eot?v=4.7.0
+fonts/fontawesome-webfont.svg?v=4.7.0
+fonts/fontawesome-webfont.ttf?v=4.7.0
+fonts/fontawesome-webfont.woff?v=4.7.0
+fonts/fontawesome-webfont.woff2?v=4.7.0
+fonts/ionicons.eot?v=4.7.0
+fonts/ionicons.svg?v=4.7.0
+fonts/ionicons.ttf?v=4.7.0
+fonts/ionicons.woff?v=4.7.0
 
-css/icons/font-awesome.min.css?v1.0.2
-css/fonts/FontAwesome.otf?v1.0.2
-css/fonts/fontawesome-webfont.eot?v1.0.2
-css/fonts/fontawesome-webfont.svg?v1.0.2
-css/fonts/fontawesome-webfont.ttf?v1.0.2
-css/fonts/fontawesome-webfont.woff?v1.0.2
-css/fonts/fontawesome-webfont.woff2?v1.0.2
-css/fonts/ionicons.ttf?v1.0.2
-css/fonts/ionicons.woff?v1.0.2
-
-css/fonts/fonts.googleeapis.com.1.css?v1.0.2
-css/fonts/fonts.googleeapis.com.2.css?v1.0.2
-css/fonts/fonts.googleeapis.com.3.css?v1.0.2
+css/font-awesome.min.css?v1.0.2
 
 css/icons/ionicons.min.css?v1.0.2
 css/admin/AdminLTE.min.css?v1.0.2
@@ -49,7 +44,7 @@ images/loadding.gif
 images/svg/spiner.svg
 images/sync_loadding.gif
 
-static/js/main.adffd0e1.js?v1.0.2
+static/js/bundle.js
 
 NETWORK:
 *
