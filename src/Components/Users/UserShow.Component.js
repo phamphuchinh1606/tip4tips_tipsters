@@ -18,7 +18,13 @@ export default class UserShowComponent extends Component {
     }
 
     render() {
-        let { userInfo } = this.props;
+        let { userInfo, isConnection } = this.props;
+        let linkEdit = [];
+        if (isConnection) {
+            linkEdit = <Link to={`/user/edit/2`} className="btn btn-xs btn-info">
+                            <i className="fa fa-pencil"></i> Edit
+                        </Link>
+        }
         return (
             <div className="user_show row">
                 <div className="col-md-8">
@@ -31,9 +37,7 @@ export default class UserShowComponent extends Component {
                                 <Link to="/" className="btn btn-xs btn-default">
                                     <i className="fa fa-angle-left"></i> Back to list
                                     </Link>
-                                <Link to={`/user/edit/2`} className="btn btn-xs btn-info">
-                                    <i className="fa fa-pencil"></i> Edit
-                                    </Link>
+                                {linkEdit}
                             </span>
                         </div>
                         <div className="box-body">

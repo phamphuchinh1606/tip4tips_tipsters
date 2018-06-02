@@ -5,7 +5,8 @@ import * as action from '../../Actions/index';
 
 const mapStateToProps = (state) => {
     return{
-        userInfo: state.userReducer.userInfo
+        userInfo: state.userReducer.userInfo,
+        isConnection: state.networkReducer.isConnection
     }
 }
 
