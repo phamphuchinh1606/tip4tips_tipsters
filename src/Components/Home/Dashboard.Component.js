@@ -9,11 +9,13 @@ export default class DashboardComponent extends Component {
         super(props);
     }
     componentDidMount() {
-        let { fetchRecentStatus, onLoginSuccess } = this.props;
+        let { fetchRecentStatus, onLoginSuccess, onProductFetch, onFetchRegions } = this.props;
         let userInfo = Utils.getLogin();
         onLoginSuccess(Utils.getLogin());
         if (userInfo) {
             fetchRecentStatus(userInfo.userId);
+            onProductFetch();
+            onFetchRegions();
         }
 
     }

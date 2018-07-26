@@ -18,6 +18,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchRecentStatus: (tipsterId) => {
             dispatch(action.recentStatusLeadsFetch(tipsterId));
+        },
+        onProductFetch: ()=>{
+            dispatch(action.productFetch());
+        },
+        onFetchRegions: () => {
+            dispatch(action.regionFetch());
         }
     }
 }
